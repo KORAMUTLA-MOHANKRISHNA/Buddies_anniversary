@@ -100,14 +100,6 @@
             animation: orbDrift 11s ease-in-out infinite;
         }
 
-        @keyframes spinSlow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        .animate-spin-slow {
-            animation: spinSlow 9s linear infinite;
-        }
-
         @keyframes bounceGentle {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-6px); }
@@ -348,6 +340,43 @@
             box-shadow: 0 0 3px rgba(0, 0, 0, 0.7);
         }
 
+        /* Fab 8 Memory Match Card Styling */
+        .memory-tile {
+            perspective: 900px;
+            aspect-ratio: 1 / 1;
+        }
+        .memory-tile-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-style: preserve-3d;
+        }
+        .memory-tile.is-flipped .memory-tile-inner,
+        .memory-tile.is-matched .memory-tile-inner {
+            transform: rotateY(180deg);
+        }
+        .memory-tile-face {
+            position: absolute;
+            inset: 0;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0.35rem;
+            text-align: center;
+        }
+        .memory-tile-back {
+            transform: rotateY(180deg);
+        }
+        .memory-tile.is-matched .memory-tile-back {
+            border-color: #34d399 !important;
+            box-shadow: 0 0 20px rgba(52, 211, 153, 0.5);
+        }
+
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
@@ -388,7 +417,7 @@
                 <a href="#timeline" class="hover:text-cyan-300 transition">4-Year Journey</a>
                 <a href="#wall-of-favourates" class="hover:text-amber-300 transition">Wall of Favourates</a>
                 <a href="#chat-highlights" class="hover:text-emerald-300 transition">Chat & Wishes</a>
-                <a href="#party-zone" class="hover:text-fuchsia-300 transition">Cake & Wheel</a>
+                <a href="#party-zone" class="hover:text-fuchsia-300 transition">Party Games</a>
             </div>
             <div class="flex items-center gap-2">
                 <button onclick="triggerConfettiBurst()" class="px-4 py-2 rounded-full bg-gradient-to-r from-pink-500 via-fuchsia-500 to-cyan-500 animate-gradient-xy text-white text-xs sm:text-sm font-extrabold shadow-lg shadow-pink-500/40 hover:scale-105 active:scale-95 transition cursor-pointer">
@@ -455,7 +484,7 @@
                     Meet The Fab 8 👇
                 </a>
                 <a href="#party-zone" class="px-6 py-3.5 rounded-full bg-gradient-to-r from-amber-400/20 to-cyan-400/20 text-amber-300 border border-amber-400/40 font-extrabold text-sm sm:text-base shadow-lg shadow-amber-500/15 hover:scale-105 transition">
-                    🎂 Cut Anniversary Cake
+                    🃏 Play Fab 8 Memory Match & Games
                 </a>
             </div>
         </div>
@@ -1137,16 +1166,16 @@
         </div>
     </section>
 
-    <!-- SECTION 4: INTERACTIVE 4TH ANNIVERSARY CAKE & SUPERLATIVE WHEEL -->
+    <!-- SECTION 4: INTERACTIVE 4TH ANNIVERSARY CAKE, SUPERLATIVE WHEEL & FAB 8 MEMORY MATCH -->
     <section id="party-zone" class="reveal-on-scroll py-16 sm:py-24 px-4 bg-gradient-to-b from-[#09061f] via-[#120933] to-[#05040f] border-t border-fuchsia-500/30">
         <div class="max-w-5xl mx-auto">
             <div class="text-center mb-12">
                 <span class="inline-block px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-500/20 to-cyan-500/20 border border-pink-400/40 text-pink-200 text-xs font-bold uppercase tracking-wider mb-3">
                     Interactive Party Zone
                 </span>
-                <h2 class="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-pink-300 via-amber-200 to-cyan-300 bg-clip-text text-transparent mb-3">Make a Wish & Spin the Squad Wheel 🎡</h2>
+                <h2 class="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-pink-300 via-amber-200 to-cyan-300 bg-clip-text text-transparent mb-3">Cake, Squad Wheel & Party Games 🎮</h2>
                 <p class="text-slate-300 max-w-xl mx-auto text-sm sm:text-base">
-                    Tap the 4 candles on our 4th Anniversary Cake to blow them out, then spin the wheel for fun group superlatives!
+                    Blow out the 4 candles, spin the superlative picker, or race the clock in <strong>Fab 8 Memory Flip</strong> & <strong>Sticker Blitz</strong>!
                 </p>
             </div>
 
@@ -1226,6 +1255,150 @@
                         <button id="share-superlative-btn" onclick="shareLastSuperlative()" class="hidden w-full py-2.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-400/40 font-bold text-xs transition cursor-pointer">
                             📤 Send Winner Card to Email & WhatsApp Group
                         </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW GAME: FAB 8 MEMORY CARD FLIP & SQUAD MATCH -->
+            <div class="mt-8 glass-dark neon-glow-card rounded-3xl p-6 sm:p-8 shadow-2xl border border-fuchsia-400/45" style="animation-delay: 2.2s;">
+                <div class="text-center mb-6">
+                    <span class="px-3.5 py-1 rounded-full bg-gradient-to-r from-pink-500/25 to-cyan-400/25 border border-pink-400/40 text-pink-200 text-xs font-bold uppercase tracking-wider">
+                        🃏 Brain & Speed Battle • All 8 Buddies
+                    </span>
+                    <h3 class="font-display text-2xl sm:text-4xl font-bold text-white mt-2">
+                        Fab 8 Memory Flip & Squad Match 🃏⚡
+                    </h3>
+                    <p class="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto mt-1">
+                        Flip the neon cards and match all <strong>8 buddy pairs</strong> (<strong>Gowri, Sai, Shashi, Gopi, Alisha, Mohan, Minni & Yuvaraj</strong>) in the fewest moves and fastest time!
+                    </p>
+                </div>
+
+                <!-- HUD Bar -->
+                <div class="flex flex-wrap items-center justify-between gap-3 bg-[#100a2b]/90 border border-fuchsia-500/30 rounded-2xl p-4 mb-5">
+                    <div class="flex items-center gap-2.5">
+                        <label for="memory-player-select" class="text-xs font-extrabold uppercase tracking-wider text-pink-300">Challenger:</label>
+                        <select id="memory-player-select" class="px-3.5 py-2 rounded-xl bg-[#1b1245] border border-fuchsia-400/40 text-white text-xs sm:text-sm font-bold focus:outline-none focus:ring-2 focus:ring-pink-400 cursor-pointer">
+                            <option value="Gowri 🌪️">Gowri 🌪️</option>
+                            <option value="Sai 🗺️">Sai 🗺️</option>
+                            <option value="Shashi 🎙️">Shashi 🎙️</option>
+                            <option value="Gopi 😂">Gopi 😂</option>
+                            <option value="Alisha 🔥">Alisha 🔥</option>
+                            <option value="Mohan ⏳">Mohan ⏳</option>
+                            <option value="Minni 🌙">Minni 🌙</option>
+                            <option value="Yuvaraj 🍔">Yuvaraj 🍔</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-center gap-4 sm:gap-6">
+                        <div class="text-center">
+                            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Pairs</div>
+                            <div id="memory-pairs-val" class="font-display text-xl sm:text-2xl font-bold text-emerald-300">0 / 8</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Moves</div>
+                            <div id="memory-moves-val" class="font-display text-xl sm:text-2xl font-bold text-amber-300">0</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Time</div>
+                            <div id="memory-time-val" class="font-display text-xl sm:text-2xl font-bold text-cyan-300">0s</div>
+                        </div>
+                    </div>
+
+                    <button onclick="initMemoryMatchGame()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 hover:scale-105 text-white font-extrabold text-xs shadow-md transition cursor-pointer">
+                        🔄 Shuffle Cards
+                    </button>
+                </div>
+
+                <!-- 4x4 Memory Card Grid (16 Cards = 8 Buddy Pairs) -->
+                <div id="memory-cards-grid" class="grid grid-cols-4 gap-2.5 sm:gap-4 max-w-xl mx-auto"></div>
+
+                <!-- Win Banner & Share Card Button -->
+                <div id="memory-win-banner" class="hidden mt-6 max-w-xl mx-auto p-5 rounded-2xl bg-gradient-to-r from-emerald-500/20 via-fuchsia-500/20 to-amber-400/20 border border-emerald-400/50 text-center">
+                    <div id="memory-win-headline" class="font-display text-xl sm:text-2xl font-bold text-white mb-1">
+                        🎉 Squad Memory Master!
+                    </div>
+                    <p id="memory-win-sub" class="text-xs sm:text-sm text-slate-200 mb-4">
+                        You matched all 8 buddies!
+                    </p>
+                    <button onclick="shareMemoryMatchCard()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:scale-105 text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-emerald-500/30 transition cursor-pointer">
+                        📲 Share Win Card to WhatsApp Group & Email
+                    </button>
+                </div>
+            </div>
+
+            <!-- GAME 2: FAB 8 EMOJI CATCHER & STICKER BLITZ (25s ARCADE CHALLENGE) -->
+            <div class="mt-8 glass-dark neon-glow-card rounded-3xl p-6 sm:p-8 shadow-2xl border border-cyan-400/45" style="animation-delay: 2.8s;">
+                <div class="text-center mb-6">
+                    <span class="px-3.5 py-1 rounded-full bg-gradient-to-r from-cyan-500/25 to-emerald-400/25 border border-cyan-400/40 text-cyan-200 text-xs font-bold uppercase tracking-wider">
+                        ⚡ 25-Second Reflex Arcade • Fab 8 High Score
+                    </span>
+                    <h3 class="font-display text-2xl sm:text-4xl font-bold text-white mt-2">
+                        Squad Sticker Blitz & Bread Omelet Catcher 🍳⚡
+                    </h3>
+                    <p class="text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto mt-1">
+                        Pick your buddy, drag or tap across the neon arena to catch <strong>Bread Omelets (+15)</strong>, <strong>Golden Cakes (+30)</strong>, and <strong>Group Stickers (+10)</strong>—but dodge <strong>Mohan's Late Reply Clocks (-20)</strong>!
+                    </p>
+                </div>
+
+                <!-- Player Selector & Live HUD -->
+                <div class="flex flex-wrap items-center justify-between gap-3 bg-[#100a2b]/90 border border-fuchsia-500/30 rounded-2xl p-4 mb-4">
+                    <div class="flex items-center gap-2.5">
+                        <label for="arcade-player-select" class="text-xs font-extrabold uppercase tracking-wider text-pink-300">Playing As:</label>
+                        <select id="arcade-player-select" class="px-3.5 py-2 rounded-xl bg-[#1b1245] border border-cyan-400/40 text-white text-xs sm:text-sm font-bold focus:outline-none focus:ring-2 focus:ring-cyan-400 cursor-pointer">
+                            <option value="Gowri 🌪️">Gowri 🌪️</option>
+                            <option value="Sai 🗺️">Sai 🗺️</option>
+                            <option value="Shashi 🎙️">Shashi 🎙️</option>
+                            <option value="Gopi 😂">Gopi 😂</option>
+                            <option value="Alisha 🔥">Alisha 🔥</option>
+                            <option value="Mohan ⏳">Mohan ⏳</option>
+                            <option value="Minni 🌙">Minni 🌙</option>
+                            <option value="Yuvaraj 🍔">Yuvaraj 🍔</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-center gap-3 sm:gap-5">
+                        <div class="text-center">
+                            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Score</div>
+                            <div id="arcade-score-val" class="font-display text-xl sm:text-2xl font-bold text-amber-300">0</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Combo</div>
+                            <div id="arcade-combo-val" class="font-display text-xl sm:text-2xl font-bold text-pink-400">x1</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Time</div>
+                            <div id="arcade-timer-val" class="font-display text-xl sm:text-2xl font-bold text-cyan-300">25s</div>
+                        </div>
+                        <div class="text-center hidden sm:block">
+                            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Best</div>
+                            <div id="arcade-best-val" class="font-display text-xl sm:text-2xl font-bold text-emerald-300">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Arcade Canvas Container -->
+                <div id="arcade-canvas-wrapper" class="relative w-full h-[330px] sm:h-[380px] rounded-2xl overflow-hidden border-2 border-cyan-400/40 bg-gradient-to-b from-[#08051c] via-[#130b36] to-[#1d0e47] shadow-[inset_0_0_40px_rgba(0,229,255,0.18)] select-none touch-none">
+                    <canvas id="squad-arcade-canvas" class="w-full h-full block"></canvas>
+
+                    <!-- Start / Game Over Overlay -->
+                    <div id="arcade-overlay" class="absolute inset-0 bg-[#07051a]/85 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center z-10">
+                        <div id="arcade-overlay-badge" class="px-3 py-1 rounded-full bg-amber-400/20 border border-amber-400/40 text-amber-300 text-xs font-bold mb-2">
+                            🎮 Fab 8 Reflex Showdown
+                        </div>
+                        <h4 id="arcade-overlay-title" class="font-display text-2xl sm:text-3xl font-bold text-white mb-2">
+                            Ready to Beat the Squad Record?
+                        </h4>
+                        <p id="arcade-overlay-sub" class="text-xs sm:text-sm text-slate-300 max-w-md mb-5">
+                            Move your finger or mouse left & right to catch falling group memories! Avoid ⏳ Late Replies!
+                        </p>
+                        <div class="flex flex-wrap items-center justify-center gap-3">
+                            <button id="arcade-start-btn" onclick="startSquadArcade()" class="px-7 py-3.5 rounded-full bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-amber-400 animate-gradient-xy text-slate-950 font-extrabold text-sm shadow-lg shadow-cyan-500/35 hover:scale-105 active:scale-95 transition cursor-pointer">
+                                🚀 Start 25s Blitz!
+                            </button>
+                            <button id="arcade-share-score-btn" onclick="shareArcadeScoreCard()" class="hidden px-6 py-3.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-sm shadow-lg shadow-emerald-500/30 transition cursor-pointer">
+                                📲 Share High Score Card
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1466,7 +1639,6 @@
         // ==========================================
         const LOCAL_WISHES_KEY = 'bbf_floating_wishes_v4';
         const LOCAL_VISIBILITY_KEY = 'bbf_floating_visible_v4';
-        // Shared JSON cloud bucket for 😍Best buddies forever🥳 so every buddy sees all wishes
         const SHARED_WISH_CLOUD_URL = 'https://jsonblob.com/api/jsonBlob/019a7d5c-8f42-7c91-b310-bbf4thanniv26';
 
         function readLocalWishes() {
@@ -1542,7 +1714,6 @@
                     wishesData = combined;
                     writeLocalWishes(wishesData);
                     renderFloatingWishes();
-                    // If local had newer wishes not in cloud yet, push them up
                     if (combined.length > remoteWishes.length) {
                         await saveSharedWishesToCloud(combined);
                     }
@@ -1550,7 +1721,6 @@
                     return;
                 }
             } catch (err) {}
-            // Fallback gracefully to local storage so wishes NEVER vanish on refresh
             wishesData = readLocalWishes();
             renderFloatingWishes();
             updateSyncBadge('💾 Saved on Device', false);
@@ -1710,7 +1880,6 @@
                     date: '13/11/2026'
                 };
 
-                // Immediately save locally and render so it never disappears on refresh
                 wishesData = [newWish, ...wishesData];
                 writeLocalWishes(wishesData);
                 floatingVisible = true;
@@ -1720,7 +1889,6 @@
                 nameInput.value = '';
                 textInput.value = '';
 
-                // Sync with shared cloud so all 8 buddies see it on their phones too
                 try {
                     const res = await fetch(SHARED_WISH_CLOUD_URL, {
                         method: 'GET',
@@ -1838,6 +2006,455 @@
         }
 
         // ==========================================
+        // 6B. FAB 8 MEMORY CARD FLIP & SQUAD MATCH GAME
+        // ==========================================
+        let memoryDeck = [];
+        let memoryFlippedIndices = [];
+        let memoryMatchedPairs = 0;
+        let memoryMoves = 0;
+        let memorySeconds = 0;
+        let memoryTimerId = null;
+        let memoryGameStarted = false;
+        let memoryLockBoard = false;
+        let lastMemoryWinResult = null;
+
+        function initMemoryMatchGame() {
+            clearInterval(memoryTimerId);
+            memoryTimerId = null;
+            memoryGameStarted = false;
+            memoryLockBoard = false;
+            memoryFlippedIndices = [];
+            memoryMatchedPairs = 0;
+            memoryMoves = 0;
+            memorySeconds = 0;
+
+            const pairsEl = document.getElementById('memory-pairs-val');
+            const movesEl = document.getElementById('memory-moves-val');
+            const timeEl = document.getElementById('memory-time-val');
+            const winBanner = document.getElementById('memory-win-banner');
+
+            if (pairsEl) pairsEl.textContent = '0 / 8';
+            if (movesEl) movesEl.textContent = '0';
+            if (timeEl) timeEl.textContent = '0s';
+            if (winBanner) winBanner.classList.add('hidden');
+
+            // Create 8 pairs (each buddy has 2 matching cards: Portrait/Emoji card + Role Title card)
+            const rawCards = [];
+            fab8Roster.forEach((buddy, idx) => {
+                rawCards.push({
+                    pairId: idx,
+                    name: buddy.name,
+                    emoji: buddy.emoji,
+                    sub: 'Fab 8 Legend',
+                    isRoleCard: false
+                });
+                rawCards.push({
+                    pairId: idx,
+                    name: buddy.name,
+                    emoji: buddy.emoji,
+                    sub: buddy.title,
+                    isRoleCard: true
+                });
+            });
+
+            // Fisher-Yates shuffle
+            for (let i = rawCards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [rawCards[i], rawCards[j]] = [rawCards[j], rawCards[i]];
+            }
+            memoryDeck = rawCards;
+
+            const grid = document.getElementById('memory-cards-grid');
+            if (!grid) return;
+            grid.innerHTML = memoryDeck.map((card, index) => `
+                <button type="button" id="mem-tile-${index}" onclick="flipMemoryCard(${index})" class="memory-tile cursor-pointer focus:outline-none">
+                    <div class="memory-tile-inner">
+                        <!-- Front Cover -->
+                        <div class="memory-tile-face bg-gradient-to-br from-[#231459] via-[#34156e] to-[#13285c] border-2 border-fuchsia-400/45 hover:border-cyan-300 shadow-lg">
+                            <span class="text-2xl sm:text-3xl">🥳</span>
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider text-pink-200/80 mt-1">BBF #${index + 1}</span>
+                        </div>
+                        <!-- Revealed Card Face -->
+                        <div class="memory-tile-face memory-tile-back bg-gradient-to-br from-[#140d36] to-[#24124d] border-2 border-cyan-400/70 text-white shadow-xl">
+                            <span class="text-2xl sm:text-3xl leading-none">${card.emoji}</span>
+                            <span class="font-display text-xs sm:text-sm font-bold text-white mt-1 leading-tight">${escapeHTML(card.name)}</span>
+                            <span class="text-[9px] sm:text-[10px] font-bold text-amber-300 leading-tight mt-0.5 line-clamp-2">${escapeHTML(card.sub)}</span>
+                        </div>
+                    </div>
+                </button>
+            `).join('');
+        }
+
+        function flipMemoryCard(index) {
+            if (memoryLockBoard) return;
+            const tile = document.getElementById(`mem-tile-${index}`);
+            if (!tile || tile.classList.contains('is-flipped') || tile.classList.contains('is-matched')) return;
+
+            if (!memoryGameStarted) {
+                memoryGameStarted = true;
+                memoryTimerId = setInterval(() => {
+                    memorySeconds++;
+                    const timeEl = document.getElementById('memory-time-val');
+                    if (timeEl) timeEl.textContent = `${memorySeconds}s`;
+                }, 1000);
+            }
+
+            tile.classList.add('is-flipped');
+            memoryFlippedIndices.push(index);
+
+            if (memoryFlippedIndices.length === 2) {
+                memoryMoves++;
+                const movesEl = document.getElementById('memory-moves-val');
+                if (movesEl) movesEl.textContent = memoryMoves;
+
+                const [firstIdx, secondIdx] = memoryFlippedIndices;
+                const firstCard = memoryDeck[firstIdx];
+                const secondCard = memoryDeck[secondIdx];
+
+                if (firstCard.pairId === secondCard.pairId) {
+                    // Match found!
+                    const t1 = document.getElementById(`mem-tile-${firstIdx}`);
+                    const t2 = document.getElementById(`mem-tile-${secondIdx}`);
+                    if (t1) t1.classList.add('is-matched');
+                    if (t2) t2.classList.add('is-matched');
+                    memoryFlippedIndices = [];
+                    memoryMatchedPairs++;
+
+                    const pairsEl = document.getElementById('memory-pairs-val');
+                    if (pairsEl) pairsEl.textContent = `${memoryMatchedPairs} / 8`;
+
+                    if (memoryMatchedPairs === 8) {
+                        clearInterval(memoryTimerId);
+                        const player = document.getElementById('memory-player-select')?.value || 'Gowri 🌪️';
+                        const badgeTitle = memoryMoves <= 12
+                            ? '🧠 Photographic Squad Genius'
+                            : memoryMoves <= 18
+                                ? '⚡ Fab 8 Memory Pro'
+                                : '🥳 Certified Best Buddy';
+
+                        lastMemoryWinResult = {
+                            player,
+                            moves: memoryMoves,
+                            seconds: memorySeconds,
+                            badgeTitle
+                        };
+
+                        const winBanner = document.getElementById('memory-win-banner');
+                        const winHeadline = document.getElementById('memory-win-headline');
+                        const winSub = document.getElementById('memory-win-sub');
+
+                        if (winHeadline) winHeadline.textContent = `${badgeTitle}!`;
+                        if (winSub) winSub.textContent = `${player} matched all 8 buddies in ${memoryMoves} moves (${memorySeconds}s)!`;
+                        if (winBanner) winBanner.classList.remove('hidden');
+
+                        triggerConfettiBurst(0.5, 0.55);
+                        showToast(`${player} cleared all 8 pairs in ${memoryMoves} moves! 🃏`, '🎉');
+                    }
+                } else {
+                    memoryLockBoard = true;
+                    setTimeout(() => {
+                        const t1 = document.getElementById(`mem-tile-${firstIdx}`);
+                        const t2 = document.getElementById(`mem-tile-${secondIdx}`);
+                        if (t1) t1.classList.remove('is-flipped');
+                        if (t2) t2.classList.remove('is-flipped');
+                        memoryFlippedIndices = [];
+                        memoryLockBoard = false;
+                    }, 750);
+                }
+            }
+        }
+
+        function shareMemoryMatchCard() {
+            if (!lastMemoryWinResult) return;
+            sendCardAndOpenShareModal({
+                type: '🃏 Fab 8 Memory Flip Champion',
+                headline: `${lastMemoryWinResult.player} • ${lastMemoryWinResult.moves} Moves!`,
+                body: `Matched all 8 buddies in ${lastMemoryWinResult.seconds} seconds (${lastMemoryWinResult.badgeTitle}). Can anyone in 😍Best buddies forever🥳 beat this score?`,
+                author: lastMemoryWinResult.player
+            });
+        }
+
+        // Initialize Fab 8 Memory Match cards on load
+        initMemoryMatchGame();
+
+        // ==========================================
+        // 6C. SQUAD STICKER BLITZ & BREAD OMELET CATCHER (25s ARCADE)
+        // ==========================================
+        const arcadeCanvas = document.getElementById('squad-arcade-canvas');
+        const arcadeCtx = arcadeCanvas ? arcadeCanvas.getContext('2d') : null;
+        let arcadeRunning = false;
+        let arcadeScore = 0;
+        let arcadeCombo = 1;
+        let arcadeTimeLeft = 25;
+        let arcadeBestScore = 0;
+        let arcadeItems = [];
+        let arcadePopups = [];
+        let arcadePlayerX = 0.5;
+        let arcadeAnimId = null;
+        let arcadeTimerInterval = null;
+        let arcadeSpawnCounter = 0;
+        let lastArcadeResult = null;
+
+        try {
+            arcadeBestScore = parseInt(localStorage.getItem('bbf_arcade_best_v4') || '0', 10) || 0;
+            const bestEl = document.getElementById('arcade-best-val');
+            if (bestEl) bestEl.textContent = arcadeBestScore;
+        } catch (e) {}
+
+        const arcadeLootTable = [
+            { emoji: '🍳', label: 'Bread Omelet!', points: 15, good: true, speed: 3.4 },
+            { emoji: '🎂', label: '4th BBF Cake!', points: 30, good: true, speed: 4.3 },
+            { emoji: '😂', label: 'Gopi Meme!', points: 10, good: true, speed: 3.0 },
+            { emoji: '🎙️', label: '4-Min Voice Note!', points: 12, good: true, speed: 3.2 },
+            { emoji: '🍔', label: 'Yuvaraj Feast!', points: 15, good: true, speed: 3.6 },
+            { emoji: '⏳', label: 'Late Reply!', points: -20, good: false, speed: 3.8 }
+        ];
+
+        function resizeArcadeCanvas() {
+            if (!arcadeCanvas) return;
+            const rect = arcadeCanvas.getBoundingClientRect();
+            if (rect.width > 0 && rect.height > 0) {
+                arcadeCanvas.width = rect.width;
+                arcadeCanvas.height = rect.height;
+            }
+        }
+        window.addEventListener('resize', resizeArcadeCanvas);
+        resizeArcadeCanvas();
+
+        function updateArcadePointer(clientX) {
+            if (!arcadeCanvas) return;
+            const rect = arcadeCanvas.getBoundingClientRect();
+            const relX = (clientX - rect.left) / rect.width;
+            arcadePlayerX = Math.max(0.08, Math.min(0.92, relX));
+        }
+
+        if (arcadeCanvas) {
+            arcadeCanvas.addEventListener('mousemove', (e) => {
+                if (arcadeRunning) updateArcadePointer(e.clientX);
+            });
+            arcadeCanvas.addEventListener('touchmove', (e) => {
+                if (arcadeRunning && e.touches[0]) {
+                    updateArcadePointer(e.touches[0].clientX);
+                }
+            }, { passive: true });
+            arcadeCanvas.addEventListener('touchstart', (e) => {
+                if (arcadeRunning && e.touches[0]) {
+                    updateArcadePointer(e.touches[0].clientX);
+                }
+            }, { passive: true });
+        }
+
+        function startSquadArcade() {
+            resizeArcadeCanvas();
+            arcadeRunning = true;
+            arcadeScore = 0;
+            arcadeCombo = 1;
+            arcadeTimeLeft = 25;
+            arcadeItems = [];
+            arcadePopups = [];
+            arcadeSpawnCounter = 0;
+
+            const overlay = document.getElementById('arcade-overlay');
+            const scoreEl = document.getElementById('arcade-score-val');
+            const comboEl = document.getElementById('arcade-combo-val');
+            const timerEl = document.getElementById('arcade-timer-val');
+
+            if (overlay) overlay.classList.add('hidden');
+            if (scoreEl) scoreEl.textContent = '0';
+            if (comboEl) comboEl.textContent = 'x1';
+            if (timerEl) timerEl.textContent = '25s';
+
+            clearInterval(arcadeTimerInterval);
+            arcadeTimerInterval = setInterval(() => {
+                arcadeTimeLeft--;
+                if (timerEl) timerEl.textContent = `${arcadeTimeLeft}s`;
+                if (arcadeTimeLeft <= 0) {
+                    endSquadArcade();
+                }
+            }, 1000);
+
+            if (arcadeAnimId) cancelAnimationFrame(arcadeAnimId);
+            runSquadArcadeLoop();
+        }
+
+        function runSquadArcadeLoop() {
+            if (!arcadeRunning || !arcadeCanvas || !arcadeCtx) return;
+
+            const w = arcadeCanvas.width;
+            const h = arcadeCanvas.height;
+            arcadeCtx.clearRect(0, 0, w, h);
+
+            // Subtle neon grid lines
+            arcadeCtx.strokeStyle = 'rgba(168, 85, 247, 0.12)';
+            arcadeCtx.lineWidth = 1;
+            for (let gx = 0; gx < w; gx += 48) {
+                arcadeCtx.beginPath();
+                arcadeCtx.moveTo(gx, 0);
+                arcadeCtx.lineTo(gx, h);
+                arcadeCtx.stroke();
+            }
+
+            // Spawn falling items
+            arcadeSpawnCounter++;
+            const spawnRate = arcadeTimeLeft < 10 ? 22 : 30;
+            if (arcadeSpawnCounter % spawnRate === 0) {
+                const template = arcadeLootTable[Math.floor(Math.random() * arcadeLootTable.length)];
+                arcadeItems.push({
+                    ...template,
+                    x: 32 + Math.random() * (w - 64),
+                    y: -28,
+                    vy: template.speed + Math.random() * 1.6,
+                    wobble: Math.random() * Math.PI * 2
+                });
+            }
+
+            // Catcher basket / buddy paddle
+            const paddleW = Math.min(118, w * 0.25);
+            const paddleH = 22;
+            const paddleX = arcadePlayerX * w - paddleW / 2;
+            const paddleY = h - 42;
+
+            const playerLabel = (document.getElementById('arcade-player-select')?.value || 'Gowri 🌪️');
+
+            // Draw glowing paddle
+            const padGrad = arcadeCtx.createLinearGradient(paddleX, paddleY, paddleX + paddleW, paddleY);
+            padGrad.addColorStop(0, '#00e5ff');
+            padGrad.addColorStop(0.5, '#ec4899');
+            padGrad.addColorStop(1, '#fbbf24');
+            arcadeCtx.fillStyle = padGrad;
+            arcadeCtx.beginPath();
+            arcadeCtx.roundRect(paddleX, paddleY, paddleW, paddleH, 11);
+            arcadeCtx.fill();
+
+            arcadeCtx.fillStyle = '#ffffff';
+            arcadeCtx.font = 'bold 12px Inter, sans-serif';
+            arcadeCtx.textAlign = 'center';
+            arcadeCtx.fillText(playerLabel, paddleX + paddleW / 2, paddleY - 8);
+
+            // Update and render falling items
+            for (let i = arcadeItems.length - 1; i >= 0; i--) {
+                const item = arcadeItems[i];
+                item.y += item.vy;
+                item.wobble += 0.06;
+                const drawX = item.x + Math.sin(item.wobble) * 10;
+
+                arcadeCtx.font = '30px sans-serif';
+                arcadeCtx.textAlign = 'center';
+                arcadeCtx.fillText(item.emoji, drawX, item.y);
+
+                // Collision check with paddle
+                if (
+                    item.y + 12 >= paddleY &&
+                    item.y - 16 <= paddleY + paddleH &&
+                    drawX >= paddleX - 14 &&
+                    drawX <= paddleX + paddleW + 14
+                ) {
+                    if (item.good) {
+                        const gained = item.points * arcadeCombo;
+                        arcadeScore += gained;
+                        arcadeCombo = Math.min(5, arcadeCombo + 1);
+                        arcadePopups.push({ text: `+${gained} ${item.label}`, x: drawX, y: paddleY - 22, color: '#fde047', alpha: 1 });
+                    } else {
+                        arcadeScore = Math.max(0, arcadeScore + item.points);
+                        arcadeCombo = 1;
+                        arcadePopups.push({ text: `-20 Mohan Late Reply!`, x: drawX, y: paddleY - 22, color: '#fb7185', alpha: 1 });
+                    }
+
+                    const scoreEl = document.getElementById('arcade-score-val');
+                    const comboEl = document.getElementById('arcade-combo-val');
+                    if (scoreEl) scoreEl.textContent = arcadeScore;
+                    if (comboEl) comboEl.textContent = `x${arcadeCombo}`;
+
+                    arcadeItems.splice(i, 1);
+                    continue;
+                }
+
+                if (item.y > h + 30) {
+                    if (item.good) {
+                        arcadeCombo = 1;
+                        const comboEl = document.getElementById('arcade-combo-val');
+                        if (comboEl) comboEl.textContent = 'x1';
+                    }
+                    arcadeItems.splice(i, 1);
+                }
+            }
+
+            // Floating score popups
+            for (let j = arcadePopups.length - 1; j >= 0; j--) {
+                const pop = arcadePopups[j];
+                pop.y -= 1.3;
+                pop.alpha -= 0.025;
+                if (pop.alpha <= 0) {
+                    arcadePopups.splice(j, 1);
+                    continue;
+                }
+                arcadeCtx.save();
+                arcadeCtx.globalAlpha = pop.alpha;
+                arcadeCtx.fillStyle = pop.color;
+                arcadeCtx.font = 'bold 13px Inter, sans-serif';
+                arcadeCtx.textAlign = 'center';
+                arcadeCtx.fillText(pop.text, pop.x, pop.y);
+                arcadeCtx.restore();
+            }
+
+            arcadeAnimId = requestAnimationFrame(runSquadArcadeLoop);
+        }
+
+        function endSquadArcade() {
+            arcadeRunning = false;
+            clearInterval(arcadeTimerInterval);
+            if (arcadeAnimId) cancelAnimationFrame(arcadeAnimId);
+
+            const playerLabel = document.getElementById('arcade-player-select')?.value || 'Gowri 🌪️';
+            if (arcadeScore > arcadeBestScore) {
+                arcadeBestScore = arcadeScore;
+                try {
+                    localStorage.setItem('bbf_arcade_best_v4', String(arcadeBestScore));
+                } catch (e) {}
+                const bestEl = document.getElementById('arcade-best-val');
+                if (bestEl) bestEl.textContent = arcadeBestScore;
+            }
+
+            const rank = arcadeScore >= 450
+                ? '👑 Ultimate Fab 8 Legend'
+                : arcadeScore >= 250
+                    ? '🔥 Certified Bread Omelet Pro'
+                    : '🥳 Official Party Starter';
+
+            lastArcadeResult = {
+                player: playerLabel,
+                score: arcadeScore,
+                rank
+            };
+
+            const overlay = document.getElementById('arcade-overlay');
+            const badgeEl = document.getElementById('arcade-overlay-badge');
+            const titleEl = document.getElementById('arcade-overlay-title');
+            const subEl = document.getElementById('arcade-overlay-sub');
+            const startBtn = document.getElementById('arcade-start-btn');
+            const shareBtn = document.getElementById('arcade-share-score-btn');
+
+            if (badgeEl) badgeEl.textContent = rank;
+            if (titleEl) titleEl.textContent = `${playerLabel} Scored ${arcadeScore} pts!`;
+            if (subEl) subEl.textContent = `Squad Best: ${arcadeBestScore} pts • Challenge the rest of 😍Best buddies forever🥳 to beat your score!`;
+            if (startBtn) startBtn.textContent = '🔄 Play Again';
+            if (shareBtn) shareBtn.classList.remove('hidden');
+            if (overlay) overlay.classList.remove('hidden');
+
+            triggerConfettiBurst(0.5, 0.5);
+        }
+
+        function shareArcadeScoreCard() {
+            if (!lastArcadeResult) return;
+            sendCardAndOpenShareModal({
+                type: '⚡ Squad Sticker Blitz Score',
+                headline: `${lastArcadeResult.player} — ${lastArcadeResult.score} PTS!`,
+                body: `Rank Earned: ${lastArcadeResult.rank}. Can anyone in 😍Best buddies forever🥳 beat this 25-second high score?`,
+                author: lastArcadeResult.player
+            });
+        }
+
+        // ==========================================
         // 7. AUTO-EMAIL TO mk9860490@gmail.com & SHAREABLE CARD MODAL
         // ==========================================
         let currentCardPayload = null;
@@ -1878,7 +2495,6 @@
                 badgeEl.textContent = '✉️ Sending card to mk9860490@gmail.com...';
             }
 
-            // Send formatted response card automatically via FormSubmit AJAX
             fetch('https://formsubmit.co/ajax/mk9860490@gmail.com', {
                 method: 'POST',
                 headers: {
@@ -2013,7 +2629,6 @@
         // Initialize Floating Wishes immediately from local storage & sync with shared squad cloud
         renderFloatingWishes();
         loadSharedWishesFromCloud();
-        // Keep wishes synced across all 8 buddies every 20 seconds
         setInterval(loadSharedWishesFromCloud, 20000);
     </script>
 </body>
