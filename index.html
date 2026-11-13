@@ -1,0 +1,1844 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>😍Best buddies forever🥳 | 4th Anniversary Surprise</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Early global image fallback helpers so inline onerror handlers never throw ReferenceError -->
+    <script>
+        window.handleProfileImgFallback = function(imgEl, name, emoji) {
+            if (!imgEl) return;
+            var currentSrc = imgEl.getAttribute('src') || '';
+            var slug = String(name || '').toLowerCase().trim().replace(/\s+/g, '');
+            if (!imgEl.dataset.fallbackStep) {
+                imgEl.dataset.fallbackStep = '1';
+                imgEl.src = 'profiles/' + slug + '.jpg';
+                return;
+            }
+            if (imgEl.dataset.fallbackStep === '1') {
+                imgEl.dataset.fallbackStep = '2';
+                imgEl.src = 'profiles/' + slug + '.png';
+                return;
+            }
+            imgEl.style.display = 'none';
+            if (imgEl.nextElementSibling) {
+                imgEl.nextElementSibling.classList.remove('hidden');
+                imgEl.nextElementSibling.classList.add('flex');
+            }
+        };
+
+        window.handleFavWallImgFallback = function(imgEl, slug, owner) {
+            if (!imgEl) return;
+            var step = parseInt(imgEl.dataset.fallbackStep || '0', 10);
+            var cleanSlug = String(slug || '').toLowerCase().trim();
+            var candidates = [
+                'walloffev/' + cleanSlug + ',sfav.jpg',
+                'walloffev/' + cleanSlug + ',sfav.png',
+                "walloffev/" + cleanSlug + "'sfav.jpeg",
+                "walloffev/" + cleanSlug + "'sfav.jpg",
+                'walloffev/' + cleanSlug + '.jpeg',
+                'walloffev/' + cleanSlug + '.jpg'
+            ];
+            if (step < candidates.length) {
+                imgEl.dataset.fallbackStep = String(step + 1);
+                imgEl.src = candidates[step];
+                return;
+            }
+            var encodedLabel = encodeURIComponent(owner + "'s Fav Pic");
+            imgEl.onerror = null;
+            imgEl.src = 'https://placehold.co/800x450/18133a/fde047?text=' + encodedLabel;
+        };
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #070614;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, .font-display {
+            font-family: 'Fredoka', sans-serif;
+        }
+        /* Vibrant Midnight Party Gradient */
+        .hero-gradient {
+            background:
+                radial-gradient(circle at 12% 18%, rgba(236, 72, 153, 0.30) 0%, transparent 45%),
+                radial-gradient(circle at 88% 22%, rgba(56, 189, 248, 0.25) 0%, transparent 48%),
+                radial-gradient(circle at 50% 85%, rgba(168, 85, 247, 0.28) 0%, transparent 52%),
+                linear-gradient(135deg, #070614 0%, #120c2e 48%, #091326 100%);
+        }
+        /* Floating Animation */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+        .animate-float {
+            animation: floatSlow 4.5s ease-in-out infinite;
+        }
+        /* Drifting Floating Wish Bubbles Across Screen */
+        @keyframes wishDrift {
+            0% { transform: translate3d(0px, 0px, 0) rotate(-1.5deg); }
+            33% { transform: translate3d(14px, -16px, 0) rotate(1.5deg); }
+            66% { transform: translate3d(-12px, -8px, 0) rotate(-1deg); }
+            100% { transform: translate3d(0px, 0px, 0) rotate(-1.5deg); }
+        }
+        .floating-wish-bubble {
+            pointer-events: auto;
+            animation: wishDrift var(--drift-dur, 7s) ease-in-out infinite;
+            animation-delay: var(--drift-delay, 0s);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .floating-wish-bubble:hover {
+            animation-play-state: paused;
+            transform: scale(1.06) translateY(-4px);
+            z-index: 60;
+        }
+        /* 3D Card Flip for The Fab 8 */
+        .flip-card {
+            perspective: 1000px;
+            height: 295px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1.5rem;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+        /* Candle Flame Animation */
+        @keyframes flicker {
+            0%, 100% { transform: scale(1) rotate(-2deg); opacity: 1; }
+            50% { transform: scale(1.12) rotate(3deg); opacity: 0.88; }
+        }
+        .flame {
+            animation: flicker 0.7s infinite alternate;
+            transform-origin: bottom center;
+        }
+        .flame.blown-out {
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.4s ease;
+        }
+        /* Dark Glassmorphism Card */
+        .glass-dark {
+            background: rgba(18, 15, 45, 0.78);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(168, 85, 247, 0.25);
+        }
+        /* Dark Pinboard Texture for WALL OF FAVOURATES */
+        .fav-pinboard {
+            background-color: #161124;
+            background-image:
+                radial-gradient(circle at 20% 25%, rgba(251, 191, 36, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 80% 75%, rgba(236, 72, 153, 0.09) 0%, transparent 45%),
+                radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+                radial-gradient(rgba(0, 0, 0, 0.45) 1.5px, transparent 1.5px),
+                linear-gradient(145deg, #1d162e 0%, #120d1f 50%, #1a1329 100%);
+            background-size: 100% 100%, 100% 100%, 18px 18px, 26px 26px, 100% 100%;
+            background-position: 0 0, 0 0, 0 0, 9px 9px, 0 0;
+            box-shadow: inset 0 6px 28px rgba(0, 0, 0, 0.75), 0 24px 60px rgba(0, 0, 0, 0.65);
+        }
+        /* Real Physical Photo Print Stuck on Wall */
+        .sticky-polaroid {
+            position: relative;
+            background: linear-gradient(165deg, #ffffff 0%, #f8f5ef 65%, #efe9de 100%);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 4px;
+            padding: 12px 12px 18px 12px;
+            box-shadow:
+                0 16px 28px -6px rgba(0, 0, 0, 0.78),
+                0 6px 12px -3px rgba(0, 0, 0, 0.55),
+                inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+        }
+        /* Subtle curled paper corner shadows underneath each print */
+        .sticky-polaroid::before,
+        .sticky-polaroid::after {
+            content: "";
+            position: absolute;
+            bottom: 8px;
+            width: 44%;
+            height: 14px;
+            z-index: -1;
+            box-shadow: 0 14px 14px rgba(0, 0, 0, 0.85);
+            transition: all 0.35s ease;
+        }
+        .sticky-polaroid::before {
+            left: 10px;
+            transform: rotate(-3.5deg);
+        }
+        .sticky-polaroid::after {
+            right: 10px;
+            transform: rotate(3.5deg);
+        }
+        .sticky-polaroid:hover {
+            transform: rotate(0deg) scale(1.05) translateY(-8px) !important;
+            box-shadow:
+                0 26px 42px -8px rgba(0, 0, 0, 0.88),
+                0 10px 18px -4px rgba(0, 0, 0, 0.65);
+            z-index: 25;
+        }
+        /* Glossy Photo Print Sheen */
+        .photo-gloss-wrap {
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+            box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.35);
+        }
+        .photo-gloss-wrap::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(125deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.04) 38%, transparent 55%);
+            pointer-events: none;
+        }
+        /* Realistic 3D Paper Pin Piercing Through the Top of the Photo */
+        .paper-pin {
+            position: absolute;
+            top: -11px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 28px;
+            height: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 20;
+            filter: drop-shadow(3px 8px 5px rgba(0, 0, 0, 0.65));
+            transition: transform 0.25s ease;
+            pointer-events: none;
+        }
+        .sticky-polaroid:hover .paper-pin {
+            transform: translateX(-50%) translateY(-2px) scale(1.06);
+        }
+        .paper-pin-top {
+            width: 18px;
+            height: 9px;
+            border-radius: 9999px;
+            background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.92), var(--pin-color, #ec4899) 52%, var(--pin-dark, #9d174d) 100%);
+            box-shadow: inset 0 -2px 3px rgba(0,0,0,0.35);
+            z-index: 3;
+        }
+        .paper-pin-neck {
+            width: 10px;
+            height: 7px;
+            margin-top: -2px;
+            background: linear-gradient(90deg, var(--pin-dark, #9d174d), var(--pin-color, #ec4899) 45%, var(--pin-dark, #9d174d));
+            clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+            z-index: 2;
+        }
+        .paper-pin-base {
+            width: 21px;
+            height: 8px;
+            margin-top: -1px;
+            border-radius: 9999px;
+            background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.75), var(--pin-color, #ec4899) 58%, var(--pin-dark, #9d174d) 100%);
+            box-shadow: 0 3px 4px rgba(0,0,0,0.45);
+            z-index: 2;
+        }
+        .paper-pin-needle {
+            width: 3px;
+            height: 6px;
+            margin-top: -1px;
+            background: linear-gradient(90deg, #475569, #f8fafc 50%, #334155);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            z-index: 1;
+        }
+        .paper-pin-hole {
+            width: 6px;
+            height: 3.5px;
+            margin-top: -2px;
+            border-radius: 9999px;
+            background: rgba(15, 23, 42, 0.85);
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.7);
+        }
+        /* Sticky Polaroid Frame */
+        .sticky-polaroid {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+        }
+        .sticky-polaroid:hover {
+            transform: rotate(0deg) scale(1.04) translateY(-6px) !important;
+            z-index: 20;
+        }
+        /* Realistic 3D Paper Pin / Pushpin */
+        .paper-pin {
+            position: relative;
+            width: 30px;
+            height: 34px;
+            margin: -26px auto 10px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 15;
+            filter: drop-shadow(0 6px 5px rgba(0, 0, 0, 0.65));
+            transition: transform 0.25s ease;
+        }
+        .sticky-polaroid:hover .paper-pin {
+            transform: translateY(-2px) scale(1.08);
+        }
+        .paper-pin-top {
+            width: 18px;
+            height: 9px;
+            border-radius: 9999px;
+            background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.85), var(--pin-color, #ec4899) 55%, var(--pin-dark, #9d174d) 100%);
+            box-shadow: inset 0 -2px 3px rgba(0,0,0,0.35);
+            z-index: 3;
+        }
+        .paper-pin-neck {
+            width: 11px;
+            height: 8px;
+            margin-top: -2px;
+            background: linear-gradient(90deg, var(--pin-dark, #9d174d), var(--pin-color, #ec4899) 45%, var(--pin-dark, #9d174d));
+            clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+            z-index: 2;
+        }
+        .paper-pin-base {
+            width: 22px;
+            height: 8px;
+            margin-top: -1px;
+            border-radius: 9999px;
+            background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.65), var(--pin-color, #ec4899) 60%, var(--pin-dark, #9d174d) 100%);
+            box-shadow: 0 3px 4px rgba(0,0,0,0.5);
+            z-index: 2;
+        }
+        .paper-pin-needle {
+            width: 3px;
+            height: 9px;
+            margin-top: -1px;
+            background: linear-gradient(90deg, #64748b, #f8fafc 50%, #475569);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            z-index: 1;
+        }
+        .paper-pin-hole {
+            width: 7px;
+            height: 4px;
+            margin-top: -2px;
+            border-radius: 9999px;
+            background: rgba(0, 0, 0, 0.75);
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #070614;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #ec4899, #8b5cf6);
+            border-radius: 9999px;
+        }
+    </style>
+</head>
+<body class="selection:bg-pink-500 selection:text-white">
+
+    <!-- Fullscreen Confetti Overlay Canvas -->
+    <canvas id="confetti-overlay-canvas" class="fixed inset-0 pointer-events-none z-[110]"></canvas>
+
+    <!-- Floating Wishes Layer (All submitted buddy wishes float gently across the page) -->
+    <div id="floating-wishes-layer" class="fixed inset-0 pointer-events-none z-40 overflow-hidden"></div>
+
+    <!-- Floating Wishes Counter & Toggle Pill -->
+    <button id="toggle-floating-wishes-btn" onclick="toggleFloatingWishes()" class="fixed bottom-4 left-4 z-50 px-4 py-2.5 rounded-full bg-[#151136]/90 hover:bg-[#1e184d] border border-pink-400/40 text-xs font-bold text-pink-200 shadow-lg shadow-pink-500/20 backdrop-blur-md flex items-center gap-2 transition cursor-pointer">
+        <span>🎈</span>
+        <span id="floating-wish-count-label">Floating Wishes (0)</span>
+    </button>
+
+    <!-- Top Floating Navigation -->
+    <nav class="sticky top-0 z-50 bg-[#070614]/85 backdrop-blur-lg border-b border-purple-500/20">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-2">
+            <a href="#top" class="flex items-center gap-2 font-display font-bold text-lg sm:text-xl text-white">
+                <span class="text-2xl">😍</span>
+                <span class="bg-gradient-to-r from-pink-400 via-purple-400 to-amber-300 bg-clip-text text-transparent">Best buddies forever</span>
+                <span class="text-2xl">🥳</span>
+            </a>
+            <div class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-300">
+                <a href="#squad" class="hover:text-pink-400 transition">The Fab 8</a>
+                <a href="#timeline" class="hover:text-pink-400 transition">4-Year Journey</a>
+                <a href="#wall-of-favourates" class="hover:text-amber-300 transition">Wall of Favourates</a>
+                <a href="#chat-highlights" class="hover:text-pink-400 transition">Chat & Wishes</a>
+                <a href="#party-zone" class="hover:text-pink-400 transition">Cake & Wheel</a>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="triggerConfettiBurst()" class="px-4 py-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white text-xs sm:text-sm font-bold shadow-lg shadow-pink-500/30 hover:scale-105 active:scale-95 transition cursor-pointer">
+                    🎉 Celebrate!
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header id="top" class="hero-gradient relative pt-12 pb-20 sm:pt-20 sm:pb-28 px-4 overflow-hidden border-b border-purple-500/20">
+        <!-- Decorative Floating Emojis -->
+        <div class="hidden sm:block absolute top-14 left-10 text-4xl opacity-80 animate-float" style="animation-delay: 0s;">🥳</div>
+        <div class="hidden sm:block absolute top-24 right-14 text-4xl opacity-80 animate-float" style="animation-delay: 1.2s;">🎂</div>
+        <div class="hidden sm:block absolute bottom-16 left-20 text-3xl opacity-75 animate-float" style="animation-delay: 2s;">💬</div>
+        <div class="hidden sm:block absolute bottom-20 right-24 text-4xl opacity-80 animate-float" style="animation-delay: 0.7s;">✨</div>
+
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <!-- Anniversary Date Pill -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-pink-400/30 shadow-lg shadow-pink-500/10 mb-6 backdrop-blur-md">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                <span class="text-xs sm:text-sm font-bold tracking-wide text-pink-200 uppercase">
+                    Est. 13/11/2022 • Happy 4th Group Anniversary!
+                </span>
+            </div>
+
+            <!-- Group Title -->
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white leading-tight mb-5 drop-shadow">
+                😍<span class="bg-gradient-to-r from-pink-400 via-purple-300 to-amber-300 bg-clip-text text-transparent">Best buddies forever</span>🥳
+            </h1>
+
+            <p class="text-base sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed mb-8">
+                Four girls, four boys, one legendary WhatsApp group created on <strong class="text-pink-300">13 November 2022</strong>. Here's to 4 years of non-stop chaos, midnight rants, inside jokes, and unbreakable friendship!
+            </p>
+
+            <!-- Live 4-Year Milestone Counter Cards -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto mb-10">
+                <div class="glass-dark rounded-2xl p-4 shadow-lg shadow-pink-500/10">
+                    <div id="stat-years" class="font-display text-3xl sm:text-4xl font-bold text-pink-400">4</div>
+                    <div class="text-xs sm:text-sm font-semibold text-slate-300 mt-1">Glorious Years</div>
+                </div>
+                <div class="glass-dark rounded-2xl p-4 shadow-lg shadow-purple-500/10">
+                    <div id="stat-months" class="font-display text-3xl sm:text-4xl font-bold text-purple-400">48</div>
+                    <div class="text-xs sm:text-sm font-semibold text-slate-300 mt-1">Months of Madness</div>
+                </div>
+                <div class="glass-dark rounded-2xl p-4 shadow-lg shadow-amber-500/10">
+                    <div id="stat-days" class="font-display text-3xl sm:text-4xl font-bold text-amber-300">1,461</div>
+                    <div class="text-xs sm:text-sm font-semibold text-slate-300 mt-1">Days Together</div>
+                </div>
+                <div class="glass-dark rounded-2xl p-4 shadow-lg shadow-sky-500/10">
+                    <div id="stat-hours" class="font-display text-3xl sm:text-4xl font-bold text-sky-400">35,064+</div>
+                    <div class="text-xs sm:text-sm font-semibold text-slate-300 mt-1">Hours of Chats</div>
+                </div>
+            </div>
+
+            <!-- Primary CTA Buttons -->
+            <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+                <a href="#squad" class="px-6 py-3.5 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold text-sm sm:text-base shadow-lg shadow-pink-500/30 hover:opacity-95 transition">
+                    Meet The Fab 8 👇
+                </a>
+                <a href="#party-zone" class="px-6 py-3.5 rounded-full bg-white/10 text-amber-300 border border-amber-400/30 font-bold text-sm sm:text-base shadow-md hover:bg-white/15 transition">
+                    🎂 Cut Anniversary Cake
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION 1: THE FAB 8 (4 GIRLS & 4 BOYS ALTERNATING WITH DIRECT HTML <img> TAGS) -->
+    <section id="squad" class="py-16 sm:py-24 px-4 max-w-6xl mx-auto">
+        <div class="text-center mb-10">
+            <span class="inline-block px-3.5 py-1 rounded-full bg-pink-500/15 border border-pink-400/30 text-pink-300 text-xs font-bold uppercase tracking-wider mb-3">
+                4 Girls + 4 Boys = 1 Unstoppable Squad
+            </span>
+            <h2 class="text-3xl sm:text-5xl font-bold text-white mb-3">The Fab 8 Legends 🌟</h2>
+            <p class="text-slate-300 max-w-xl mx-auto text-sm sm:text-base">
+                Tap any card to flip and reveal their secret superpower in <strong class="text-pink-300">😍Best buddies forever🥳</strong>!
+            </p>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-8">
+            <button onclick="filterSquad('all')" data-filter="all" class="filter-btn active px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-md transition cursor-pointer">
+                All 8 Buddies
+            </button>
+            <button onclick="filterSquad('girl')" data-filter="girl" class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-[#141033] text-pink-300 border border-pink-500/30 hover:bg-pink-500/20 transition cursor-pointer">
+                👧 The 4 Girls
+            </button>
+            <button onclick="filterSquad('boy')" data-filter="boy" class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-[#141033] text-sky-300 border border-sky-500/30 hover:bg-sky-500/20 transition cursor-pointer">
+                👦 The 4 Boys
+            </button>
+        </div>
+
+        <!-- 8 Buddy Cards Grid (Direct HTML <img> tags for easy editing) -->
+        <div id="squad-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <!-- 1. Gowri (Girl) -->
+            <div class="flip-card cursor-pointer" data-gender="girl" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front glass-dark border-pink-500/30 p-5 flex flex-col justify-between shadow-xl">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-pink-500/20 text-pink-300 border-pink-400/30">👧 Girl</span>
+                            <span class="text-[11px] text-slate-400 font-semibold">Tap to flip ↻</span>
+                        </div>
+                        <div class="my-auto text-center">
+                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-pink-500 to-rose-600 shadow-lg mb-3 relative">
+                                <img src="profiles/gowri.jpeg" alt="Gowri" onerror="window.handleProfileImgFallback(this, 'Gowri', '🌪️')" class="w-full h-full object-cover rounded-full bg-[#120f2d]">
+                                <div class="hidden w-full h-full rounded-full bg-[#120f2d] items-center justify-center text-4xl">🌪️</div>
+                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-white/20 flex items-center justify-center text-base shadow">🌪️</span>
+                            </div>
+                            <h3 class="font-display text-2xl font-bold text-white">Gowri</h3>
+                            <p class="text-xs font-extrabold uppercase tracking-wider text-amber-300 mt-1">The chaos cordinator</p>
+                        </div>
+                        <div class="text-center text-[11px] text-slate-400">😍Best buddies forever🥳</div>
+                    </div>
+                    <div class="flip-card-back bg-gradient-to-br from-pink-500 to-rose-600 p-6 flex flex-col justify-between text-white shadow-2xl">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-extrabold uppercase tracking-wider bg-black/25 px-3 py-1 rounded-full">The chaos cordinator</span>
+                            <span class="text-2xl">🌪️</span>
+                        </div>
+                        <div class="my-auto">
+                            <h4 class="font-display text-2xl font-bold mb-2">Gowri</h4>
+                            <p class="text-sm leading-relaxed text-white/95 font-medium">"Turns a simple 10-minute plan into an unforgettable 5-hour adventure!"</p>
+                        </div>
+                        <p class="text-[11px] font-bold text-white/80 text-right">Tap again to flip back ↺</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Sai (Boy) -->
+            <div class="flip-card cursor-pointer" data-gender="boy" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front glass-dark border-sky-500/30 p-5 flex flex-col justify-between shadow-xl">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-sky-500/20 text-sky-300 border-sky-400/30">👦 Boy</span>
+                            <span class="text-[11px] text-slate-400 font-semibold">Tap to flip ↻</span>
+                        </div>
+                        <div class="my-auto text-center">
+                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-blue-500 to-indigo-600 shadow-lg mb-3 relative">
+                                <img src="profiles/sai.jpeg" alt="Sai" onerror="window.handleProfileImgFallback(this, 'Sai', '🗺️')" class="w-full h-full object-cover rounded-full bg-[#120f2d]">
+                                <div class="hidden w-full h-full rounded-full bg-[#120f2d] items-center justify-center text-4xl">🗺️</div>
+                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-white/20 flex items-center justify-center text-base shadow">🗺️</span>
+                            </div>
+                            <h3 class="font-display text-2xl font-bold text-white">Sai</h3>
+                            <p class="text-xs font-extrabold uppercase tracking-wider text-amber-300 mt-1">Trip planner</p>
+                        </div>
+                        <div class="text-center text-[11px] text-slate-400">😍Best buddies forever🥳</div>
+                    </div>
+                    <div class="flip-card-back bg-gradient-to-br from-blue-500 to-indigo-600 p-6 flex flex-col justify-between text-white shadow-2xl">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-extrabold uppercase tracking-wider bg-black/25 px-3 py-1 rounded-full">Trip planner</span>
+                            <span class="text-2xl">🗺️</span>
+                        </div>
+                        <div class="my-auto">
+                            <h4 class="font-display text-2xl font-bold mb-2">Sai</h4>
+                            <p class="text-sm leading-relaxed text-white/95 font-medium">"Always has the itinerary, routes, and backup plans ready for the squad."</p>
+                        </div>
+                        <p class="text-[11px] font-bold text-white/80 text-right">Tap again to flip back ↺</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Shashi (Girl) -->
+            <div class="flip-card cursor-pointer" data-gender="girl" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front glass-dark border-pink-500/30 p-5 flex flex-col justify-between shadow-xl">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-pink-500/20 text-pink-300 border-pink-400/30">👧 Girl</span>
+                            <span class="text-[11px] text-slate-400 font-semibold">Tap to flip ↻</span>
+                        </div>
+                        <div class="my-auto text-center">
+                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-purple-500 to-fuchsia-600 shadow-lg mb-3 relative">
+                                <img src="profiles/shashi.jpeg" alt="Shashi" onerror="window.handleProfileImgFallback(this, 'Shashi', '🎙️')" class="w-full h-full object-cover rounded-full bg-[#120f2d]">
+                                <div class="hidden w-full h-full rounded-full bg-[#120f2d] items-center justify-center text-4xl">🎙️</div>
+                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-white/20 flex items-center justify-center text-base shadow">🎙️</span>
+                            </div>
+                            <h3 class="font-display text-2xl font-bold text-white">Shashi</h3>
+                            <p class="text-xs font-extrabold uppercase tracking-wider text-amber-300 mt-1">Voice note podcaster</p>
+                        </div>
+                        <div class="text-center text-[11px] text-slate-400">😍Best buddies forever🥳</div>
+                    </div>
+                    <div class="flip-card-back bg-gradient-to-br from-purple-500 to-fuchsia-600 p-6 flex flex-col justify-between text-white shadow-2xl">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-extrabold uppercase tracking-wider bg-black/25 px-3 py-1 rounded-full">Voice note podcaster</span>
+                            <span class="text-2xl">🎙️</span>
+                        </div>
+                        <div class="my-auto">
+                            <h4 class="font-display text-2xl font-bold mb-2">Shashi</h4>
+                            <p class="text-sm leading-relaxed text-white/95 font-medium">"Sends 4-minute WhatsApp voice notes that feel like a full-season podcast."</p>
+                        </div>
+                        <p class="text-[11px] font-bold text-white/80 text-right">Tap again to flip back ↺</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Gopi (Boy) -->
+            <div class="flip-card cursor-pointer" data-gender="boy" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front glass-dark border-sky-500/30 p-5 flex flex-col justify-between shadow-xl">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-sky-500/20 text-sky-300 border-sky-400/30">👦 Boy</span>
+                            <span class="text-[11px] text-slate-400 font-semibold">Tap to flip ↻</span>
+                        </div>
+                        <div class="my-auto text-center">
+                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-cyan-500 to-blue-600 shadow-lg mb-3 relative">
+                                <img src="profiles/gopi.jpeg" alt="Gopi" onerror="window.handleProfileImgFallback(this, 'Gopi', '😂')" class="w-full h-full object-cover rounded-full bg-[#120f2d]">
+                                <div class="hidden w-full h-full rounded-full bg-[#120f2d] items-center justify-center text-4xl">😂</div>
+                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-white/20 flex items-center justify-center text-base shadow">😂</span>
+                            </div>
+                            <h3 class="font-display text-2xl font-bold text-white">Gopi</h3>
+                            <p class="text-xs font-extrabold uppercase tracking-wider text-amber-300 mt-1">Meme dealer</p>
+                        </div>
+                        <div class="text-center text-[11px] text-slate-400">😍Best buddies forever🥳</div>
+                    </div>
+                    <div class="flip-card-back bg-gradient-to-br from-cyan-500 to-blue-600 p-6 flex flex-col justify-between text-white shadow-2xl">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-extrabold uppercase tracking-wider bg-black/25 px-3 py-1 rounded-full">Meme dealer</span>
+                            <span class="text-2xl">😂</span>
+                        </div>
+                        <div class="my-auto">
+                            <h4 class="font-display text-2xl font-bold mb-2">Gopi</h4>
+                            <p class="text-sm leading-relaxed text-white/95 font-medium">"Has a reaction sticker and meme ready for every situation in milliseconds."</p>
+                        </div>
+                        <p class="text-[11px] font-bold text-white/80 text-right">Tap again to flip back ↺</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Alisha (Girl) -->
+            <div class="flip-card cursor-pointer" data-gender="girl" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front glass-dark border-pink-500/30 p-5 flex flex-col justify-between shadow-xl">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-pink-500/20 text-pink-300 border-pink-400/30">👧 Girl</span>
+                            <span class="text-[11px] text-slate-400 font-semibold">Tap to flip ↻</span>
+                        </div>
+                        <div class="my-auto text-center">
+                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-amber-400 to-pink-500 shadow-lg mb-3 relative">
+                                <img src="profiles/alisha.jpeg" alt="Alisha" onerror="window.handleProfileImgFallback(this, 'Alisha', '🔥')" class="w-full h-full object-cover rounded-full bg-[#120f2d]">
+                                <div class="hidden w-full h-full rounded-full bg-[#120f2d] items-center justify-center text-4xl">🔥</div>
+                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-white/20 flex items-center justify-center text-base shadow">🔥</span>
+                            </div>
+                            <h3 class="font-display text-2xl font-bold text-white">Alisha</h3>
+                            <p class="text-xs font-extrabold uppercase tracking-wider text-amber-300 mt-1">Hype machine</p>
+                        </div>
+                        <div class="text-center text-[11px] text-slate-400">😍Best buddies forever🥳</div>
+                    </div>
+                    <div class="flip-card-back bg-gradient-to-br from-amber-400 to-pink-500 p-6 flex flex-col justify-between text-white shadow-2xl">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-extrabold uppercase tracking-wider bg-black/25 px-3 py-1 rounded-full">Hype machine</span>
+                            <span class="text-2xl">🔥</span>
+                        </div>
+                        <div class="my-auto">
+                            <h4 class="font-display text-2xl font-bold mb-2">Alisha</h4>
+                            <p class="text-sm leading-relaxed text-white/95 font-medium">"Biggest cheerleader in the group — hypes every photo, reel, and achievement!"</p>
+                        </div>
+                        <p class="text-[11px] font-bold text-white/80 text-right">Tap again to flip back ↺</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Mohan (Boy) -->
+            <div class="flip-card cursor-pointer" data-gender="boy" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front glass-dark border-sky-500/30 p-5 flex flex-col justify-between shadow-xl">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-sky-500/20 text-sky-300 border-sky-400/30">👦 Boy</span>
+                            <span class="text-[11px] text-slate-400 font-semibold">Tap to flip ↻</span>
+                        </div>
+                        <div class="my-auto text-center">
+                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-emerald-500 to-teal-600 shadow-lg mb-3 relative">
+                                <img src="profiles/mohan.jpeg" alt="Mohan" onerror="window.handleProfileImgFallback(this, 'Mohan', '⏳')" class="w-full h-full object-cover rounded-full bg-[#120f2d]">
+                                <div class="hidden w-full h-full rounded-full bg-[#120f2d] items-center justify-center text-4xl">⏳</div>
+                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-white/20 flex items-center justify-center text-base shadow">⏳</span>
+                            </div>
+                            <h3 class="font-display text-2xl font-bold text-white">Mohan</h3>
+                            <p class="text-xs font-extrabold uppercase tracking-wider text-amber-300 mt-1">Late replier</p>
+                        </div>
+                        <div class="text-center text-[11px] text-slate-400">😍Best buddies forever🥳</div>
+                    </div>
+                    <div class="flip-card-back bg-gradient-to-br from-emerald-500 to-teal-600 p-6 flex flex-col justify-between text-white shadow-2xl">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-extrabold uppercase tracking-wider bg-black/25 px-3 py-1 rounded-full">Late replier</span>
+                            <span class="text-2xl">⏳</span>
+                        </div>
+                        <div class="my-auto">
+                            <h4 class="font-display text-2xl font-bold mb-2">Mohan</h4>
+                            <p class="text-sm leading-relaxed text-white/95 font-medium">"Replies 3 business days later to a question asked on Sunday morning."</p>
+                        </div>
+                        <p class="text-[11px] font-bold text-white/80 text-right">Tap again to flip back ↺</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. Minni (Girl) -->
+            <div class="flip-card cursor-pointer" data-gender="girl" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front glass-dark border-pink-500/30 p-5 flex flex-col justify-between shadow-xl">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-pink-500/20 text-pink-300 border-pink-400/30">👧 Girl</span>
+                            <span class="text-[11px] text-slate-400 font-semibold">Tap to flip ↻</span>
+                        </div>
+                        <div class="my-auto text-center">
+                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-violet-500 to-purple-700 shadow-lg mb-3 relative">
+                                <img src="profiles/minni.jpeg" alt="Minni" onerror="window.handleProfileImgFallback(this, 'Minni', '🌙')" class="w-full h-full object-cover rounded-full bg-[#120f2d]">
+                                <div class="hidden w-full h-full rounded-full bg-[#120f2d] items-center justify-center text-4xl">🌙</div>
+                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-white/20 flex items-center justify-center text-base shadow">🌙</span>
+                            </div>
+                            <h3 class="font-display text-2xl font-bold text-white">Minni</h3>
+                            <p class="text-xs font-extrabold uppercase tracking-wider text-amber-300 mt-1">Midnight philosopher</p>
+                        </div>
+                        <div class="text-center text-[11px] text-slate-400">😍Best buddies forever🥳</div>
+                    </div>
+                    <div class="flip-card-back bg-gradient-to-br from-violet-500 to-purple-700 p-6 flex flex-col justify-between text-white shadow-2xl">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-extrabold uppercase tracking-wider bg-black/25 px-3 py-1 rounded-full">Midnight philosopher</span>
+                            <span class="text-2xl">🌙</span>
+                        </div>
+                        <div class="my-auto">
+                            <h4 class="font-display text-2xl font-bold mb-2">Minni</h4>
+                            <p class="text-sm leading-relaxed text-white/95 font-medium">"Drops the deepest life advice at 2:30 AM when everyone should be asleep."</p>
+                        </div>
+                        <p class="text-[11px] font-bold text-white/80 text-right">Tap again to flip back ↺</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. Yuvaraj (Boy) -->
+            <div class="flip-card cursor-pointer" data-gender="boy" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front glass-dark border-sky-500/30 p-5 flex flex-col justify-between shadow-xl">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-sky-500/20 text-sky-300 border-sky-400/30">👦 Boy</span>
+                            <span class="text-[11px] text-slate-400 font-semibold">Tap to flip ↻</span>
+                        </div>
+                        <div class="my-auto text-center">
+                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-orange-500 to-red-600 shadow-lg mb-3 relative">
+                                <img src="profiles/yuvaraj.jpeg" alt="Yuvaraj" onerror="window.handleProfileImgFallback(this, 'Yuvaraj', '🍔')" class="w-full h-full object-cover rounded-full bg-[#120f2d]">
+                                <div class="hidden w-full h-full rounded-full bg-[#120f2d] items-center justify-center text-4xl">🍔</div>
+                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-white/20 flex items-center justify-center text-base shadow">🍔</span>
+                            </div>
+                            <h3 class="font-display text-2xl font-bold text-white">Yuvaraj</h3>
+                            <p class="text-xs font-extrabold uppercase tracking-wider text-amber-300 mt-1">Food critic</p>
+                        </div>
+                        <div class="text-center text-[11px] text-slate-400">😍Best buddies forever🥳</div>
+                    </div>
+                    <div class="flip-card-back bg-gradient-to-br from-orange-500 to-red-600 p-6 flex flex-col justify-between text-white shadow-2xl">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-extrabold uppercase tracking-wider bg-black/25 px-3 py-1 rounded-full">Food critic</span>
+                            <span class="text-2xl">🍔</span>
+                        </div>
+                        <div class="my-auto">
+                            <h4 class="font-display text-2xl font-bold mb-2">Yuvaraj</h4>
+                            <p class="text-sm leading-relaxed text-white/95 font-medium">"Knows every food spot in town and judges every hangout by the menu."</p>
+                        </div>
+                        <p class="text-[11px] font-bold text-white/80 text-right">Tap again to flip back ↺</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: 4-YEAR WHATSAPP TIMELINE -->
+    <section id="timeline" class="py-16 sm:py-24 px-4 bg-[#0b0921] border-y border-purple-500/20">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-14">
+                <span class="inline-block px-3.5 py-1 rounded-full bg-purple-500/15 border border-purple-400/30 text-purple-300 text-xs font-bold uppercase tracking-wider mb-3">
+                    13/11/2022 → 13/11/2026
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-bold text-white mb-3">Our 4-Year Memory Lane 🛤️</h2>
+                <p class="text-slate-300 max-w-xl mx-auto text-sm sm:text-base">
+                    From the very first "Hi guys!" message to celebrating four full years of brotherhood & sisterhood.
+                </p>
+            </div>
+
+            <!-- Timeline Container -->
+            <div id="timeline-list" class="relative space-y-8 before:content-[''] before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-1 before:bg-gradient-to-b before:from-pink-500 before:via-purple-500 before:to-amber-400">
+                <!-- Milestone 1 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0b0921] bg-gradient-to-br from-pink-500 to-purple-600 text-white shadow-lg shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-lg">🎉</div>
+                    <div class="w-[calc(100%-3.5rem)] md:w-[calc(50%-2.5rem)] glass-dark p-6 rounded-3xl shadow-xl hover:border-pink-400/40 transition">
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-pink-300 bg-pink-500/20 border border-pink-400/30 px-3 py-1 rounded-full">13 Nov 2022</span>
+                            <span class="text-xs font-semibold text-slate-400">Admin</span>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-white mb-1.5">Group Created: 😍Best buddies forever🥳</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">The historic day 4 boys & 4 girls came together in one chat. Nobody knew this group would become our daily therapy!</p>
+                    </div>
+                </div>
+
+                <!-- Milestone 2 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0b0921] bg-gradient-to-br from-pink-500 to-purple-600 text-white shadow-lg shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-lg">🌙</div>
+                    <div class="w-[calc(100%-3.5rem)] md:w-[calc(50%-2.5rem)] glass-dark p-6 rounded-3xl shadow-xl hover:border-pink-400/40 transition">
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-pink-300 bg-pink-500/20 border border-pink-400/30 px-3 py-1 rounded-full">Year 1 (2023)</span>
+                            <span class="text-xs font-semibold text-slate-400">The Fab 8</span>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-white mb-1.5">10,000+ Messages & Late Night Calls</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">From exam stress to festival selfies, the notifications never stopped buzzing at 2 AM.</p>
+                    </div>
+                </div>
+
+                <!-- Milestone 3 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0b0921] bg-gradient-to-br from-pink-500 to-purple-600 text-white shadow-lg shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-lg">📸</div>
+                    <div class="w-[calc(100%-3.5rem)] md:w-[calc(50%-2.5rem)] glass-dark p-6 rounded-3xl shadow-xl hover:border-pink-400/40 transition">
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-pink-300 bg-pink-500/20 border border-pink-400/30 px-3 py-1 rounded-full">Year 2 (2024)</span>
+                            <span class="text-xs font-semibold text-slate-400">Squad Goals</span>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-white mb-1.5">Unforgettable Hangouts & Inside Jokes</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">Countless food runs, chaotic group photos, and stickers made from each other's worst candid faces.</p>
+                    </div>
+                </div>
+
+                <!-- Milestone 4 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0b0921] bg-gradient-to-br from-pink-500 to-purple-600 text-white shadow-lg shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-lg">🚀</div>
+                    <div class="w-[calc(100%-3.5rem)] md:w-[calc(50%-2.5rem)] glass-dark p-6 rounded-3xl shadow-xl hover:border-pink-400/40 transition">
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-pink-300 bg-pink-500/20 border border-pink-400/30 px-3 py-1 rounded-full">Year 3 (2025)</span>
+                            <span class="text-xs font-semibold text-slate-400">8 Pillars</span>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-white mb-1.5">Through Thick & Thin</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">Busy schedules couldn't stop us. Every birthday at 12:00 AM sharp was still a full squad celebration.</p>
+                    </div>
+                </div>
+
+                <!-- Milestone 5 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0b0921] bg-gradient-to-br from-pink-500 to-purple-600 text-white shadow-lg shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-lg">👑</div>
+                    <div class="w-[calc(100%-3.5rem)] md:w-[calc(50%-2.5rem)] glass-dark p-6 rounded-3xl shadow-xl hover:border-pink-400/40 transition">
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-pink-300 bg-pink-500/20 border border-pink-400/30 px-3 py-1 rounded-full">13 Nov 2026</span>
+                            <span class="text-xs font-semibold text-slate-400">All 8 Buddies</span>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-white mb-1.5">4 Years Strong & Forever To Go!</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">Celebrating 4 years of 😍Best buddies forever🥳! Same 8 legends, bigger dreams, and lifetime friendship.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2B: STATIC WALL OF FAVOURATES (8 DIRECT HTML <img> TAGS) -->
+    <section id="wall-of-favourates" class="py-16 sm:py-24 px-4 max-w-6xl mx-auto">
+        <div class="text-center mb-10">
+            <span class="inline-block px-3.5 py-1 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-300 text-xs font-bold uppercase tracking-wider mb-3">
+                📌 8 Buddies • 8 Sticky Polaroids
+            </span>
+            <h2 class="text-3xl sm:text-5xl font-bold text-white tracking-tight mb-3">WALL OF FAVOURATES 📸</h2>
+            <p class="text-slate-300 max-w-2xl mx-auto text-sm sm:text-base">
+                Every buddy's favorite group memory stuck forever on our 4th Anniversary Wall!
+            </p>
+        </div>
+
+        <!-- Dark Cork/Neon Pinboard Container with Direct <img> Tags (16:9 Aspect Ratio) -->
+        <div class="fav-pinboard rounded-3xl border-4 border-[#2b2142] p-6 sm:p-11 relative">
+            <div id="fav-wall-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 pt-4 isolate">
+                <!-- Slot 1: Gowri -->
+                <div class="sticky-polaroid" style="transform: rotate(-2.4deg);">
+                    <div class="paper-pin" style="--pin-color: #f43f5e; --pin-dark: #881337;" aria-hidden="true">
+                        <div class="paper-pin-top"></div>
+                        <div class="paper-pin-neck"></div>
+                        <div class="paper-pin-base"></div>
+                        <div class="paper-pin-needle"></div>
+                        <div class="paper-pin-hole"></div>
+                    </div>
+                    <div class="photo-gloss-wrap aspect-video w-full bg-slate-900">
+                        <img src="walloffev/gowrie,sfav.jpeg" alt="Fav of Gowri" onerror="window.handleFavWallImgFallback(this, 'gowrie', 'Gowri')" class="w-full h-full object-cover">
+                    </div>
+                    <div class="mt-3 text-center">
+                        <p class="font-display text-sm sm:text-base font-bold text-slate-800 tracking-wide">
+                            ❤️ Fav of Gowri 🌪️
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Slot 2: Sai -->
+                <div class="sticky-polaroid" style="transform: rotate(2.1deg);">
+                    <div class="paper-pin" style="--pin-color: #0284c7; --pin-dark: #075985;" aria-hidden="true">
+                        <div class="paper-pin-top"></div>
+                        <div class="paper-pin-neck"></div>
+                        <div class="paper-pin-base"></div>
+                        <div class="paper-pin-needle"></div>
+                        <div class="paper-pin-hole"></div>
+                    </div>
+                    <div class="photo-gloss-wrap aspect-video w-full bg-slate-900">
+                        <img src="./walloffev/sai,sfav.jpeg" alt="Fav of Sai" onerror="window.handleFavWallImgFallback(this, 'sai', 'Sai')" class="w-full h-full object-cover">
+                    </div>
+                    <div class="mt-3 text-center">
+                        <p class="font-display text-sm sm:text-base font-bold text-slate-800 tracking-wide">
+                            ❤️ Fav of Sai 🗺️
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Slot 3: Shashi -->
+                <div class="sticky-polaroid" style="transform: rotate(-1.7deg);">
+                    <div class="paper-pin" style="--pin-color: #9333ea; --pin-dark: #581c87;" aria-hidden="true">
+                        <div class="paper-pin-top"></div>
+                        <div class="paper-pin-neck"></div>
+                        <div class="paper-pin-base"></div>
+                        <div class="paper-pin-needle"></div>
+                        <div class="paper-pin-hole"></div>
+                    </div>
+                    <div class="photo-gloss-wrap aspect-video w-full bg-slate-900">
+                        <img src="walloffev/shashi,sfav.jpeg" alt="Fav of Shashi" onerror="window.handleFavWallImgFallback(this, 'shashi', 'Shashi')" class="w-full h-full object-cover">
+                    </div>
+                    <div class="mt-3 text-center">
+                        <p class="font-display text-sm sm:text-base font-bold text-slate-800 tracking-wide">
+                            ❤️ Fav of Shashi 🎙️
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Slot 4: Gopi -->
+                <div class="sticky-polaroid" style="transform: rotate(2.5deg);">
+                    <div class="paper-pin" style="--pin-color: #f59e0b; --pin-dark: #92400e;" aria-hidden="true">
+                        <div class="paper-pin-top"></div>
+                        <div class="paper-pin-neck"></div>
+                        <div class="paper-pin-base"></div>
+                        <div class="paper-pin-needle"></div>
+                        <div class="paper-pin-hole"></div>
+                    </div>
+                    <div class="photo-gloss-wrap aspect-video w-full bg-slate-900">
+                        <img src="./walloffev/gopi,sfev.jpeg" alt="Fav of Gopi" onerror="window.handleFavWallImgFallback(this, 'gopi', 'Gopi')" class="w-full h-full object-cover">
+                    </div>
+                    <div class="mt-3 text-center">
+                        <p class="font-display text-sm sm:text-base font-bold text-slate-800 tracking-wide">
+                            ❤️ Fav of Gopi 😂
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Slot 5: Alisha -->
+                <div class="sticky-polaroid" style="transform: rotate(1.5deg);">
+                    <div class="paper-pin" style="--pin-color: #e11d48; --pin-dark: #881337;" aria-hidden="true">
+                        <div class="paper-pin-top"></div>
+                        <div class="paper-pin-neck"></div>
+                        <div class="paper-pin-base"></div>
+                        <div class="paper-pin-needle"></div>
+                        <div class="paper-pin-hole"></div>
+                    </div>
+                    <div class="photo-gloss-wrap aspect-video w-full bg-slate-900">
+                        <img src="walloffev/alisha,sfav.jpeg" alt="Fav of Alisha" onerror="window.handleFavWallImgFallback(this, 'alisha', 'Alisha')" class="w-full h-full object-cover">
+                    </div>
+                    <div class="mt-3 text-center">
+                        <p class="font-display text-sm sm:text-base font-bold text-slate-800 tracking-wide">
+                            ❤️ Fav of Alisha 🔥
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Slot 6: Mohan -->
+                <div class="sticky-polaroid" style="transform: rotate(-2.3deg);">
+                    <div class="paper-pin" style="--pin-color: #10b981; --pin-dark: #065f46;" aria-hidden="true">
+                        <div class="paper-pin-top"></div>
+                        <div class="paper-pin-neck"></div>
+                        <div class="paper-pin-base"></div>
+                        <div class="paper-pin-needle"></div>
+                        <div class="paper-pin-hole"></div>
+                    </div>
+                    <div class="photo-gloss-wrap aspect-video w-full bg-slate-900">
+                        <img src="./walloffev/mohan,sfev.jpeg" alt="Fav of Mohan" onerror="window.handleFavWallImgFallback(this, 'mohan', 'Mohan')" class="w-full h-full object-cover">
+                    </div>
+                    <div class="mt-3 text-center">
+                        <p class="font-display text-sm sm:text-base font-bold text-slate-800 tracking-wide">
+                            ❤️ Fav of Mohan ⏳
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Slot 7: Minni -->
+                <div class="sticky-polaroid" style="transform: rotate(1.9deg);">
+                    <div class="paper-pin" style="--pin-color: #6366f1; --pin-dark: #312e81;" aria-hidden="true">
+                        <div class="paper-pin-top"></div>
+                        <div class="paper-pin-neck"></div>
+                        <div class="paper-pin-base"></div>
+                        <div class="paper-pin-needle"></div>
+                        <div class="paper-pin-hole"></div>
+                    </div>
+                    <div class="photo-gloss-wrap aspect-video w-full bg-slate-900">
+                        <img src="walloffev/minni,sfav.jpeg" alt="Fav of Minni" onerror="window.handleFavWallImgFallback(this, 'minni', 'Minni')" class="w-full h-full object-cover">
+                    </div>
+                    <div class="mt-3 text-center">
+                        <p class="font-display text-sm sm:text-base font-bold text-slate-800 tracking-wide">
+                            ❤️ Fav of Minni 🌙
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Slot 8: Yuvaraj -->
+                <div class="sticky-polaroid" style="transform: rotate(-1.8deg);">
+                    <div class="paper-pin" style="--pin-color: #ea580c; --pin-dark: #7c2d12;" aria-hidden="true">
+                        <div class="paper-pin-top"></div>
+                        <div class="paper-pin-neck"></div>
+                        <div class="paper-pin-base"></div>
+                        <div class="paper-pin-needle"></div>
+                        <div class="paper-pin-hole"></div>
+                    </div>
+                    <div class="photo-gloss-wrap aspect-video w-full bg-slate-900">
+                        <img src="./walloffev/yuvaraj,sfev.jpeg" alt="Fav of Yuvaraj" onerror="window.handleFavWallImgFallback(this, 'yuvaraj', 'Yuvaraj')" class="w-full h-full object-cover">
+                    </div>
+                    <div class="mt-3 text-center">
+                        <p class="font-display text-sm sm:text-base font-bold text-slate-800 tracking-wide">
+                            ❤️ Fav of Yuvaraj 🍔
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: WHATSAPP CHAT SNAPSHOT & FLOATING ANNIVERSARY WISHES -->
+    <section id="chat-highlights" class="py-16 sm:py-24 px-4 max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+            
+            <!-- Left: Authentic WhatsApp Group Chat Snapshot -->
+            <div>
+                <span class="inline-block px-3.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase tracking-wider mb-3">
+                    💬 Real Group Vibes
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-3">Inside 😍Best buddies forever🥳</h2>
+                <p class="text-slate-300 text-sm sm:text-base mb-6">
+                    From homemade bread omelet flexes to 7:41 AM anniversary wishes — pure legendary group energy!
+                </p>
+
+                <!-- Real WhatsApp Screenshot Card + Swap Button -->
+                <div class="rounded-3xl overflow-hidden shadow-2xl border border-emerald-500/30 bg-[#111b21] mb-6">
+                    <div class="bg-[#202c33] text-white px-4 py-3 flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-pink-500 to-amber-400 flex items-center justify-center text-base shrink-0">🥳</div>
+                            <div class="truncate">
+                                <div class="font-bold text-xs sm:text-sm truncate">😍Best buddies forever🥳</div>
+                                <div class="text-[11px] text-emerald-400 truncate">Gowri, Sai, Shashi, Gopi, Alisha, Mohan, Minni, Yuvaraj</div>
+                            </div>
+                        </div>
+                        <label for="chat-screenshot-input" class="shrink-0 cursor-pointer px-3 py-1.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-bold transition shadow">
+                            📷 Swap Photo
+                        </label>
+                        <input id="chat-screenshot-input" type="file" accept="image/*" class="hidden" onchange="loadCustomChatScreenshot(event)">
+                    </div>
+                    <div class="relative bg-[#0b141a]">
+                        <img id="chat-screenshot-img" src="image_e33259.jpg" alt="Best buddies forever WhatsApp chat screenshot" onerror="this.style.display='none'; document.getElementById('chat-screenshot-fallback').classList.remove('hidden');" class="w-full h-auto max-h-[380px] object-contain mx-auto block">
+                        <div id="chat-screenshot-fallback" class="hidden p-4 text-center text-xs text-emerald-300 bg-[#0b141a]">
+                            ✨ Tap <strong>Swap Photo</strong> above anytime to attach your WhatsApp chat screenshot!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive WhatsApp Dark Chat Recreation -->
+                <div class="rounded-3xl overflow-hidden shadow-2xl border border-emerald-500/25 bg-[#0b141a]">
+                    <div class="bg-[#202c33] text-white px-5 py-3 flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-pink-500 to-amber-400 flex items-center justify-center text-base font-bold">😍</div>
+                        <div class="min-w-0">
+                            <div class="font-bold text-sm truncate">😍Best buddies forever🥳</div>
+                            <div class="text-[11px] text-slate-300 truncate">Gowri, Sai, Shashi, Gopi, Alisha, Mohan, Minni, Yuvaraj</div>
+                        </div>
+                    </div>
+
+                    <div class="p-4 space-y-3 text-sm bg-[#0b141a]">
+                        <div class="text-center">
+                            <span class="bg-[#182229] text-slate-300 text-[11px] font-semibold px-3 py-1 rounded-lg shadow">13 November 2022 • Group Created</span>
+                        </div>
+
+                        <div class="bg-[#202c33] text-slate-100 rounded-2xl rounded-tl-none p-3 max-w-[85%] shadow-sm relative">
+                            <div class="text-[11px] font-bold text-amber-400 mb-0.5">Sai 🗺️</div>
+                            <p>Bread Omlet Made By Me 🍳🤤</p>
+                            <div class="text-[10px] text-slate-400 text-right mt-1">3:04 pm</div>
+                        </div>
+
+                        <div class="bg-[#202c33] text-slate-100 rounded-2xl rounded-tl-none p-3 max-w-[85%] shadow-sm relative">
+                            <div class="text-[11px] font-bold text-pink-400 mb-0.5">Gowri 🌪️</div>
+                            <p>😮 woww 🤤🤤🤤🤤😋😋<br>So tasty 🤤<br>Ne wife chala adhrusta manthuralu sai</p>
+                            <div class="text-[10px] text-slate-400 text-right mt-1">3:05 pm</div>
+                            <span class="inline-block mt-1 bg-[#182229] px-2 py-0.5 rounded-full text-xs">❤️</span>
+                        </div>
+
+                        <div class="text-center">
+                            <span class="bg-[#182229] text-emerald-300 text-[11px] font-semibold px-3 py-1 rounded-lg shadow">Today • 4th Anniversary!</span>
+                        </div>
+
+                        <div class="bg-[#202c33] text-slate-100 rounded-2xl rounded-tl-none p-3 max-w-[88%] shadow-sm">
+                            <div class="text-[11px] font-bold text-sky-400 mb-0.5">Mohan ⏳</div>
+                            <p>On this day BEST BUDDIES group created<br>So happy birthday to best buddies group 😁😁</p>
+                            <div class="text-[10px] text-slate-400 text-right mt-1">7:41 am</div>
+                            <span class="inline-block mt-1 bg-[#182229] px-2 py-0.5 rounded-full text-xs">❤️ 8</span>
+                        </div>
+
+                        <div class="bg-[#005c4b] text-white rounded-2xl rounded-tr-none p-3 max-w-[85%] ml-auto shadow-sm">
+                            <div class="bg-[#025144] border-l-4 border-amber-400 rounded p-1.5 mb-1.5 text-xs">
+                                <div class="font-bold text-amber-300">Shashi 🎙️</div>
+                                <div class="text-slate-200">😮 woww 🤤🤤🤤🤤😋😋 So tasty 🤤</div>
+                            </div>
+                            <p>Nuvvu thinnava 😂</p>
+                            <div class="text-[10px] text-emerald-200 text-right mt-1">8:32 am ✓✓</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Interactive Floating Anniversary Wish Wall -->
+            <div>
+                <span class="inline-block px-3.5 py-1 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-300 text-xs font-bold uppercase tracking-wider mb-3">
+                    🎈 Live Floating Wishes
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-3">Sign the Anniversary Wall ✍️</h2>
+                <p class="text-slate-300 text-sm sm:text-base mb-6">
+                    When any of the 8 buddies writes a wish here, it immediately starts <strong>floating across the website</strong> for everyone to see, emails a card to <strong class="text-pink-300">mk9860490@gmail.com</strong>, and creates a shareable WhatsApp card!
+                </p>
+
+                <!-- Wish Form -->
+                <form id="wish-form" class="bg-gradient-to-br from-[#1d1447] via-[#2b1354] to-[#19163d] text-white rounded-3xl p-6 sm:p-7 shadow-2xl border border-pink-500/30 mb-6">
+                    <h3 class="font-display text-xl font-bold mb-1">🎈 Launch Your Floating Wish</h3>
+                    <p class="text-xs text-slate-300 mb-4">Your wish will float on screen alongside all other buddies' wishes!</p>
+                    <div class="space-y-3">
+                        <input type="text" id="wish-name" placeholder="Your Name (e.g. Gowri / Sai / Shashi)" required class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400">
+                        <textarea id="wish-text" rows="3" placeholder="Write your 4th anniversary wish for the squad..." required class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400"></textarea>
+                        <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-pink-500 to-purple-600 text-white font-extrabold text-sm shadow-lg shadow-pink-500/25 hover:opacity-95 transition cursor-pointer">
+                            🎈 Float Wish on Site, Email & Share Card
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Status Banner & Pinned Wishes List -->
+                <div class="glass-dark rounded-3xl p-5 shadow-xl">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-extrabold uppercase tracking-wider text-pink-300">✨ Squad Floating Wishes Status</span>
+                        <span id="wishes-board-counter" class="text-xs font-bold text-amber-300">0 / 8 Buddies Floated</span>
+                    </div>
+                    <div id="wishes-list" class="space-y-2.5 max-h-[260px] overflow-y-auto pr-1">
+                        <div class="text-center py-6 text-xs text-slate-400 border border-dashed border-purple-500/30 rounded-2xl">
+                            No wishes floating yet! Be the first buddy to submit above and watch your wish float across the screen 🎈
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: INTERACTIVE 4TH ANNIVERSARY CAKE & SUPERLATIVE WHEEL -->
+    <section id="party-zone" class="py-16 sm:py-24 px-4 bg-[#0b0921] border-t border-purple-500/20">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="inline-block px-3.5 py-1 rounded-full bg-pink-500/15 border border-pink-400/30 text-pink-300 text-xs font-bold uppercase tracking-wider mb-3">
+                    Interactive Party Zone
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-bold text-white mb-3">Make a Wish & Spin the Squad Wheel 🎡</h2>
+                <p class="text-slate-300 max-w-xl mx-auto text-sm sm:text-base">
+                    Tap the 4 candles on our 4th Anniversary Cake to blow them out, then spin the wheel for fun group superlatives!
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Virtual 4th Anniversary Cake -->
+                <div class="glass-dark rounded-3xl p-8 text-center shadow-2xl flex flex-col items-center justify-between">
+                    <div>
+                        <span class="px-3 py-1 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-300 text-xs font-bold">4 Candles for 4 Years</span>
+                        <h3 class="font-display text-2xl font-bold text-white mt-3">Virtual Anniversary Cake</h3>
+                        <p id="cake-status-text" class="text-sm text-slate-300 mt-1">Tap the cake below to blow out all 4 candles! 🌬️</p>
+                    </div>
+
+                    <!-- Interactive SVG Cake -->
+                    <div onclick="blowOutCandles()" class="my-8 cursor-pointer select-none group relative" title="Tap to blow out candles!">
+                        <svg class="w-64 h-56 mx-auto drop-shadow-xl group-hover:scale-105 transition-transform" viewBox="0 0 260 220">
+                            <!-- Plate -->
+                            <ellipse cx="130" cy="198" rx="115" ry="14" fill="#312e81"/>
+                            <!-- Bottom Tier -->
+                            <rect x="42" y="135" width="176" height="58" rx="14" fill="#f472b6"/>
+                            <path d="M42 150 Q64 166 86 150 T130 150 T174 150 T218 150 L218 138 Q218 135 204 135 L56 135 Q42 135 42 138 Z" fill="#fbcfe8"/>
+                            <!-- Top Tier -->
+                            <rect x="68" y="88" width="124" height="50" rx="12" fill="#a855f7"/>
+                            <path d="M68 102 Q84 115 100 102 T132 102 T164 102 T192 102 L192 92 Q192 88 180 88 L80 88 Q68 88 68 92 Z" fill="#f3e8ff"/>
+                            <!-- Text on Cake -->
+                            <text x="130" y="177" text-anchor="middle" fill="#ffffff" font-family="Fredoka, sans-serif" font-weight="bold" font-size="14">4 YEARS OF BBF 🥳</text>
+                            <!-- 4 Candles -->
+                            <g transform="translate(86, 52)">
+                                <rect x="0" y="14" width="8" height="24" rx="3" fill="#38bdf8"/>
+                                <path class="flame" d="M4 0 C8 6 8 11 4 13 C0 11 0 6 4 0 Z" fill="#fbbf24"/>
+                            </g>
+                            <g transform="translate(113, 52)">
+                                <rect x="0" y="14" width="8" height="24" rx="3" fill="#fb7185"/>
+                                <path class="flame" d="M4 0 C8 6 8 11 4 13 C0 11 0 6 4 0 Z" fill="#fbbf24"/>
+                            </g>
+                            <g transform="translate(140, 52)">
+                                <rect x="0" y="14" width="8" height="24" rx="3" fill="#34d399"/>
+                                <path class="flame" d="M4 0 C8 6 8 11 4 13 C0 11 0 6 4 0 Z" fill="#fbbf24"/>
+                            </g>
+                            <g transform="translate(167, 52)">
+                                <rect x="0" y="14" width="8" height="24" rx="3" fill="#fbbf24"/>
+                                <path class="flame" d="M4 0 C8 6 8 11 4 13 C0 11 0 6 4 0 Z" fill="#f97316"/>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <button id="relight-btn" onclick="relightCandles()" class="px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-slate-200 border border-white/15 font-bold text-xs transition cursor-pointer">
+                        🔥 Relight Candles
+                    </button>
+                </div>
+
+                <!-- Squad Superlative Spinner -->
+                <div class="glass-dark rounded-3xl p-8 text-center shadow-2xl flex flex-col items-center justify-between">
+                    <div>
+                        <span class="px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-bold">Squad Superlative Picker</span>
+                        <h3 class="font-display text-2xl font-bold text-white mt-3">Who in the Group Is... 🤔</h3>
+                        <p class="text-sm text-slate-300 mt-1">Spin to randomly match a hilarious group prompt with one of our 8 buddies!</p>
+                    </div>
+
+                    <div class="my-6 w-full bg-gradient-to-br from-[#1f134d] to-[#2e1065] border border-purple-400/30 text-white rounded-2xl p-6 shadow-xl">
+                        <div id="superlative-prompt" class="text-base sm:text-lg font-bold text-amber-300 min-h-[3.5rem] flex items-center justify-center">
+                            "Most likely to say 'I'm 5 mins away' while still in bed"
+                        </div>
+                        <div class="my-4 border-t border-white/15"></div>
+                        <div class="text-xs uppercase tracking-widest text-indigo-300 mb-1">Chosen Buddy:</div>
+                        <div class="flex items-center justify-center gap-2">
+                            <span id="wheel-winner" class="font-display text-2xl sm:text-3xl font-bold bg-gradient-to-r from-pink-400 to-amber-300 bg-clip-text text-transparent">
+                                Tap Spin Below!
+                            </span>
+                            <span id="wheel-winner-emoji" class="text-2xl sm:text-3xl">🎲</span>
+                        </div>
+                    </div>
+
+                    <div class="w-full space-y-2.5">
+                        <button id="spin-wheel-btn" onclick="spinSuperlative()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-extrabold text-sm shadow-lg shadow-purple-500/30 hover:opacity-95 active:scale-95 transition cursor-pointer">
+                            🎰 Spin Squad Superlative!
+                        </button>
+                        <button id="share-superlative-btn" onclick="shareLastSuperlative()" class="hidden w-full py-2.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-400/30 font-bold text-xs transition cursor-pointer">
+                            📤 Send Winner Card to Email & WhatsApp Group
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#05040d] text-slate-400 py-12 px-4 text-center border-t border-purple-500/20">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-3xl mb-3">😍🥳</div>
+            <h3 class="font-display text-2xl font-bold text-white mb-2">Best buddies forever</h3>
+            <p class="text-sm text-slate-400 mb-4">
+                Created on <strong>13/11/2022</strong> • Celebrating <strong>4 Years</strong> of 4 Girls & 4 Boys sticking together forever.
+            </p>
+            <p class="text-xs text-slate-500">Made with ❤️ for our favorite WhatsApp squad • Auto-cards sent to mk9860490@gmail.com</p>
+        </div>
+    </footer>
+
+    <!-- SHAREABLE WHATSAPP & EMAIL CARD MODAL -->
+    <div id="share-card-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 backdrop-blur-md p-4 overflow-y-auto">
+        <div class="bg-[#120f2e] border border-purple-500/35 rounded-3xl max-w-md w-full p-5 sm:p-6 shadow-2xl relative my-auto">
+            <button onclick="closeShareModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-slate-200 font-bold flex items-center justify-center transition cursor-pointer" aria-label="Close modal">
+                ✕
+            </button>
+
+            <div class="text-center mb-4">
+                <span id="email-delivery-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold">
+                    ✉️ Sending card to mk9860490@gmail.com...
+                </span>
+                <h3 class="font-display text-xl font-bold text-white mt-2">Shareable Group Card Ready! 🥳</h3>
+            </div>
+
+            <!-- Visual Group Card Preview -->
+            <div id="shareable-card-visual" class="rounded-2xl p-6 text-white bg-gradient-to-br from-indigo-950 via-purple-900 to-pink-900 shadow-xl relative overflow-hidden mb-5 border border-pink-400/30">
+                <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-amber-300 mb-3">
+                    <span>😍Best buddies forever🥳</span>
+                    <span>4th Anniversary</span>
+                </div>
+                <div class="inline-block px-3 py-1 rounded-full bg-white/15 text-xs font-bold text-pink-200 mb-3" id="card-badge-type">
+                    🎈 Floating Anniversary Wish
+                </div>
+                <h4 id="card-headline" class="font-display text-2xl font-bold leading-snug mb-2">
+                    Anniversary Wish
+                </h4>
+                <p id="card-body-text" class="text-sm text-white/95 leading-relaxed bg-black/25 rounded-xl p-3.5 border border-white/10 mb-4">
+                    Message content goes here.
+                </p>
+                <div class="flex items-center justify-between text-xs text-indigo-200 pt-2 border-t border-white/15">
+                    <span id="card-author-tag" class="font-bold text-white">— Buddy</span>
+                    <span>13/11/2022 – 13/11/2026</span>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="space-y-2.5">
+                <button onclick="shareCardToWhatsApp()" class="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-sm shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 transition cursor-pointer">
+                    <span>📲 Share Card in WhatsApp Group</span>
+                </button>
+                <div class="grid grid-cols-2 gap-2.5">
+                    <button onclick="downloadCardAsImage()" class="py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/15 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer">
+                        <span>🖼️ Download Card (.PNG)</span>
+                    </button>
+                    <a id="mailto-fallback-btn" href="mailto:mk9860490@gmail.com" class="py-2.5 px-3 rounded-xl bg-pink-500/20 hover:bg-pink-500/30 text-pink-200 border border-pink-400/30 font-bold text-xs flex items-center justify-center gap-1.5 transition">
+                        <span>📧 Email App Backup</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Canvas for Generating Downloadable/Shareable PNG Card -->
+    <canvas id="card-export-canvas" width="900" height="540" class="hidden"></canvas>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 z-[120] transform translate-y-24 opacity-0 transition-all duration-300 bg-[#18133a] border border-pink-400/40 text-white px-5 py-3.5 rounded-2xl shadow-2xl text-sm font-semibold flex items-center gap-2.5 max-w-sm">
+        <span id="toast-icon">🎉</span>
+        <span id="toast-msg">Notification</span>
+    </div>
+
+    <script>
+        // ==========================================
+        // 1. BUILT-IN SELF-CONTAINED CONFETTI ENGINE
+        // ==========================================
+        const confettiCanvas = document.getElementById('confetti-overlay-canvas');
+        const confettiCtx = confettiCanvas ? confettiCanvas.getContext('2d') : null;
+        let confettiParticles = [];
+        let confettiAnimId = null;
+
+        function resizeConfettiCanvas() {
+            if (!confettiCanvas) return;
+            confettiCanvas.width = window.innerWidth;
+            confettiCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeConfettiCanvas);
+        resizeConfettiCanvas();
+
+        function triggerConfettiBurst(originXRatio = 0.5, originYRatio = 0.55) {
+            if (!confettiCanvas || !confettiCtx) return;
+            const colors = ['#ec4899', '#a855f7', '#fbbf24', '#38bdf8', '#34d399', '#fb7185'];
+            const startX = confettiCanvas.width * originXRatio;
+            const startY = confettiCanvas.height * originYRatio;
+
+            for (let i = 0; i < 85; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = 4 + Math.random() * 11;
+                confettiParticles.push({
+                    x: startX,
+                    y: startY,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed - 4,
+                    size: 6 + Math.random() * 6,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    rotation: Math.random() * 360,
+                    vRot: (Math.random() - 0.5) * 14,
+                    alpha: 1
+                });
+            }
+            if (!confettiAnimId) {
+                animateConfettiLoop();
+            }
+        }
+
+        function animateConfettiLoop() {
+            if (!confettiCanvas || !confettiCtx) return;
+            confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
+            for (let i = confettiParticles.length - 1; i >= 0; i--) {
+                const p = confettiParticles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.32;
+                p.vx *= 0.985;
+                p.rotation += p.vRot;
+                p.alpha -= 0.014;
+
+                if (p.alpha <= 0 || p.y > confettiCanvas.height + 30) {
+                    confettiParticles.splice(i, 1);
+                    continue;
+                }
+
+                confettiCtx.save();
+                confettiCtx.globalAlpha = Math.max(0, p.alpha);
+                confettiCtx.translate(p.x, p.y);
+                confettiCtx.rotate((p.rotation * Math.PI) / 180);
+                confettiCtx.fillStyle = p.color;
+                confettiCtx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.65);
+                confettiCtx.restore();
+            }
+
+            if (confettiParticles.length > 0) {
+                confettiAnimId = requestAnimationFrame(animateConfettiLoop);
+            } else {
+                confettiAnimId = null;
+            }
+        }
+
+        function showToast(msg, icon = '🎉') {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            const toastIcon = document.getElementById('toast-icon');
+            if (!toast || !toastMsg || !toastIcon) return;
+            toastMsg.textContent = msg;
+            toastIcon.textContent = icon;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3400);
+        }
+
+        // ==========================================
+        // 2. THE FAB 8 FILTERING & ROSTER DATA
+        // ==========================================
+        const fab8Roster = [
+            { name: 'Gowri', gender: 'girl', title: 'The chaos cordinator', emoji: '🌪️' },
+            { name: 'Sai', gender: 'boy', title: 'Trip planner', emoji: '🗺️' },
+            { name: 'Shashi', gender: 'girl', title: 'Voice note podcaster', emoji: '🎙️' },
+            { name: 'Gopi', gender: 'boy', title: 'Meme dealer', emoji: '😂' },
+            { name: 'Alisha', gender: 'girl', title: 'Hype machine', emoji: '🔥' },
+            { name: 'Mohan', gender: 'boy', title: 'Late replier', emoji: '⏳' },
+            { name: 'Minni', gender: 'girl', title: 'Midnight philosopher', emoji: '🌙' },
+            { name: 'Yuvaraj', gender: 'boy', title: 'Food critic', emoji: '🍔' }
+        ];
+
+        function filterSquad(filter) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                const isSelected = btn.dataset.filter === filter;
+                btn.className = isSelected
+                    ? 'filter-btn active px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-md transition cursor-pointer'
+                    : 'filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-[#141033] text-slate-300 border border-purple-500/30 hover:bg-purple-500/20 transition cursor-pointer';
+            });
+
+            document.querySelectorAll('#squad-grid .flip-card').forEach(card => {
+                const cardGender = card.getAttribute('data-gender');
+                if (filter === 'all' || cardGender === filter) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        // ==========================================
+        // 3. CUSTOM WHATSAPP CHAT SCREENSHOT SWAPPER
+        // ==========================================
+        function loadCustomChatScreenshot(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.getElementById('chat-screenshot-img');
+                const fallback = document.getElementById('chat-screenshot-fallback');
+                if (img) {
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                }
+                if (fallback) fallback.classList.add('hidden');
+                showToast('WhatsApp screenshot updated! 📸', '💬');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // ==========================================
+        // 4. FLOATING ANNIVERSARY WISHES SYSTEM
+        // ==========================================
+        let wishesData = [];
+        try {
+            const saved = JSON.parse(localStorage.getItem('bbf_floating_wishes_v4'));
+            if (Array.isArray(saved)) wishesData = saved;
+        } catch (e) {
+            wishesData = [];
+        }
+        let floatingVisible = true;
+
+        const floatingColors = [
+            'from-pink-600/90 to-rose-700/90 border-pink-300/40',
+            'from-purple-600/90 to-indigo-700/90 border-purple-300/40',
+            'from-sky-600/90 to-blue-700/90 border-sky-300/40',
+            'from-amber-500/90 to-orange-600/90 border-amber-200/50',
+            'from-emerald-600/90 to-teal-700/90 border-emerald-300/40'
+        ];
+
+        const floatingPositions = [
+            { top: '14%', left: '3%' },
+            { top: '20%', right: '3%' },
+            { top: '38%', left: '2%' },
+            { top: '44%', right: '2%' },
+            { top: '62%', left: '3%' },
+            { top: '68%', right: '3%' },
+            { top: '80%', left: '5%' },
+            { top: '82%', right: '5%' }
+        ];
+
+        function escapeHTML(str) {
+            return String(str || '').replace(/[&<>"']/g, m => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[m]));
+        }
+
+        function renderFloatingWishes() {
+            const layer = document.getElementById('floating-wishes-layer');
+            const list = document.getElementById('wishes-list');
+            const countLabel = document.getElementById('floating-wish-count-label');
+            const boardCounter = document.getElementById('wishes-board-counter');
+
+            if (countLabel) {
+                countLabel.textContent = floatingVisible
+                    ? `Floating Wishes (${wishesData.length})`
+                    : `Show Wishes (${wishesData.length})`;
+            }
+            if (boardCounter) {
+                boardCounter.textContent = `${wishesData.length} / 8 Buddies Floated`;
+            }
+
+            if (layer) {
+                layer.innerHTML = '';
+                if (floatingVisible && wishesData.length > 0) {
+                    wishesData.forEach((wish, idx) => {
+                        const pos = floatingPositions[idx % floatingPositions.length];
+                        const colorClass = floatingColors[idx % floatingColors.length];
+                        const bubble = document.createElement('div');
+                        bubble.className = `floating-wish-bubble fixed max-w-[230px] sm:max-w-[260px] p-3.5 rounded-2xl bg-gradient-to-br ${colorClass} border backdrop-blur-md text-white shadow-2xl cursor-pointer`;
+                        if (pos.top) bubble.style.top = pos.top;
+                        if (pos.left) bubble.style.left = pos.left;
+                        if (pos.right) bubble.style.right = pos.right;
+                        bubble.style.setProperty('--drift-dur', `${6.5 + (idx % 4) * 1.1}s`);
+                        bubble.style.setProperty('--drift-delay', `${idx * 0.45}s`);
+                        bubble.title = 'Tap to celebrate this wish!';
+                        bubble.onclick = () => {
+                            triggerConfettiBurst(0.5, 0.45);
+                            showToast(`Celebrating ${wish.author}'s wish! 🥳`, '🎈');
+                        };
+                        bubble.innerHTML = `
+                            <div class="flex items-center justify-between gap-2 mb-1">
+                                <span class="text-[11px] font-extrabold text-amber-200 truncate">🎈 ${escapeHTML(wish.author)}</span>
+                                <span class="text-[10px] text-white/75 shrink-0">${escapeHTML(wish.date || 'Today')}</span>
+                            </div>
+                            <p class="text-xs leading-snug text-white/95 line-clamp-3">"${escapeHTML(wish.text)}"</p>
+                        `;
+                        layer.appendChild(bubble);
+                    });
+                }
+            }
+
+            if (list) {
+                if (wishesData.length === 0) {
+                    list.innerHTML = `
+                        <div class="text-center py-6 text-xs text-slate-400 border border-dashed border-purple-500/30 rounded-2xl">
+                            No wishes floating yet! Be the first buddy to submit above and watch your wish float across the screen 🎈
+                        </div>
+                    `;
+                } else {
+                    list.innerHTML = wishesData.map(w => `
+                        <div class="p-3.5 rounded-2xl bg-white/5 border border-pink-400/25 flex items-start justify-between gap-3">
+                            <div>
+                                <div class="text-xs font-extrabold text-pink-300 mb-0.5">🎈 ${escapeHTML(w.author)}</div>
+                                <p class="text-xs text-slate-200 leading-relaxed">"${escapeHTML(w.text)}"</p>
+                            </div>
+                            <span class="text-[10px] text-slate-400 shrink-0">${escapeHTML(w.date || 'Today')}</span>
+                        </div>
+                    `).join('');
+                }
+            }
+        }
+
+        function toggleFloatingWishes() {
+            floatingVisible = !floatingVisible;
+            renderFloatingWishes();
+            showToast(floatingVisible ? 'Floating wishes visible 🎈' : 'Floating wishes hidden', '✨');
+        }
+
+        const wishForm = document.getElementById('wish-form');
+        if (wishForm) {
+            wishForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const nameInput = document.getElementById('wish-name');
+                const textInput = document.getElementById('wish-text');
+                const author = nameInput.value.trim();
+                const text = textInput.value.trim();
+                if (!author || !text) return;
+
+                const newWish = {
+                    author,
+                    text,
+                    date: '13/11/2026'
+                };
+                wishesData.unshift(newWish);
+                try {
+                    localStorage.setItem('bbf_floating_wishes_v4', JSON.stringify(wishesData));
+                } catch (err) {}
+
+                floatingVisible = true;
+                renderFloatingWishes();
+                triggerConfettiBurst(0.5, 0.45);
+                nameInput.value = '';
+                textInput.value = '';
+
+                sendCardAndOpenShareModal({
+                    type: '🎈 Floating Anniversary Wish',
+                    headline: `4th Anniversary Wish from ${author}`,
+                    body: text,
+                    author: author
+                });
+            });
+        }
+
+        // ==========================================
+        // 5. VIRTUAL 4TH ANNIVERSARY CAKE
+        // ==========================================
+        let candlesLit = true;
+
+        function blowOutCandles() {
+            if (!candlesLit) {
+                showToast('Candles already blown out! Tap Relight Candles 🔥', '🎂');
+                return;
+            }
+            candlesLit = false;
+            document.querySelectorAll('.flame').forEach(f => f.classList.add('blown-out'));
+            const statusText = document.getElementById('cake-status-text');
+            if (statusText) {
+                statusText.innerHTML = '🎉 <strong>Happy 4th Anniversary 😍Best buddies forever🥳!</strong> May all our wishes come true!';
+            }
+            triggerConfettiBurst(0.35, 0.55);
+            setTimeout(() => triggerConfettiBurst(0.65, 0.55), 250);
+            showToast('Happy 4th Anniversary Best Buddies! 🎂🥳', '🎂');
+        }
+
+        function relightCandles() {
+            candlesLit = true;
+            document.querySelectorAll('.flame').forEach(f => f.classList.remove('blown-out'));
+            const statusText = document.getElementById('cake-status-text');
+            if (statusText) {
+                statusText.textContent = 'Tap the cake below to blow out all 4 candles! 🌬️';
+            }
+            showToast('Candles relit! Make another wish 🔥', '✨');
+        }
+
+        // ==========================================
+        // 6. SQUAD SUPERLATIVE PICKER
+        // ==========================================
+        const superlativePrompts = [
+            "Most likely to say 'I'm 5 mins away' while still in bed",
+            "Most likely to start a 3-hour group debate at 2:00 AM",
+            "Most likely to plan a Goa trip that never leaves the WhatsApp chat",
+            "Most likely to send 47 stickers in a row without typing a single word",
+            "Most likely to take 100 photos and still say 'I have nothing to post'",
+            "Most likely to wake up at 12:00 AM sharp for everyone's birthday",
+            "Most likely to reply 'Haha' to a serious paragraph",
+            "Most likely to keep 😍Best buddies forever🥳 alive at age 80!"
+        ];
+
+        let lastSuperlativeResult = null;
+        let isSpinning = false;
+
+        function spinSuperlative() {
+            if (isSpinning) return;
+            isSpinning = true;
+            const winnerEl = document.getElementById('wheel-winner');
+            const emojiEl = document.getElementById('wheel-winner-emoji');
+            const promptEl = document.getElementById('superlative-prompt');
+            const shareBtn = document.getElementById('share-superlative-btn');
+
+            const chosenPrompt = superlativePrompts[Math.floor(Math.random() * superlativePrompts.length)];
+            if (promptEl) promptEl.textContent = `"${chosenPrompt}"`;
+
+            let ticks = 0;
+            const interval = setInterval(() => {
+                const randBuddy = fab8Roster[ticks % fab8Roster.length];
+                if (winnerEl) winnerEl.textContent = randBuddy.name;
+                if (emojiEl) emojiEl.textContent = randBuddy.emoji;
+                ticks++;
+                if (ticks > 16) {
+                    clearInterval(interval);
+                    const finalWinner = fab8Roster[Math.floor(Math.random() * fab8Roster.length)];
+                    if (winnerEl) winnerEl.textContent = finalWinner.name;
+                    if (emojiEl) emojiEl.textContent = finalWinner.emoji;
+                    lastSuperlativeResult = {
+                        prompt: chosenPrompt,
+                        winner: `${finalWinner.name} ${finalWinner.emoji}`
+                    };
+                    if (shareBtn) shareBtn.classList.remove('hidden');
+                    isSpinning = false;
+                    triggerConfettiBurst(0.68, 0.55);
+                }
+            }, 75);
+        }
+
+        function shareLastSuperlative() {
+            if (!lastSuperlativeResult) return;
+            sendCardAndOpenShareModal({
+                type: '🎰 Squad Superlative Winner',
+                headline: `${lastSuperlativeResult.winner} Won!`,
+                body: `Prompt: "${lastSuperlativeResult.prompt}"`,
+                author: 'Squad Wheel'
+            });
+        }
+
+        // ==========================================
+        // 7. AUTO-EMAIL TO mk9860490@gmail.com & SHAREABLE CARD MODAL
+        // ==========================================
+        let currentCardPayload = null;
+
+        function sendCardAndOpenShareModal(payload) {
+            currentCardPayload = payload;
+            const modal = document.getElementById('share-card-modal');
+            const badgeEl = document.getElementById('email-delivery-badge');
+            const cardTypeEl = document.getElementById('card-badge-type');
+            const cardHeadlineEl = document.getElementById('card-headline');
+            const cardBodyEl = document.getElementById('card-body-text');
+            const cardAuthorEl = document.getElementById('card-author-tag');
+            const mailtoBtn = document.getElementById('mailto-fallback-btn');
+
+            if (cardTypeEl) cardTypeEl.textContent = payload.type;
+            if (cardHeadlineEl) cardHeadlineEl.textContent = payload.headline;
+            if (cardBodyEl) cardBodyEl.textContent = payload.body;
+            if (cardAuthorEl) cardAuthorEl.textContent = `— ${payload.author}`;
+
+            const emailSubject = encodeURIComponent(`😍Best buddies forever🥳 | ${payload.type} from ${payload.author}`);
+            const emailBody = encodeURIComponent(
+                `😍Best buddies forever🥳 (4th Anniversary: 13/11/2022 - 13/11/2026)\n\n` +
+                `Card Type: ${payload.type}\n` +
+                `Title: ${payload.headline}\n` +
+                `Message: ${payload.body}\n` +
+                `Submitted By: ${payload.author}`
+            );
+            if (mailtoBtn) {
+                mailtoBtn.href = `mailto:mk9860490@gmail.com?subject=${emailSubject}&body=${emailBody}`;
+            }
+
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+
+            if (badgeEl) {
+                badgeEl.textContent = '✉️ Sending card to mk9860490@gmail.com...';
+            }
+
+            // Send formatted response card automatically via FormSubmit AJAX
+            fetch('https://formsubmit.co/ajax/mk9860490@gmail.com', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    _subject: `😍Best buddies forever🥳 - ${payload.type}`,
+                    _template: 'box',
+                    Group: '😍Best buddies forever🥳 (Est. 13/11/2022)',
+                    Card_Type: payload.type,
+                    Headline: payload.headline,
+                    Message: payload.body,
+                    From_Buddy: payload.author
+                })
+            })
+            .then(res => res.json())
+            .then(() => {
+                if (badgeEl) badgeEl.textContent = '✅ Sent to mk9860490@gmail.com!';
+            })
+            .catch(() => {
+                if (badgeEl) badgeEl.textContent = '✉️ Card Ready (Use Email Backup if offline)';
+            });
+        }
+
+        function closeShareModal() {
+            const modal = document.getElementById('share-card-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
+        function renderCardToCanvas() {
+            const canvas = document.getElementById('card-export-canvas');
+            if (!canvas || !currentCardPayload) return null;
+            const ctx = canvas.getContext('2d');
+
+            const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            grad.addColorStop(0, '#1e1b4b');
+            grad.addColorStop(0.5, '#581c87');
+            grad.addColorStop(1, '#831843');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.strokeStyle = 'rgba(244, 114, 182, 0.55)';
+            ctx.lineWidth = 6;
+            ctx.strokeRect(24, 24, canvas.width - 48, canvas.height - 48);
+
+            ctx.fillStyle = '#fde047';
+            ctx.font = 'bold 26px sans-serif';
+            ctx.fillText('😍 Best buddies forever 🥳  •  4TH ANNIVERSARY', 54, 78);
+
+            ctx.fillStyle = '#f9a8d4';
+            ctx.font = 'bold 22px sans-serif';
+            ctx.fillText(currentCardPayload.type, 54, 128);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 38px sans-serif';
+            ctx.fillText(currentCardPayload.headline.slice(0, 44), 54, 188);
+
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.30)';
+            ctx.fillRect(54, 218, canvas.width - 108, 210);
+
+            ctx.fillStyle = '#f8fafc';
+            ctx.font = '26px sans-serif';
+            const words = currentCardPayload.body.split(' ');
+            let line = '';
+            let y = 266;
+            for (let i = 0; i < words.length; i++) {
+                const testLine = line + words[i] + ' ';
+                if (ctx.measureText(testLine).width > canvas.width - 150 && i > 0) {
+                    ctx.fillText(line, 76, y);
+                    line = words[i] + ' ';
+                    y += 38;
+                    if (y > 400) break;
+                } else {
+                    line = testLine;
+                }
+            }
+            ctx.fillText(line, 76, y);
+
+            ctx.fillStyle = '#e2e8f0';
+            ctx.font = 'bold 22px sans-serif';
+            ctx.fillText(`— ${currentCardPayload.author}`, 54, 482);
+            ctx.fillText('13/11/2022 – 13/11/2026 • Fab 8 Squad', canvas.width - 430, 482);
+
+            return canvas;
+        }
+
+        function downloadCardAsImage() {
+            const canvas = renderCardToCanvas();
+            if (!canvas) return;
+            const link = document.createElement('a');
+            link.download = 'Best-Buddies-Forever-4th-Anniversary-Card.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            showToast('Card image downloaded! 🖼️', '✅');
+        }
+
+        function shareCardToWhatsApp() {
+            if (!currentCardPayload) return;
+            const shareText =
+                `*😍Best buddies forever🥳 — 4th Anniversary Card!*\n` +
+                `📅 _13/11/2022 – 13/11/2026 (Fab 8 Squad)_\n\n` +
+                `*${currentCardPayload.type}*\n` +
+                `*${currentCardPayload.headline}*\n` +
+                `"${currentCardPayload.body}"\n` +
+                `— *${currentCardPayload.author}*`;
+
+            const canvas = renderCardToCanvas();
+            if (canvas && navigator.canShare && navigator.share) {
+                canvas.toBlob(async (blob) => {
+                    try {
+                        const file = new File([blob], 'Best-Buddies-4th-Anniversary.png', { type: 'image/png' });
+                        if (navigator.canShare({ files: [file] })) {
+                            await navigator.share({
+                                title: '😍Best buddies forever🥳',
+                                text: shareText,
+                                files: [file]
+                            });
+                            return;
+                        }
+                    } catch (err) {}
+                    window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
+                }, 'image/png');
+            } else {
+                window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
+            }
+        }
+
+        // Initialize Floating Wishes immediately on page load
+        renderFloatingWishes();
+    </script>
+</body>
+</html>
