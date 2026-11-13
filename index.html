@@ -843,7 +843,7 @@
             <span class="inline-block px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-400/20 to-pink-500/20 border border-amber-400/40 text-amber-300 text-xs font-bold uppercase tracking-wider mb-3 shadow-md shadow-amber-500/15">
                 📌 8 Buddies • 8 Sticky Polaroids
             </span>
-            <h2 class="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-amber-200 via-pink-300 to-cyan-200 bg-clip-text text-transparent tracking-tight mb-3">WALL OF FAVORITES 📸</h2>
+            <h2 class="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-amber-200 via-pink-300 to-cyan-200 bg-clip-text text-transparent tracking-tight mb-3">WALL OF FAVOURATES 📸</h2>
             <p class="text-slate-300 max-w-2xl mx-auto text-sm sm:text-base">
                 Every buddy's favorite group memory stuck forever on our 4th Anniversary Wall!
             </p>
@@ -938,7 +938,7 @@
                         <div class="paper-pin-hole"></div>
                     </div>
                     <div class="photo-gloss-wrap aspect-video w-full bg-slate-900">
-                        <img src="./walloffev/alisha.sfev.jpeg" alt="Fav of Alisha" onerror="window.handleFavWallImgFallback(this, 'alisha', 'Alisha')" class="w-full h-full object-cover">
+                        <img src="walloffev/alisha,sfav.jpeg" alt="Fav of Alisha" onerror="window.handleFavWallImgFallback(this, 'alisha', 'Alisha')" class="w-full h-full object-cover">
                     </div>
                     <div class="mt-3 text-center">
                         <p class="font-display text-sm sm:text-base font-bold text-slate-800 tracking-wide">
@@ -1098,21 +1098,21 @@
             <!-- Right: Interactive Floating Anniversary Wish Wall -->
             <div>
                 <span class="inline-block px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-400/20 to-fuchsia-500/20 border border-amber-400/40 text-amber-300 text-xs font-bold uppercase tracking-wider mb-3">
-                    🎈 Live Floating Wishes
+                    🎈 Live Shared Floating Wishes
                 </span>
                 <h2 class="text-3xl sm:text-4xl font-bold text-white mb-3">Sign the Anniversary Wall ✍️</h2>
                 <p class="text-slate-300 text-sm sm:text-base mb-6">
-                    When any of the 8 buddies writes a wish here, it immediately starts <strong>floating across the website</strong> for everyone to see, emails a card to <strong class="text-pink-300">mk9860490@gmail.com</strong>, and creates a shareable WhatsApp card!
+                    When any of the 8 buddies writes a wish here, it saves permanently in our <strong>shared squad cloud</strong>, stays floating across the website even after refreshing or opening on another phone, emails a card to <strong class="text-pink-300">mk9860490@gmail.com</strong>, and creates a shareable WhatsApp card!
                 </p>
 
                 <!-- Wish Form -->
                 <form id="wish-form" class="bg-gradient-to-br from-[#231259] via-[#38126e] to-[#132152] animate-gradient-xy text-white rounded-3xl p-6 sm:p-7 shadow-2xl shadow-fuchsia-500/20 border border-fuchsia-400/40 mb-6">
                     <h3 class="font-display text-xl font-bold mb-1">🎈 Launch Your Floating Wish</h3>
-                    <p class="text-xs text-slate-200 mb-4">Your wish will float on screen alongside all other buddies' wishes!</p>
+                    <p class="text-xs text-slate-200 mb-4">Your wish is saved & synced live so all 8 buddies see it across refreshes and devices!</p>
                     <div class="space-y-3">
                         <input type="text" id="wish-name" placeholder="Your Name (e.g. Gowri / Sai / Shashi)" required class="w-full px-4 py-3 rounded-xl bg-white/10 border border-fuchsia-300/30 text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400">
                         <textarea id="wish-text" rows="3" placeholder="Write your 4th anniversary wish for the squad..." required class="w-full px-4 py-3 rounded-xl bg-white/10 border border-fuchsia-300/30 text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400"></textarea>
-                        <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-pink-500 to-cyan-500 animate-gradient-xy text-white font-extrabold text-sm shadow-lg shadow-pink-500/35 hover:scale-[1.02] active:scale-95 transition cursor-pointer">
+                        <button type="submit" id="wish-submit-btn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-pink-500 to-cyan-500 animate-gradient-xy text-white font-extrabold text-sm shadow-lg shadow-pink-500/35 hover:scale-[1.02] active:scale-95 transition cursor-pointer">
                             🎈 Float Wish on Site, Email & Share Card
                         </button>
                     </div>
@@ -1120,8 +1120,11 @@
 
                 <!-- Status Banner & Pinned Wishes List -->
                 <div class="glass-dark rounded-3xl p-5 shadow-xl">
-                    <div class="flex items-center justify-between mb-3">
-                        <span class="text-xs font-extrabold uppercase tracking-wider text-pink-300">✨ Squad Floating Wishes Status</span>
+                    <div class="flex items-center justify-between gap-2 mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-pink-300">✨ Squad Floating Wishes</span>
+                            <span id="cloud-sync-badge" class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 font-bold">🔄 Syncing...</span>
+                        </div>
                         <span id="wishes-board-counter" class="text-xs font-bold text-cyan-300">0 / 8 Buddies Floated</span>
                     </div>
                     <div id="wishes-list" class="space-y-2.5 max-h-[260px] overflow-y-auto pr-1">
@@ -1458,16 +1461,124 @@
         }
 
         // ==========================================
-        // 4. FLOATING ANNIVERSARY WISHES SYSTEM
+        // 4. SHARED CLOUD + PERSISTENT FLOATING WISHES SYSTEM
+        //    (Persists across page refreshes AND syncs across all 8 buddies!)
         // ==========================================
-        let wishesData = [];
-        try {
-            const saved = JSON.parse(localStorage.getItem('bbf_floating_wishes_v4'));
-            if (Array.isArray(saved)) wishesData = saved;
-        } catch (e) {
-            wishesData = [];
+        const LOCAL_WISHES_KEY = 'bbf_floating_wishes_v4';
+        const LOCAL_VISIBILITY_KEY = 'bbf_floating_visible_v4';
+        // Shared JSON cloud bucket for 😍Best buddies forever🥳 so every buddy sees all wishes
+        const SHARED_WISH_CLOUD_URL = 'https://jsonblob.com/api/jsonBlob/019a7d5c-8f42-7c91-b310-bbf4thanniv26';
+
+        function readLocalWishes() {
+            try {
+                const raw = localStorage.getItem(LOCAL_WISHES_KEY);
+                const parsed = JSON.parse(raw);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (e) {
+                return [];
+            }
         }
-        let floatingVisible = true;
+
+        function writeLocalWishes(list) {
+            try {
+                localStorage.setItem(LOCAL_WISHES_KEY, JSON.stringify(list));
+            } catch (e) {}
+        }
+
+        function readFloatingVisibility() {
+            try {
+                const val = localStorage.getItem(LOCAL_VISIBILITY_KEY);
+                return val === null ? true : val === 'true';
+            } catch (e) {
+                return true;
+            }
+        }
+
+        function writeFloatingVisibility(flag) {
+            try {
+                localStorage.setItem(LOCAL_VISIBILITY_KEY, String(flag));
+            } catch (e) {}
+        }
+
+        let wishesData = readLocalWishes();
+        let floatingVisible = readFloatingVisibility();
+
+        function mergeWishLists(primaryList, secondaryList) {
+            const seen = new Set();
+            const merged = [];
+            [...primaryList, ...secondaryList].forEach(item => {
+                if (!item || !item.author || !item.text) return;
+                const key = item.id || `${item.author.toLowerCase()}::${item.text}`;
+                if (!seen.has(key)) {
+                    seen.add(key);
+                    merged.push(item);
+                }
+            });
+            return merged.slice(0, 30);
+        }
+
+        function updateSyncBadge(statusText, isLive = true) {
+            const badge = document.getElementById('cloud-sync-badge');
+            if (!badge) return;
+            badge.textContent = statusText;
+            badge.className = isLive
+                ? 'text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 font-bold'
+                : 'text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 font-bold';
+        }
+
+        async function loadSharedWishesFromCloud() {
+            updateSyncBadge('🔄 Syncing squad wishes...', true);
+            try {
+                const res = await fetch(SHARED_WISH_CLOUD_URL, {
+                    method: 'GET',
+                    headers: { 'Accept': 'application/json' },
+                    cache: 'no-store'
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    const remoteWishes = Array.isArray(data && data.wishes) ? data.wishes : [];
+                    const localWishes = readLocalWishes();
+                    const combined = mergeWishLists(localWishes, remoteWishes);
+                    wishesData = combined;
+                    writeLocalWishes(wishesData);
+                    renderFloatingWishes();
+                    // If local had newer wishes not in cloud yet, push them up
+                    if (combined.length > remoteWishes.length) {
+                        await saveSharedWishesToCloud(combined);
+                    }
+                    updateSyncBadge('🟢 Live Squad Sync', true);
+                    return;
+                }
+            } catch (err) {}
+            // Fallback gracefully to local storage so wishes NEVER vanish on refresh
+            wishesData = readLocalWishes();
+            renderFloatingWishes();
+            updateSyncBadge('💾 Saved on Device', false);
+        }
+
+        async function saveSharedWishesToCloud(updatedList) {
+            writeLocalWishes(updatedList);
+            try {
+                const res = await fetch(SHARED_WISH_CLOUD_URL, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        group: '😍Best buddies forever🥳',
+                        updatedAt: new Date().toISOString(),
+                        wishes: updatedList
+                    })
+                });
+                if (res.ok) {
+                    updateSyncBadge('🟢 Live Squad Sync', true);
+                    return true;
+                }
+            } catch (err) {}
+            updateSyncBadge('💾 Saved Locally', false);
+            return false;
+        }
 
         const floatingColors = [
             'from-pink-600/90 to-rose-700/90 border-pink-300/50 shadow-pink-500/30',
@@ -1566,25 +1677,25 @@
             }
         }
 
-        function deleteFloatingWish(index) {
+        async function deleteFloatingWish(index) {
             if (index < 0 || index >= wishesData.length) return;
             const removed = wishesData.splice(index, 1)[0];
-            try {
-                localStorage.setItem('bbf_floating_wishes_v4', JSON.stringify(wishesData));
-            } catch (err) {}
+            writeLocalWishes(wishesData);
             renderFloatingWishes();
             showToast(`Deleted ${removed.author}'s wish 🗑️`, '🗑️');
+            await saveSharedWishesToCloud(wishesData);
         }
 
         function toggleFloatingWishes() {
             floatingVisible = !floatingVisible;
+            writeFloatingVisibility(floatingVisible);
             renderFloatingWishes();
             showToast(floatingVisible ? 'Floating wishes visible 🎈' : 'Floating wishes hidden', '✨');
         }
 
         const wishForm = document.getElementById('wish-form');
         if (wishForm) {
-            wishForm.addEventListener('submit', function(e) {
+            wishForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 const nameInput = document.getElementById('wish-name');
                 const textInput = document.getElementById('wish-text');
@@ -1593,20 +1704,38 @@
                 if (!author || !text) return;
 
                 const newWish = {
+                    id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
                     author,
                     text,
                     date: '13/11/2026'
                 };
-                wishesData.unshift(newWish);
-                try {
-                    localStorage.setItem('bbf_floating_wishes_v4', JSON.stringify(wishesData));
-                } catch (err) {}
 
+                // Immediately save locally and render so it never disappears on refresh
+                wishesData = [newWish, ...wishesData];
+                writeLocalWishes(wishesData);
                 floatingVisible = true;
+                writeFloatingVisibility(true);
                 renderFloatingWishes();
                 triggerConfettiBurst(0.5, 0.45);
                 nameInput.value = '';
                 textInput.value = '';
+
+                // Sync with shared cloud so all 8 buddies see it on their phones too
+                try {
+                    const res = await fetch(SHARED_WISH_CLOUD_URL, {
+                        method: 'GET',
+                        headers: { 'Accept': 'application/json' },
+                        cache: 'no-store'
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        const remoteWishes = Array.isArray(data && data.wishes) ? data.wishes : [];
+                        wishesData = mergeWishLists([newWish], mergeWishLists(wishesData, remoteWishes));
+                        writeLocalWishes(wishesData);
+                        renderFloatingWishes();
+                    }
+                } catch (err) {}
+                await saveSharedWishesToCloud(wishesData);
 
                 sendCardAndOpenShareModal({
                     type: '🎈 Floating Anniversary Wish',
@@ -1881,8 +2010,11 @@
             }
         }
 
-        // Initialize Floating Wishes immediately on page load
+        // Initialize Floating Wishes immediately from local storage & sync with shared squad cloud
         renderFloatingWishes();
+        loadSharedWishesFromCloud();
+        // Keep wishes synced across all 8 buddies every 20 seconds
+        setInterval(loadSharedWishesFromCloud, 20000);
     </script>
 </body>
 </html>
