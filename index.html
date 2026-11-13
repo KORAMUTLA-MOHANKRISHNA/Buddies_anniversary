@@ -14,16 +14,15 @@
     <script>
         window.handleProfileImgFallback = function(imgEl, name, emoji) {
             if (!imgEl) return;
-            var currentSrc = imgEl.getAttribute('src') || '';
             var slug = String(name || '').toLowerCase().trim().replace(/\s+/g, '');
             if (!imgEl.dataset.fallbackStep) {
                 imgEl.dataset.fallbackStep = '1';
-                imgEl.src = 'profiles/' + slug + '.jpg';
+                imgEl.src = './fab8/' + slug + '.jpg';
                 return;
             }
             if (imgEl.dataset.fallbackStep === '1') {
                 imgEl.dataset.fallbackStep = '2';
-                imgEl.src = 'profiles/' + slug + '.png';
+                imgEl.src = './fab8/' + slug + '.png';
                 return;
             }
             imgEl.style.display = 'none';
@@ -38,12 +37,13 @@
             var step = parseInt(imgEl.dataset.fallbackStep || '0', 10);
             var cleanSlug = String(slug || '').toLowerCase().trim();
             var candidates = [
-                'walloffev/' + cleanSlug + ',sfav.jpg',
-                'walloffev/' + cleanSlug + ',sfav.png',
-                "walloffev/" + cleanSlug + "'sfav.jpeg",
-                "walloffev/" + cleanSlug + "'sfav.jpg",
-                'walloffev/' + cleanSlug + '.jpeg',
-                'walloffev/' + cleanSlug + '.jpg'
+                './walloffev/' + cleanSlug + ',sfav.jpeg',
+                './walloffev/' + cleanSlug + ',sfev.jpeg',
+                './walloffev/' + cleanSlug + ',sfav.jpg',
+                './walloffev/' + cleanSlug + ',sfev.jpg',
+                './walloffev/' + cleanSlug + ',sfav.png',
+                './walloffev/' + cleanSlug + '.jpeg',
+                './walloffev/' + cleanSlug + '.jpg'
             ];
             if (step < candidates.length) {
                 imgEl.dataset.fallbackStep = String(step + 1);
@@ -58,29 +58,93 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #070614;
+            background-color: #05040f;
             color: #f8fafc;
             overflow-x: hidden;
         }
         h1, h2, h3, .font-display {
             font-family: 'Fredoka', sans-serif;
         }
-        /* Vibrant Midnight Party Gradient */
+
+        /* ==========================================
+           VIBRANT NEON GRADIENT & MOTION ANIMATIONS
+           ========================================== */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animate-gradient-xy {
+            background-size: 250% 250%;
+            animation: gradientShift 7s ease infinite;
+        }
+
+        @keyframes neonPulseGlow {
+            0%, 100% {
+                box-shadow: 0 0 18px rgba(236, 72, 153, 0.32), 0 0 38px rgba(139, 92, 246, 0.22);
+            }
+            50% {
+                box-shadow: 0 0 28px rgba(56, 189, 248, 0.45), 0 0 55px rgba(236, 72, 153, 0.38);
+            }
+        }
+        .neon-glow-card {
+            animation: neonPulseGlow 4.5s ease-in-out infinite;
+        }
+
+        @keyframes orbDrift {
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(35px, -25px) scale(1.08); }
+            66% { transform: translate(-25px, 20px) scale(0.95); }
+        }
+        .neon-orb {
+            animation: orbDrift 11s ease-in-out infinite;
+        }
+
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: spinSlow 9s linear infinite;
+        }
+
+        @keyframes bounceGentle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        .animate-bounce-gentle {
+            animation: bounceGentle 2.6s ease-in-out infinite;
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(28px) scale(0.97);
+            transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Vibrant Midnight Neon Hero Gradient */
         .hero-gradient {
             background:
-                radial-gradient(circle at 12% 18%, rgba(236, 72, 153, 0.30) 0%, transparent 45%),
-                radial-gradient(circle at 88% 22%, rgba(56, 189, 248, 0.25) 0%, transparent 48%),
-                radial-gradient(circle at 50% 85%, rgba(168, 85, 247, 0.28) 0%, transparent 52%),
-                linear-gradient(135deg, #070614 0%, #120c2e 48%, #091326 100%);
+                radial-gradient(circle at 12% 18%, rgba(255, 0, 128, 0.38) 0%, transparent 45%),
+                radial-gradient(circle at 88% 22%, rgba(0, 229, 255, 0.32) 0%, transparent 48%),
+                radial-gradient(circle at 50% 85%, rgba(168, 85, 247, 0.36) 0%, transparent 52%),
+                linear-gradient(135deg, #05040f 0%, #160a38 48%, #071936 100%);
         }
+
         /* Floating Animation */
         @keyframes floatSlow {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(2deg); }
+            50% { transform: translateY(-13px) rotate(4deg); }
         }
         .animate-float {
-            animation: floatSlow 4.5s ease-in-out infinite;
+            animation: floatSlow 4.2s ease-in-out infinite;
         }
+
         /* Drifting Floating Wish Bubbles Across Screen */
         @keyframes wishDrift {
             0% { transform: translate3d(0px, 0px, 0) rotate(-1.5deg); }
@@ -99,10 +163,15 @@
             transform: scale(1.06) translateY(-4px);
             z-index: 60;
         }
+
         /* 3D Card Flip for The Fab 8 */
         .flip-card {
             perspective: 1000px;
             height: 295px;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .flip-card:hover {
+            transform: translateY(-6px);
         }
         .flip-card-inner {
             position: relative;
@@ -125,13 +194,14 @@
         .flip-card-back {
             transform: rotateY(180deg);
         }
+
         /* Candle Flame Animation */
         @keyframes flicker {
             0%, 100% { transform: scale(1) rotate(-2deg); opacity: 1; }
-            50% { transform: scale(1.12) rotate(3deg); opacity: 0.88; }
+            50% { transform: scale(1.14) rotate(3deg); opacity: 0.9; }
         }
         .flame {
-            animation: flicker 0.7s infinite alternate;
+            animation: flicker 0.65s infinite alternate;
             transform-origin: bottom center;
         }
         .flame.blown-out {
@@ -139,31 +209,36 @@
             transform: scale(0);
             transition: all 0.4s ease;
         }
-        /* Dark Glassmorphism Card */
+
+        /* Vibrant Neon Glassmorphism Card */
         .glass-dark {
-            background: rgba(18, 15, 45, 0.78);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(168, 85, 247, 0.25);
+            background: linear-gradient(145deg, rgba(24, 17, 62, 0.84) 0%, rgba(12, 10, 34, 0.88) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(236, 72, 153, 0.32);
+            box-shadow: 0 12px 35px -8px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.12);
         }
-        /* Dark Pinboard Texture for WALL OF FAVOURATES */
+
+        /* Dark Neon Pinboard Texture for WALL OF FAVOURATES */
         .fav-pinboard {
-            background-color: #161124;
+            background-color: #140e29;
             background-image:
-                radial-gradient(circle at 20% 25%, rgba(251, 191, 36, 0.08) 0%, transparent 45%),
-                radial-gradient(circle at 80% 75%, rgba(236, 72, 153, 0.09) 0%, transparent 45%),
-                radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-                radial-gradient(rgba(0, 0, 0, 0.45) 1.5px, transparent 1.5px),
-                linear-gradient(145deg, #1d162e 0%, #120d1f 50%, #1a1329 100%);
-            background-size: 100% 100%, 100% 100%, 18px 18px, 26px 26px, 100% 100%;
-            background-position: 0 0, 0 0, 0 0, 9px 9px, 0 0;
-            box-shadow: inset 0 6px 28px rgba(0, 0, 0, 0.75), 0 24px 60px rgba(0, 0, 0, 0.65);
+                radial-gradient(circle at 18% 22%, rgba(255, 0, 128, 0.16) 0%, transparent 45%),
+                radial-gradient(circle at 82% 78%, rgba(0, 229, 255, 0.16) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(250, 204, 21, 0.08) 0%, transparent 55%),
+                radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+                radial-gradient(rgba(0, 0, 0, 0.5) 1.5px, transparent 1.5px),
+                linear-gradient(145deg, #1e133b 0%, #0f0a21 50%, #1a1036 100%);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 18px 18px, 26px 26px, 100% 100%;
+            background-position: 0 0, 0 0, 0 0, 0 0, 9px 9px, 0 0;
+            box-shadow: inset 0 6px 32px rgba(0, 0, 0, 0.85), 0 0 45px rgba(168, 85, 247, 0.25);
         }
+
         /* Real Physical Photo Print Stuck on Wall */
         .sticky-polaroid {
             position: relative;
             background: linear-gradient(165deg, #ffffff 0%, #f8f5ef 65%, #efe9de 100%);
-            border: 1px solid rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.92);
             border-radius: 4px;
             padding: 12px 12px 18px 12px;
             box-shadow:
@@ -172,7 +247,6 @@
                 inset 0 0 0 1px rgba(0, 0, 0, 0.06);
             transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
         }
-        /* Subtle curled paper corner shadows underneath each print */
         .sticky-polaroid::before,
         .sticky-polaroid::after {
             content: "";
@@ -193,12 +267,13 @@
             transform: rotate(3.5deg);
         }
         .sticky-polaroid:hover {
-            transform: rotate(0deg) scale(1.05) translateY(-8px) !important;
+            transform: rotate(0deg) scale(1.06) translateY(-9px) !important;
             box-shadow:
-                0 26px 42px -8px rgba(0, 0, 0, 0.88),
-                0 10px 18px -4px rgba(0, 0, 0, 0.65);
+                0 26px 45px -8px rgba(236, 72, 153, 0.45),
+                0 12px 24px -4px rgba(0, 0, 0, 0.75);
             z-index: 25;
         }
+
         /* Glossy Photo Print Sheen */
         .photo-gloss-wrap {
             position: relative;
@@ -210,17 +285,16 @@
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(125deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.04) 38%, transparent 55%);
+            background: linear-gradient(125deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.05) 38%, transparent 55%);
             pointer-events: none;
         }
+
         /* Realistic 3D Paper Pin Piercing Through the Top of the Photo */
         .paper-pin {
-            position: absolute;
-            top: -11px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 28px;
-            height: 32px;
+            position: relative;
+            width: 30px;
+            height: 34px;
+            margin: -26px auto 10px auto;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -230,7 +304,7 @@
             pointer-events: none;
         }
         .sticky-polaroid:hover .paper-pin {
-            transform: translateX(-50%) translateY(-2px) scale(1.06);
+            transform: translateY(-3px) scale(1.09);
         }
         .paper-pin-top {
             width: 18px;
@@ -259,7 +333,7 @@
         }
         .paper-pin-needle {
             width: 3px;
-            height: 6px;
+            height: 7px;
             margin-top: -1px;
             background: linear-gradient(90deg, #475569, #f8fafc 50%, #334155);
             clip-path: polygon(0 0, 100% 0, 50% 100%);
@@ -273,85 +347,21 @@
             background: rgba(15, 23, 42, 0.85);
             box-shadow: 0 0 3px rgba(0, 0, 0, 0.7);
         }
-        /* Sticky Polaroid Frame */
-        .sticky-polaroid {
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
-        }
-        .sticky-polaroid:hover {
-            transform: rotate(0deg) scale(1.04) translateY(-6px) !important;
-            z-index: 20;
-        }
-        /* Realistic 3D Paper Pin / Pushpin */
-        .paper-pin {
-            position: relative;
-            width: 30px;
-            height: 34px;
-            margin: -26px auto 10px auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 15;
-            filter: drop-shadow(0 6px 5px rgba(0, 0, 0, 0.65));
-            transition: transform 0.25s ease;
-        }
-        .sticky-polaroid:hover .paper-pin {
-            transform: translateY(-2px) scale(1.08);
-        }
-        .paper-pin-top {
-            width: 18px;
-            height: 9px;
-            border-radius: 9999px;
-            background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.85), var(--pin-color, #ec4899) 55%, var(--pin-dark, #9d174d) 100%);
-            box-shadow: inset 0 -2px 3px rgba(0,0,0,0.35);
-            z-index: 3;
-        }
-        .paper-pin-neck {
-            width: 11px;
-            height: 8px;
-            margin-top: -2px;
-            background: linear-gradient(90deg, var(--pin-dark, #9d174d), var(--pin-color, #ec4899) 45%, var(--pin-dark, #9d174d));
-            clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
-            z-index: 2;
-        }
-        .paper-pin-base {
-            width: 22px;
-            height: 8px;
-            margin-top: -1px;
-            border-radius: 9999px;
-            background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.65), var(--pin-color, #ec4899) 60%, var(--pin-dark, #9d174d) 100%);
-            box-shadow: 0 3px 4px rgba(0,0,0,0.5);
-            z-index: 2;
-        }
-        .paper-pin-needle {
-            width: 3px;
-            height: 9px;
-            margin-top: -1px;
-            background: linear-gradient(90deg, #64748b, #f8fafc 50%, #475569);
-            clip-path: polygon(0 0, 100% 0, 50% 100%);
-            z-index: 1;
-        }
-        .paper-pin-hole {
-            width: 7px;
-            height: 4px;
-            margin-top: -2px;
-            border-radius: 9999px;
-            background: rgba(0, 0, 0, 0.75);
-            box-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
-        }
+
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #070614;
+            background: #05040f;
         }
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #ec4899, #8b5cf6);
+            background: linear-gradient(180deg, #ff0080, #7928ca, #00dfd8);
             border-radius: 9999px;
         }
     </style>
 </head>
-<body class="selection:bg-pink-500 selection:text-white">
+<body class="selection:bg-fuchsia-500 selection:text-white">
 
     <!-- Fullscreen Confetti Overlay Canvas -->
     <canvas id="confetti-overlay-canvas" class="fixed inset-0 pointer-events-none z-[110]"></canvas>
@@ -360,28 +370,28 @@
     <div id="floating-wishes-layer" class="fixed inset-0 pointer-events-none z-40 overflow-hidden"></div>
 
     <!-- Floating Wishes Counter & Toggle Pill -->
-    <button id="toggle-floating-wishes-btn" onclick="toggleFloatingWishes()" class="fixed bottom-4 left-4 z-50 px-4 py-2.5 rounded-full bg-[#151136]/90 hover:bg-[#1e184d] border border-pink-400/40 text-xs font-bold text-pink-200 shadow-lg shadow-pink-500/20 backdrop-blur-md flex items-center gap-2 transition cursor-pointer">
-        <span>🎈</span>
+    <button id="toggle-floating-wishes-btn" onclick="toggleFloatingWishes()" class="fixed bottom-4 left-4 z-50 px-4 py-2.5 rounded-full bg-gradient-to-r from-[#1a1042] to-[#2e1065] hover:scale-105 border border-fuchsia-400/50 text-xs font-bold text-pink-200 shadow-lg shadow-fuchsia-500/30 backdrop-blur-md flex items-center gap-2 transition cursor-pointer">
+        <span class="animate-bounce-gentle">🎈</span>
         <span id="floating-wish-count-label">Floating Wishes (0)</span>
     </button>
 
     <!-- Top Floating Navigation -->
-    <nav class="sticky top-0 z-50 bg-[#070614]/85 backdrop-blur-lg border-b border-purple-500/20">
+    <nav class="sticky top-0 z-50 bg-[#05040f]/80 backdrop-blur-xl border-b border-fuchsia-500/30 shadow-lg shadow-fuchsia-500/10">
         <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-2">
-            <a href="#top" class="flex items-center gap-2 font-display font-bold text-lg sm:text-xl text-white">
-                <span class="text-2xl">😍</span>
-                <span class="bg-gradient-to-r from-pink-400 via-purple-400 to-amber-300 bg-clip-text text-transparent">Best buddies forever</span>
-                <span class="text-2xl">🥳</span>
+            <a href="#top" class="flex items-center gap-2 font-display font-bold text-lg sm:text-xl text-white group">
+                <span class="text-2xl group-hover:scale-125 transition-transform">😍</span>
+                <span class="bg-gradient-to-r from-pink-400 via-fuchsia-400 to-cyan-300 animate-gradient-xy bg-clip-text text-transparent">Best buddies forever</span>
+                <span class="text-2xl group-hover:scale-125 transition-transform">🥳</span>
             </a>
             <div class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-300">
                 <a href="#squad" class="hover:text-pink-400 transition">The Fab 8</a>
-                <a href="#timeline" class="hover:text-pink-400 transition">4-Year Journey</a>
+                <a href="#timeline" class="hover:text-cyan-300 transition">4-Year Journey</a>
                 <a href="#wall-of-favourates" class="hover:text-amber-300 transition">Wall of Favourates</a>
-                <a href="#chat-highlights" class="hover:text-pink-400 transition">Chat & Wishes</a>
-                <a href="#party-zone" class="hover:text-pink-400 transition">Cake & Wheel</a>
+                <a href="#chat-highlights" class="hover:text-emerald-300 transition">Chat & Wishes</a>
+                <a href="#party-zone" class="hover:text-fuchsia-300 transition">Cake & Wheel</a>
             </div>
             <div class="flex items-center gap-2">
-                <button onclick="triggerConfettiBurst()" class="px-4 py-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white text-xs sm:text-sm font-bold shadow-lg shadow-pink-500/30 hover:scale-105 active:scale-95 transition cursor-pointer">
+                <button onclick="triggerConfettiBurst()" class="px-4 py-2 rounded-full bg-gradient-to-r from-pink-500 via-fuchsia-500 to-cyan-500 animate-gradient-xy text-white text-xs sm:text-sm font-extrabold shadow-lg shadow-pink-500/40 hover:scale-105 active:scale-95 transition cursor-pointer">
                     🎉 Celebrate!
                 </button>
             </div>
@@ -389,16 +399,21 @@
     </nav>
 
     <!-- HERO SECTION -->
-    <header id="top" class="hero-gradient relative pt-12 pb-20 sm:pt-20 sm:pb-28 px-4 overflow-hidden border-b border-purple-500/20">
+    <header id="top" class="hero-gradient relative pt-12 pb-20 sm:pt-20 sm:pb-28 px-4 overflow-hidden border-b border-fuchsia-500/30">
+        <!-- Ambient Animated Neon Orbs -->
+        <div class="neon-orb pointer-events-none absolute -top-20 -left-20 w-80 h-80 rounded-full bg-pink-600/25 blur-3xl"></div>
+        <div class="neon-orb pointer-events-none absolute top-1/3 -right-24 w-96 h-96 rounded-full bg-cyan-500/20 blur-3xl" style="animation-delay: -3.5s;"></div>
+        <div class="neon-orb pointer-events-none absolute -bottom-24 left-1/3 w-80 h-80 rounded-full bg-purple-600/25 blur-3xl" style="animation-delay: -7s;"></div>
+
         <!-- Decorative Floating Emojis -->
-        <div class="hidden sm:block absolute top-14 left-10 text-4xl opacity-80 animate-float" style="animation-delay: 0s;">🥳</div>
-        <div class="hidden sm:block absolute top-24 right-14 text-4xl opacity-80 animate-float" style="animation-delay: 1.2s;">🎂</div>
-        <div class="hidden sm:block absolute bottom-16 left-20 text-3xl opacity-75 animate-float" style="animation-delay: 2s;">💬</div>
-        <div class="hidden sm:block absolute bottom-20 right-24 text-4xl opacity-80 animate-float" style="animation-delay: 0.7s;">✨</div>
+        <div class="hidden sm:block absolute top-14 left-10 text-4xl opacity-90 animate-float drop-shadow-[0_0_12px_rgba(236,72,153,0.7)]" style="animation-delay: 0s;">🥳</div>
+        <div class="hidden sm:block absolute top-24 right-14 text-4xl opacity-90 animate-float drop-shadow-[0_0_12px_rgba(56,189,248,0.7)]" style="animation-delay: 1.2s;">🎂</div>
+        <div class="hidden sm:block absolute bottom-16 left-20 text-3xl opacity-85 animate-float drop-shadow-[0_0_12px_rgba(52,211,153,0.7)]" style="animation-delay: 2s;">💬</div>
+        <div class="hidden sm:block absolute bottom-20 right-24 text-4xl opacity-90 animate-float drop-shadow-[0_0_12px_rgba(251,191,36,0.7)]" style="animation-delay: 0.7s;">✨</div>
 
         <div class="max-w-4xl mx-auto text-center relative z-10">
             <!-- Anniversary Date Pill -->
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-pink-400/30 shadow-lg shadow-pink-500/10 mb-6 backdrop-blur-md">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-cyan-500/20 border border-fuchsia-400/40 shadow-lg shadow-pink-500/20 mb-6 backdrop-blur-md">
                 <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
                 <span class="text-xs sm:text-sm font-bold tracking-wide text-pink-200 uppercase">
                     Est. 13/11/2022 • Happy 4th Group Anniversary!
@@ -406,40 +421,40 @@
             </div>
 
             <!-- Group Title -->
-            <h1 class="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white leading-tight mb-5 drop-shadow">
-                😍<span class="bg-gradient-to-r from-pink-400 via-purple-300 to-amber-300 bg-clip-text text-transparent">Best buddies forever</span>🥳
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white leading-tight mb-5 drop-shadow-[0_4px_24px_rgba(236,72,153,0.45)]">
+                😍<span class="bg-gradient-to-r from-pink-400 via-amber-300 to-cyan-300 animate-gradient-xy bg-clip-text text-transparent">Best buddies forever</span>🥳
             </h1>
 
-            <p class="text-base sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed mb-8">
-                Four girls, four boys, one legendary WhatsApp group created on <strong class="text-pink-300">13 November 2022</strong>. Here's to 4 years of non-stop chaos, midnight rants, inside jokes, and unbreakable friendship!
+            <p class="text-base sm:text-xl text-slate-200 max-w-2xl mx-auto leading-relaxed mb-8">
+                Four girls, four boys, one legendary WhatsApp group created on <strong class="text-cyan-300">13 November 2022</strong>. Here's to 4 years of non-stop chaos, midnight rants, inside jokes, and unbreakable friendship!
             </p>
 
             <!-- Live 4-Year Milestone Counter Cards -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto mb-10">
-                <div class="glass-dark rounded-2xl p-4 shadow-lg shadow-pink-500/10">
-                    <div id="stat-years" class="font-display text-3xl sm:text-4xl font-bold text-pink-400">4</div>
+                <div class="glass-dark neon-glow-card rounded-2xl p-4 hover:scale-105 transition-transform">
+                    <div id="stat-years" class="font-display text-3xl sm:text-4xl font-bold bg-gradient-to-r from-pink-400 to-rose-300 bg-clip-text text-transparent">4</div>
                     <div class="text-xs sm:text-sm font-semibold text-slate-300 mt-1">Glorious Years</div>
                 </div>
-                <div class="glass-dark rounded-2xl p-4 shadow-lg shadow-purple-500/10">
-                    <div id="stat-months" class="font-display text-3xl sm:text-4xl font-bold text-purple-400">48</div>
+                <div class="glass-dark neon-glow-card rounded-2xl p-4 hover:scale-105 transition-transform" style="animation-delay: 1s;">
+                    <div id="stat-months" class="font-display text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-400 to-fuchsia-300 bg-clip-text text-transparent">48</div>
                     <div class="text-xs sm:text-sm font-semibold text-slate-300 mt-1">Months of Madness</div>
                 </div>
-                <div class="glass-dark rounded-2xl p-4 shadow-lg shadow-amber-500/10">
-                    <div id="stat-days" class="font-display text-3xl sm:text-4xl font-bold text-amber-300">1,461</div>
+                <div class="glass-dark neon-glow-card rounded-2xl p-4 hover:scale-105 transition-transform" style="animation-delay: 2s;">
+                    <div id="stat-days" class="font-display text-3xl sm:text-4xl font-bold bg-gradient-to-r from-amber-300 to-orange-400 bg-clip-text text-transparent">1,461</div>
                     <div class="text-xs sm:text-sm font-semibold text-slate-300 mt-1">Days Together</div>
                 </div>
-                <div class="glass-dark rounded-2xl p-4 shadow-lg shadow-sky-500/10">
-                    <div id="stat-hours" class="font-display text-3xl sm:text-4xl font-bold text-sky-400">35,064+</div>
+                <div class="glass-dark neon-glow-card rounded-2xl p-4 hover:scale-105 transition-transform" style="animation-delay: 3s;">
+                    <div id="stat-hours" class="font-display text-3xl sm:text-4xl font-bold bg-gradient-to-r from-cyan-300 to-sky-400 bg-clip-text text-transparent">35,064+</div>
                     <div class="text-xs sm:text-sm font-semibold text-slate-300 mt-1">Hours of Chats</div>
                 </div>
             </div>
 
             <!-- Primary CTA Buttons -->
             <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-                <a href="#squad" class="px-6 py-3.5 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold text-sm sm:text-base shadow-lg shadow-pink-500/30 hover:opacity-95 transition">
+                <a href="#squad" class="px-6 py-3.5 rounded-full bg-gradient-to-r from-pink-500 via-fuchsia-500 to-purple-600 animate-gradient-xy text-white font-extrabold text-sm sm:text-base shadow-lg shadow-pink-500/40 hover:scale-105 transition">
                     Meet The Fab 8 👇
                 </a>
-                <a href="#party-zone" class="px-6 py-3.5 rounded-full bg-white/10 text-amber-300 border border-amber-400/30 font-bold text-sm sm:text-base shadow-md hover:bg-white/15 transition">
+                <a href="#party-zone" class="px-6 py-3.5 rounded-full bg-gradient-to-r from-amber-400/20 to-cyan-400/20 text-amber-300 border border-amber-400/40 font-extrabold text-sm sm:text-base shadow-lg shadow-amber-500/15 hover:scale-105 transition">
                     🎂 Cut Anniversary Cake
                 </a>
             </div>
@@ -447,12 +462,12 @@
     </header>
 
     <!-- SECTION 1: THE FAB 8 (4 GIRLS & 4 BOYS ALTERNATING WITH DIRECT HTML <img> TAGS) -->
-    <section id="squad" class="py-16 sm:py-24 px-4 max-w-6xl mx-auto">
+    <section id="squad" class="reveal-on-scroll py-16 sm:py-24 px-4 max-w-6xl mx-auto">
         <div class="text-center mb-10">
-            <span class="inline-block px-3.5 py-1 rounded-full bg-pink-500/15 border border-pink-400/30 text-pink-300 text-xs font-bold uppercase tracking-wider mb-3">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-500/20 to-cyan-500/20 border border-pink-400/40 text-pink-200 text-xs font-bold uppercase tracking-wider mb-3 shadow-md shadow-pink-500/10">
                 4 Girls + 4 Boys = 1 Unstoppable Squad
             </span>
-            <h2 class="text-3xl sm:text-5xl font-bold text-white mb-3">The Fab 8 Legends 🌟</h2>
+            <h2 class="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-white via-pink-200 to-cyan-200 bg-clip-text text-transparent mb-3">The Fab 8 Legends 🌟</h2>
             <p class="text-slate-300 max-w-xl mx-auto text-sm sm:text-base">
                 Tap any card to flip and reveal their secret superpower in <strong class="text-pink-300">😍Best buddies forever🥳</strong>!
             </p>
@@ -460,13 +475,13 @@
 
         <!-- Filter Controls -->
         <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-8">
-            <button onclick="filterSquad('all')" data-filter="all" class="filter-btn active px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-md transition cursor-pointer">
+            <button onclick="filterSquad('all')" data-filter="all" class="filter-btn active px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-gradient-to-r from-pink-500 via-fuchsia-500 to-cyan-500 animate-gradient-xy text-white shadow-lg shadow-pink-500/30 transition cursor-pointer">
                 All 8 Buddies
             </button>
-            <button onclick="filterSquad('girl')" data-filter="girl" class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-[#141033] text-pink-300 border border-pink-500/30 hover:bg-pink-500/20 transition cursor-pointer">
+            <button onclick="filterSquad('girl')" data-filter="girl" class="filter-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-[#141033] text-pink-300 border border-pink-500/40 hover:bg-pink-500/20 transition cursor-pointer">
                 👧 The 4 Girls
             </button>
-            <button onclick="filterSquad('boy')" data-filter="boy" class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-[#141033] text-sky-300 border border-sky-500/30 hover:bg-sky-500/20 transition cursor-pointer">
+            <button onclick="filterSquad('boy')" data-filter="boy" class="filter-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-[#141033] text-cyan-300 border border-cyan-500/40 hover:bg-cyan-500/20 transition cursor-pointer">
                 👦 The 4 Boys
             </button>
         </div>
@@ -476,23 +491,23 @@
             <!-- 1. Gowri (Girl) -->
             <div class="flip-card cursor-pointer" data-gender="girl" onclick="this.classList.toggle('flipped')">
                 <div class="flip-card-inner">
-                    <div class="flip-card-front glass-dark border-pink-500/30 p-5 flex flex-col justify-between shadow-xl">
+                    <div class="flip-card-front glass-dark border-pink-500/40 hover:border-pink-400 p-5 flex flex-col justify-between shadow-xl shadow-pink-500/15">
                         <div class="flex items-center justify-between">
-                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-pink-500/20 text-pink-300 border-pink-400/30">👧 Girl</span>
+                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-pink-500/20 text-pink-300 border-pink-400/40">👧 Girl</span>
                             <span class="text-[11px] text-slate-400 font-semibold">Tap to flip ↻</span>
                         </div>
                         <div class="my-auto text-center">
-                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-pink-500 to-rose-600 shadow-lg mb-3 relative">
-                                <img src="profiles/gowri.jpeg" alt="Gowri" onerror="window.handleProfileImgFallback(this, 'Gowri', '🌪️')" class="w-full h-full object-cover rounded-full bg-[#120f2d]">
+                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-pink-500 via-amber-400 to-rose-600 animate-gradient-xy shadow-lg shadow-pink-500/40 mb-3 relative">
+                                <img src="./fab8/gowri.jpeg" alt="Gowri" onerror="window.handleProfileImgFallback(this, 'Gowri', '🌪️')" class="w-full h-full object-cover rounded-full bg-[#120f2d]">
                                 <div class="hidden w-full h-full rounded-full bg-[#120f2d] items-center justify-center text-4xl">🌪️</div>
-                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-white/20 flex items-center justify-center text-base shadow">🌪️</span>
+                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-pink-400/50 flex items-center justify-center text-base shadow">🌪️</span>
                             </div>
                             <h3 class="font-display text-2xl font-bold text-white">Gowri</h3>
                             <p class="text-xs font-extrabold uppercase tracking-wider text-amber-300 mt-1">The chaos cordinator</p>
                         </div>
-                        <div class="text-center text-[11px] text-slate-400">😍Best buddies forever🥳</div>
+                        <div class="text-center text-[11px] text-pink-200/70">😍Best buddies forever🥳</div>
                     </div>
-                    <div class="flip-card-back bg-gradient-to-br from-pink-500 to-rose-600 p-6 flex flex-col justify-between text-white shadow-2xl">
+                    <div class="flip-card-back bg-gradient-to-br from-pink-500 via-rose-500 to-amber-500 animate-gradient-xy p-6 flex flex-col justify-between text-white shadow-2xl shadow-pink-500/40">
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-extrabold uppercase tracking-wider bg-black/25 px-3 py-1 rounded-full">The chaos cordinator</span>
                             <span class="text-2xl">🌪️</span>
@@ -501,7 +516,7 @@
                             <h4 class="font-display text-2xl font-bold mb-2">Gowri</h4>
                             <p class="text-sm leading-relaxed text-white/95 font-medium">"Turns a simple 10-minute plan into an unforgettable 5-hour adventure!"</p>
                         </div>
-                        <p class="text-[11px] font-bold text-white/80 text-right">Tap again to flip back ↺</p>
+                        <p class="text-[11px] font-bold text-white/85 text-right">Tap again to flip back ↺</p>
                     </div>
                 </div>
             </div>
@@ -509,23 +524,23 @@
             <!-- 2. Sai (Boy) -->
             <div class="flip-card cursor-pointer" data-gender="boy" onclick="this.classList.toggle('flipped')">
                 <div class="flip-card-inner">
-                    <div class="flip-card-front glass-dark border-sky-500/30 p-5 flex flex-col justify-between shadow-xl">
+                    <div class="flip-card-front glass-dark border-cyan-500/40 hover:border-cyan-400 p-5 flex flex-col justify-between shadow-xl shadow-cyan-500/15">
                         <div class="flex items-center justify-between">
-                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-sky-500/20 text-sky-300 border-sky-400/30">👦 Boy</span>
+                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-cyan-500/20 text-cyan-300 border-cyan-400/40">👦 Boy</span>
                             <span class="text-[11px] text-slate-400 font-semibold">Tap to flip ↻</span>
                         </div>
                         <div class="my-auto text-center">
-                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-blue-500 to-indigo-600 shadow-lg mb-3 relative">
-                                <img src="profiles/sai.jpeg" alt="Sai" onerror="window.handleProfileImgFallback(this, 'Sai', '🗺️')" class="w-full h-full object-cover rounded-full bg-[#120f2d]">
+                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-cyan-400 via-blue-500 to-indigo-600 animate-gradient-xy shadow-lg shadow-cyan-500/40 mb-3 relative">
+                                <img src="./fab8/sai.jpeg" alt="Sai" onerror="window.handleProfileImgFallback(this, 'Sai', '🗺️')" class="w-full h-full object-cover rounded-full bg-[#120f2d]">
                                 <div class="hidden w-full h-full rounded-full bg-[#120f2d] items-center justify-center text-4xl">🗺️</div>
-                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-white/20 flex items-center justify-center text-base shadow">🗺️</span>
+                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-cyan-400/50 flex items-center justify-center text-base shadow">🗺️</span>
                             </div>
                             <h3 class="font-display text-2xl font-bold text-white">Sai</h3>
                             <p class="text-xs font-extrabold uppercase tracking-wider text-amber-300 mt-1">Trip planner</p>
                         </div>
-                        <div class="text-center text-[11px] text-slate-400">😍Best buddies forever🥳</div>
+                        <div class="text-center text-[11px] text-cyan-200/70">😍Best buddies forever🥳</div>
                     </div>
-                    <div class="flip-card-back bg-gradient-to-br from-blue-500 to-indigo-600 p-6 flex flex-col justify-between text-white shadow-2xl">
+                    <div class="flip-card-back bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-700 animate-gradient-xy p-6 flex flex-col justify-between text-white shadow-2xl shadow-cyan-500/40">
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-extrabold uppercase tracking-wider bg-black/25 px-3 py-1 rounded-full">Trip planner</span>
                             <span class="text-2xl">🗺️</span>
@@ -534,7 +549,7 @@
                             <h4 class="font-display text-2xl font-bold mb-2">Sai</h4>
                             <p class="text-sm leading-relaxed text-white/95 font-medium">"Always has the itinerary, routes, and backup plans ready for the squad."</p>
                         </div>
-                        <p class="text-[11px] font-bold text-white/80 text-right">Tap again to flip back ↺</p>
+                        <p class="text-[11px] font-bold text-white/85 text-right">Tap again to flip back ↺</p>
                     </div>
                 </div>
             </div>
@@ -542,23 +557,23 @@
             <!-- 3. Shashi (Girl) -->
             <div class="flip-card cursor-pointer" data-gender="girl" onclick="this.classList.toggle('flipped')">
                 <div class="flip-card-inner">
-                    <div class="flip-card-front glass-dark border-pink-500/30 p-5 flex flex-col justify-between shadow-xl">
+                    <div class="flip-card-front glass-dark border-fuchsia-500/40 hover:border-fuchsia-400 p-5 flex flex-col justify-between shadow-xl shadow-fuchsia-500/15">
                         <div class="flex items-center justify-between">
-                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-pink-500/20 text-pink-300 border-pink-400/30">👧 Girl</span>
+                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-pink-500/20 text-pink-300 border-pink-400/40">👧 Girl</span>
                             <span class="text-[11px] text-slate-400 font-semibold">Tap to flip ↻</span>
                         </div>
                         <div class="my-auto text-center">
-                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-purple-500 to-fuchsia-600 shadow-lg mb-3 relative">
+                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-purple-500 via-fuchsia-500 to-pink-500 animate-gradient-xy shadow-lg shadow-fuchsia-500/40 mb-3 relative">
                                 <img src="./fab8/sashi.jpeg" alt="Shashi" onerror="window.handleProfileImgFallback(this, 'Shashi', '🎙️')" class="w-full h-full object-cover rounded-full bg-[#120f2d]">
                                 <div class="hidden w-full h-full rounded-full bg-[#120f2d] items-center justify-center text-4xl">🎙️</div>
-                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-white/20 flex items-center justify-center text-base shadow">🎙️</span>
+                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-fuchsia-400/50 flex items-center justify-center text-base shadow">🎙️</span>
                             </div>
                             <h3 class="font-display text-2xl font-bold text-white">Shashi</h3>
                             <p class="text-xs font-extrabold uppercase tracking-wider text-amber-300 mt-1">Voice note podcaster</p>
                         </div>
-                        <div class="text-center text-[11px] text-slate-400">😍Best buddies forever🥳</div>
+                        <div class="text-center text-[11px] text-fuchsia-200/70">😍Best buddies forever🥳</div>
                     </div>
-                    <div class="flip-card-back bg-gradient-to-br from-purple-500 to-fuchsia-600 p-6 flex flex-col justify-between text-white shadow-2xl">
+                    <div class="flip-card-back bg-gradient-to-br from-purple-600 via-fuchsia-600 to-pink-600 animate-gradient-xy p-6 flex flex-col justify-between text-white shadow-2xl shadow-fuchsia-500/40">
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-extrabold uppercase tracking-wider bg-black/25 px-3 py-1 rounded-full">Voice note podcaster</span>
                             <span class="text-2xl">🎙️</span>
@@ -567,7 +582,7 @@
                             <h4 class="font-display text-2xl font-bold mb-2">Shashi</h4>
                             <p class="text-sm leading-relaxed text-white/95 font-medium">"Sends 4-minute WhatsApp voice notes that feel like a full-season podcast."</p>
                         </div>
-                        <p class="text-[11px] font-bold text-white/80 text-right">Tap again to flip back ↺</p>
+                        <p class="text-[11px] font-bold text-white/85 text-right">Tap again to flip back ↺</p>
                     </div>
                 </div>
             </div>
@@ -575,23 +590,23 @@
             <!-- 4. Gopi (Boy) -->
             <div class="flip-card cursor-pointer" data-gender="boy" onclick="this.classList.toggle('flipped')">
                 <div class="flip-card-inner">
-                    <div class="flip-card-front glass-dark border-sky-500/30 p-5 flex flex-col justify-between shadow-xl">
+                    <div class="flip-card-front glass-dark border-sky-500/40 hover:border-sky-400 p-5 flex flex-col justify-between shadow-xl shadow-sky-500/15">
                         <div class="flex items-center justify-between">
-                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-sky-500/20 text-sky-300 border-sky-400/30">👦 Boy</span>
+                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-cyan-500/20 text-cyan-300 border-cyan-400/40">👦 Boy</span>
                             <span class="text-[11px] text-slate-400 font-semibold">Tap to flip ↻</span>
                         </div>
                         <div class="my-auto text-center">
-                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-cyan-500 to-blue-600 shadow-lg mb-3 relative">
-                                <img src="profiles/gopi.jpeg" alt="Gopi" onerror="window.handleProfileImgFallback(this, 'Gopi', '😂')" class="w-full h-full object-cover rounded-full bg-[#120f2d]">
+                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-teal-400 via-cyan-500 to-blue-600 animate-gradient-xy shadow-lg shadow-sky-500/40 mb-3 relative">
+                                <img src="./fab8/gopi.jpeg" alt="Gopi" onerror="window.handleProfileImgFallback(this, 'Gopi', '😂')" class="w-full h-full object-cover rounded-full bg-[#120f2d]">
                                 <div class="hidden w-full h-full rounded-full bg-[#120f2d] items-center justify-center text-4xl">😂</div>
-                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-white/20 flex items-center justify-center text-base shadow">😂</span>
+                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-sky-400/50 flex items-center justify-center text-base shadow">😂</span>
                             </div>
                             <h3 class="font-display text-2xl font-bold text-white">Gopi</h3>
                             <p class="text-xs font-extrabold uppercase tracking-wider text-amber-300 mt-1">Meme dealer</p>
                         </div>
-                        <div class="text-center text-[11px] text-slate-400">😍Best buddies forever🥳</div>
+                        <div class="text-center text-[11px] text-sky-200/70">😍Best buddies forever🥳</div>
                     </div>
-                    <div class="flip-card-back bg-gradient-to-br from-cyan-500 to-blue-600 p-6 flex flex-col justify-between text-white shadow-2xl">
+                    <div class="flip-card-back bg-gradient-to-br from-teal-500 via-cyan-600 to-blue-700 animate-gradient-xy p-6 flex flex-col justify-between text-white shadow-2xl shadow-sky-500/40">
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-extrabold uppercase tracking-wider bg-black/25 px-3 py-1 rounded-full">Meme dealer</span>
                             <span class="text-2xl">😂</span>
@@ -600,7 +615,7 @@
                             <h4 class="font-display text-2xl font-bold mb-2">Gopi</h4>
                             <p class="text-sm leading-relaxed text-white/95 font-medium">"Has a reaction sticker and meme ready for every situation in milliseconds."</p>
                         </div>
-                        <p class="text-[11px] font-bold text-white/80 text-right">Tap again to flip back ↺</p>
+                        <p class="text-[11px] font-bold text-white/85 text-right">Tap again to flip back ↺</p>
                     </div>
                 </div>
             </div>
@@ -608,23 +623,23 @@
             <!-- 5. Alisha (Girl) -->
             <div class="flip-card cursor-pointer" data-gender="girl" onclick="this.classList.toggle('flipped')">
                 <div class="flip-card-inner">
-                    <div class="flip-card-front glass-dark border-pink-500/30 p-5 flex flex-col justify-between shadow-xl">
+                    <div class="flip-card-front glass-dark border-amber-400/40 hover:border-amber-300 p-5 flex flex-col justify-between shadow-xl shadow-amber-500/15">
                         <div class="flex items-center justify-between">
-                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-pink-500/20 text-pink-300 border-pink-400/30">👧 Girl</span>
+                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-pink-500/20 text-pink-300 border-pink-400/40">👧 Girl</span>
                             <span class="text-[11px] text-slate-400 font-semibold">Tap to flip ↻</span>
                         </div>
                         <div class="my-auto text-center">
-                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-amber-400 to-pink-500 shadow-lg mb-3 relative">
-                                <img src="profiles/alisha.jpeg" alt="Alisha" onerror="window.handleProfileImgFallback(this, 'Alisha', '🔥')" class="w-full h-full object-cover rounded-full bg-[#120f2d]">
+                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-amber-400 via-orange-500 to-pink-500 animate-gradient-xy shadow-lg shadow-amber-500/40 mb-3 relative">
+                                <img src="./fab8/alisha.jpeg" alt="Alisha" onerror="window.handleProfileImgFallback(this, 'Alisha', '🔥')" class="w-full h-full object-cover rounded-full bg-[#120f2d]">
                                 <div class="hidden w-full h-full rounded-full bg-[#120f2d] items-center justify-center text-4xl">🔥</div>
-                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-white/20 flex items-center justify-center text-base shadow">🔥</span>
+                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-amber-400/50 flex items-center justify-center text-base shadow">🔥</span>
                             </div>
                             <h3 class="font-display text-2xl font-bold text-white">Alisha</h3>
                             <p class="text-xs font-extrabold uppercase tracking-wider text-amber-300 mt-1">Hype machine</p>
                         </div>
-                        <div class="text-center text-[11px] text-slate-400">😍Best buddies forever🥳</div>
+                        <div class="text-center text-[11px] text-amber-200/70">😍Best buddies forever🥳</div>
                     </div>
-                    <div class="flip-card-back bg-gradient-to-br from-amber-400 to-pink-500 p-6 flex flex-col justify-between text-white shadow-2xl">
+                    <div class="flip-card-back bg-gradient-to-br from-amber-500 via-orange-500 to-pink-600 animate-gradient-xy p-6 flex flex-col justify-between text-white shadow-2xl shadow-amber-500/40">
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-extrabold uppercase tracking-wider bg-black/25 px-3 py-1 rounded-full">Hype machine</span>
                             <span class="text-2xl">🔥</span>
@@ -633,7 +648,7 @@
                             <h4 class="font-display text-2xl font-bold mb-2">Alisha</h4>
                             <p class="text-sm leading-relaxed text-white/95 font-medium">"Biggest cheerleader in the group — hypes every photo, reel, and achievement!"</p>
                         </div>
-                        <p class="text-[11px] font-bold text-white/80 text-right">Tap again to flip back ↺</p>
+                        <p class="text-[11px] font-bold text-white/85 text-right">Tap again to flip back ↺</p>
                     </div>
                 </div>
             </div>
@@ -641,23 +656,23 @@
             <!-- 6. Mohan (Boy) -->
             <div class="flip-card cursor-pointer" data-gender="boy" onclick="this.classList.toggle('flipped')">
                 <div class="flip-card-inner">
-                    <div class="flip-card-front glass-dark border-sky-500/30 p-5 flex flex-col justify-between shadow-xl">
+                    <div class="flip-card-front glass-dark border-emerald-400/40 hover:border-emerald-300 p-5 flex flex-col justify-between shadow-xl shadow-emerald-500/15">
                         <div class="flex items-center justify-between">
-                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-sky-500/20 text-sky-300 border-sky-400/30">👦 Boy</span>
+                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-cyan-500/20 text-cyan-300 border-cyan-400/40">👦 Boy</span>
                             <span class="text-[11px] text-slate-400 font-semibold">Tap to flip ↻</span>
                         </div>
                         <div class="my-auto text-center">
-                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-emerald-500 to-teal-600 shadow-lg mb-3 relative">
+                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-emerald-400 via-teal-500 to-cyan-500 animate-gradient-xy shadow-lg shadow-emerald-500/40 mb-3 relative">
                                 <img src="./fab8/mohan.jpeg" alt="Mohan" onerror="window.handleProfileImgFallback(this, 'Mohan', '⏳')" class="w-full h-full object-cover rounded-full bg-[#120f2d]">
                                 <div class="hidden w-full h-full rounded-full bg-[#120f2d] items-center justify-center text-4xl">⏳</div>
-                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-white/20 flex items-center justify-center text-base shadow">⏳</span>
+                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-emerald-400/50 flex items-center justify-center text-base shadow">⏳</span>
                             </div>
                             <h3 class="font-display text-2xl font-bold text-white">Mohan</h3>
                             <p class="text-xs font-extrabold uppercase tracking-wider text-amber-300 mt-1">Late replier</p>
                         </div>
-                        <div class="text-center text-[11px] text-slate-400">😍Best buddies forever🥳</div>
+                        <div class="text-center text-[11px] text-emerald-200/70">😍Best buddies forever🥳</div>
                     </div>
-                    <div class="flip-card-back bg-gradient-to-br from-emerald-500 to-teal-600 p-6 flex flex-col justify-between text-white shadow-2xl">
+                    <div class="flip-card-back bg-gradient-to-br from-emerald-500 via-teal-600 to-cyan-700 animate-gradient-xy p-6 flex flex-col justify-between text-white shadow-2xl shadow-emerald-500/40">
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-extrabold uppercase tracking-wider bg-black/25 px-3 py-1 rounded-full">Late replier</span>
                             <span class="text-2xl">⏳</span>
@@ -666,7 +681,7 @@
                             <h4 class="font-display text-2xl font-bold mb-2">Mohan</h4>
                             <p class="text-sm leading-relaxed text-white/95 font-medium">"Replies 3 business days later to a question asked on Sunday morning."</p>
                         </div>
-                        <p class="text-[11px] font-bold text-white/80 text-right">Tap again to flip back ↺</p>
+                        <p class="text-[11px] font-bold text-white/85 text-right">Tap again to flip back ↺</p>
                     </div>
                 </div>
             </div>
@@ -674,23 +689,23 @@
             <!-- 7. Minni (Girl) -->
             <div class="flip-card cursor-pointer" data-gender="girl" onclick="this.classList.toggle('flipped')">
                 <div class="flip-card-inner">
-                    <div class="flip-card-front glass-dark border-pink-500/30 p-5 flex flex-col justify-between shadow-xl">
+                    <div class="flip-card-front glass-dark border-violet-400/40 hover:border-violet-300 p-5 flex flex-col justify-between shadow-xl shadow-violet-500/15">
                         <div class="flex items-center justify-between">
-                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-pink-500/20 text-pink-300 border-pink-400/30">👧 Girl</span>
+                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-pink-500/20 text-pink-300 border-pink-400/40">👧 Girl</span>
                             <span class="text-[11px] text-slate-400 font-semibold">Tap to flip ↻</span>
                         </div>
                         <div class="my-auto text-center">
-                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-violet-500 to-purple-700 shadow-lg mb-3 relative">
+                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-violet-500 via-purple-500 to-indigo-500 animate-gradient-xy shadow-lg shadow-violet-500/40 mb-3 relative">
                                 <img src="./fab8/minni.jpeg" alt="Minni" onerror="window.handleProfileImgFallback(this, 'Minni', '🌙')" class="w-full h-full object-cover rounded-full bg-[#120f2d]">
                                 <div class="hidden w-full h-full rounded-full bg-[#120f2d] items-center justify-center text-4xl">🌙</div>
-                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-white/20 flex items-center justify-center text-base shadow">🌙</span>
+                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-violet-400/50 flex items-center justify-center text-base shadow">🌙</span>
                             </div>
                             <h3 class="font-display text-2xl font-bold text-white">Minni</h3>
                             <p class="text-xs font-extrabold uppercase tracking-wider text-amber-300 mt-1">Midnight philosopher</p>
                         </div>
-                        <div class="text-center text-[11px] text-slate-400">😍Best buddies forever🥳</div>
+                        <div class="text-center text-[11px] text-violet-200/70">😍Best buddies forever🥳</div>
                     </div>
-                    <div class="flip-card-back bg-gradient-to-br from-violet-500 to-purple-700 p-6 flex flex-col justify-between text-white shadow-2xl">
+                    <div class="flip-card-back bg-gradient-to-br from-violet-600 via-purple-700 to-indigo-800 animate-gradient-xy p-6 flex flex-col justify-between text-white shadow-2xl shadow-violet-500/40">
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-extrabold uppercase tracking-wider bg-black/25 px-3 py-1 rounded-full">Midnight philosopher</span>
                             <span class="text-2xl">🌙</span>
@@ -699,7 +714,7 @@
                             <h4 class="font-display text-2xl font-bold mb-2">Minni</h4>
                             <p class="text-sm leading-relaxed text-white/95 font-medium">"Drops the deepest life advice at 2:30 AM when everyone should be asleep."</p>
                         </div>
-                        <p class="text-[11px] font-bold text-white/80 text-right">Tap again to flip back ↺</p>
+                        <p class="text-[11px] font-bold text-white/85 text-right">Tap again to flip back ↺</p>
                     </div>
                 </div>
             </div>
@@ -707,23 +722,23 @@
             <!-- 8. Yuvaraj (Boy) -->
             <div class="flip-card cursor-pointer" data-gender="boy" onclick="this.classList.toggle('flipped')">
                 <div class="flip-card-inner">
-                    <div class="flip-card-front glass-dark border-sky-500/30 p-5 flex flex-col justify-between shadow-xl">
+                    <div class="flip-card-front glass-dark border-orange-400/40 hover:border-orange-300 p-5 flex flex-col justify-between shadow-xl shadow-orange-500/15">
                         <div class="flex items-center justify-between">
-                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-sky-500/20 text-sky-300 border-sky-400/30">👦 Boy</span>
+                            <span class="px-2.5 py-1 rounded-full border text-[11px] font-bold bg-cyan-500/20 text-cyan-300 border-cyan-400/40">👦 Boy</span>
                             <span class="text-[11px] text-slate-400 font-semibold">Tap to flip ↻</span>
                         </div>
                         <div class="my-auto text-center">
-                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-orange-500 to-red-600 shadow-lg mb-3 relative">
-                                <img src="profiles/yuvaraj.jpeg" alt="Yuvaraj" onerror="window.handleProfileImgFallback(this, 'Yuvaraj', '🍔')" class="w-full h-full object-cover rounded-full bg-[#120f2d]">
+                            <div class="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-tr from-orange-500 via-rose-500 to-amber-400 animate-gradient-xy shadow-lg shadow-orange-500/40 mb-3 relative">
+                                <img src="./fab8/yuvaraj.jpeg" alt="Yuvaraj" onerror="window.handleProfileImgFallback(this, 'Yuvaraj', '🍔')" class="w-full h-full object-cover rounded-full bg-[#120f2d]">
                                 <div class="hidden w-full h-full rounded-full bg-[#120f2d] items-center justify-center text-4xl">🍔</div>
-                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-white/20 flex items-center justify-center text-base shadow">🍔</span>
+                                <span class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#0d0b24] border border-orange-400/50 flex items-center justify-center text-base shadow">🍔</span>
                             </div>
                             <h3 class="font-display text-2xl font-bold text-white">Yuvaraj</h3>
                             <p class="text-xs font-extrabold uppercase tracking-wider text-amber-300 mt-1">Food critic</p>
                         </div>
-                        <div class="text-center text-[11px] text-slate-400">😍Best buddies forever🥳</div>
+                        <div class="text-center text-[11px] text-orange-200/70">😍Best buddies forever🥳</div>
                     </div>
-                    <div class="flip-card-back bg-gradient-to-br from-orange-500 to-red-600 p-6 flex flex-col justify-between text-white shadow-2xl">
+                    <div class="flip-card-back bg-gradient-to-br from-orange-500 via-red-600 to-rose-700 animate-gradient-xy p-6 flex flex-col justify-between text-white shadow-2xl shadow-orange-500/40">
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-extrabold uppercase tracking-wider bg-black/25 px-3 py-1 rounded-full">Food critic</span>
                             <span class="text-2xl">🍔</span>
@@ -732,7 +747,7 @@
                             <h4 class="font-display text-2xl font-bold mb-2">Yuvaraj</h4>
                             <p class="text-sm leading-relaxed text-white/95 font-medium">"Knows every food spot in town and judges every hangout by the menu."</p>
                         </div>
-                        <p class="text-[11px] font-bold text-white/80 text-right">Tap again to flip back ↺</p>
+                        <p class="text-[11px] font-bold text-white/85 text-right">Tap again to flip back ↺</p>
                     </div>
                 </div>
             </div>
@@ -740,26 +755,26 @@
     </section>
 
     <!-- SECTION 2: 4-YEAR WHATSAPP TIMELINE -->
-    <section id="timeline" class="py-16 sm:py-24 px-4 bg-[#0b0921] border-y border-purple-500/20">
+    <section id="timeline" class="reveal-on-scroll py-16 sm:py-24 px-4 bg-gradient-to-b from-[#09061f] via-[#10092e] to-[#09061f] border-y border-fuchsia-500/30">
         <div class="max-w-5xl mx-auto">
             <div class="text-center mb-14">
-                <span class="inline-block px-3.5 py-1 rounded-full bg-purple-500/15 border border-purple-400/30 text-purple-300 text-xs font-bold uppercase tracking-wider mb-3">
+                <span class="inline-block px-4 py-1.5 rounded-full bg-gradient-to-r from-purple-500/25 to-pink-500/25 border border-purple-400/40 text-purple-200 text-xs font-bold uppercase tracking-wider mb-3">
                     13/11/2022 → 13/11/2026
                 </span>
-                <h2 class="text-3xl sm:text-5xl font-bold text-white mb-3">Our 4-Year Memory Lane 🛤️</h2>
+                <h2 class="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-pink-300 via-purple-200 to-cyan-300 bg-clip-text text-transparent mb-3">Our 4-Year Memory Lane 🛤️</h2>
                 <p class="text-slate-300 max-w-xl mx-auto text-sm sm:text-base">
                     From the very first "Hi guys!" message to celebrating four full years of brotherhood & sisterhood.
                 </p>
             </div>
 
             <!-- Timeline Container -->
-            <div id="timeline-list" class="relative space-y-8 before:content-[''] before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-1 before:bg-gradient-to-b before:from-pink-500 before:via-purple-500 before:to-amber-400">
+            <div id="timeline-list" class="relative space-y-8 before:content-[''] before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-1 before:bg-gradient-to-b before:from-pink-500 before:via-cyan-400 before:to-amber-400 before:shadow-[0_0_16px_rgba(236,72,153,0.7)]">
                 <!-- Milestone 1 -->
                 <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0b0921] bg-gradient-to-br from-pink-500 to-purple-600 text-white shadow-lg shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-lg">🎉</div>
-                    <div class="w-[calc(100%-3.5rem)] md:w-[calc(50%-2.5rem)] glass-dark p-6 rounded-3xl shadow-xl hover:border-pink-400/40 transition">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#09061f] bg-gradient-to-br from-pink-500 to-purple-600 text-white shadow-lg shadow-pink-500/50 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-lg group-hover:scale-125 transition-transform">🎉</div>
+                    <div class="w-[calc(100%-3.5rem)] md:w-[calc(50%-2.5rem)] glass-dark p-6 rounded-3xl shadow-xl hover:border-pink-400 hover:-translate-y-1 transition-all">
                         <div class="flex items-center justify-between gap-2 mb-2">
-                            <span class="text-xs font-extrabold uppercase tracking-wider text-pink-300 bg-pink-500/20 border border-pink-400/30 px-3 py-1 rounded-full">13 Nov 2022</span>
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-pink-300 bg-pink-500/20 border border-pink-400/40 px-3 py-1 rounded-full">13 Nov 2022</span>
                             <span class="text-xs font-semibold text-slate-400">Admin</span>
                         </div>
                         <h3 class="font-display text-xl font-bold text-white mb-1.5">Group Created: 😍Best buddies forever🥳</h3>
@@ -769,10 +784,10 @@
 
                 <!-- Milestone 2 -->
                 <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0b0921] bg-gradient-to-br from-pink-500 to-purple-600 text-white shadow-lg shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-lg">🌙</div>
-                    <div class="w-[calc(100%-3.5rem)] md:w-[calc(50%-2.5rem)] glass-dark p-6 rounded-3xl shadow-xl hover:border-pink-400/40 transition">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#09061f] bg-gradient-to-br from-cyan-400 to-blue-600 text-white shadow-lg shadow-cyan-500/50 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-lg group-hover:scale-125 transition-transform">🌙</div>
+                    <div class="w-[calc(100%-3.5rem)] md:w-[calc(50%-2.5rem)] glass-dark p-6 rounded-3xl shadow-xl hover:border-cyan-400 hover:-translate-y-1 transition-all">
                         <div class="flex items-center justify-between gap-2 mb-2">
-                            <span class="text-xs font-extrabold uppercase tracking-wider text-pink-300 bg-pink-500/20 border border-pink-400/30 px-3 py-1 rounded-full">Year 1 (2023)</span>
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-cyan-300 bg-cyan-500/20 border border-cyan-400/40 px-3 py-1 rounded-full">Year 1 (2023)</span>
                             <span class="text-xs font-semibold text-slate-400">The Fab 8</span>
                         </div>
                         <h3 class="font-display text-xl font-bold text-white mb-1.5">10,000+ Messages & Late Night Calls</h3>
@@ -782,10 +797,10 @@
 
                 <!-- Milestone 3 -->
                 <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0b0921] bg-gradient-to-br from-pink-500 to-purple-600 text-white shadow-lg shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-lg">📸</div>
-                    <div class="w-[calc(100%-3.5rem)] md:w-[calc(50%-2.5rem)] glass-dark p-6 rounded-3xl shadow-xl hover:border-pink-400/40 transition">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#09061f] bg-gradient-to-br from-fuchsia-500 to-purple-600 text-white shadow-lg shadow-fuchsia-500/50 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-lg group-hover:scale-125 transition-transform">📸</div>
+                    <div class="w-[calc(100%-3.5rem)] md:w-[calc(50%-2.5rem)] glass-dark p-6 rounded-3xl shadow-xl hover:border-fuchsia-400 hover:-translate-y-1 transition-all">
                         <div class="flex items-center justify-between gap-2 mb-2">
-                            <span class="text-xs font-extrabold uppercase tracking-wider text-pink-300 bg-pink-500/20 border border-pink-400/30 px-3 py-1 rounded-full">Year 2 (2024)</span>
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-fuchsia-300 bg-fuchsia-500/20 border border-fuchsia-400/40 px-3 py-1 rounded-full">Year 2 (2024)</span>
                             <span class="text-xs font-semibold text-slate-400">Squad Goals</span>
                         </div>
                         <h3 class="font-display text-xl font-bold text-white mb-1.5">Unforgettable Hangouts & Inside Jokes</h3>
@@ -795,10 +810,10 @@
 
                 <!-- Milestone 4 -->
                 <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0b0921] bg-gradient-to-br from-pink-500 to-purple-600 text-white shadow-lg shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-lg">🚀</div>
-                    <div class="w-[calc(100%-3.5rem)] md:w-[calc(50%-2.5rem)] glass-dark p-6 rounded-3xl shadow-xl hover:border-pink-400/40 transition">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#09061f] bg-gradient-to-br from-emerald-400 to-teal-600 text-white shadow-lg shadow-emerald-500/50 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-lg group-hover:scale-125 transition-transform">🚀</div>
+                    <div class="w-[calc(100%-3.5rem)] md:w-[calc(50%-2.5rem)] glass-dark p-6 rounded-3xl shadow-xl hover:border-emerald-400 hover:-translate-y-1 transition-all">
                         <div class="flex items-center justify-between gap-2 mb-2">
-                            <span class="text-xs font-extrabold uppercase tracking-wider text-pink-300 bg-pink-500/20 border border-pink-400/30 px-3 py-1 rounded-full">Year 3 (2025)</span>
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-300 bg-emerald-500/20 border border-emerald-400/40 px-3 py-1 rounded-full">Year 3 (2025)</span>
                             <span class="text-xs font-semibold text-slate-400">8 Pillars</span>
                         </div>
                         <h3 class="font-display text-xl font-bold text-white mb-1.5">Through Thick & Thin</h3>
@@ -808,10 +823,10 @@
 
                 <!-- Milestone 5 -->
                 <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0b0921] bg-gradient-to-br from-pink-500 to-purple-600 text-white shadow-lg shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-lg">👑</div>
-                    <div class="w-[calc(100%-3.5rem)] md:w-[calc(50%-2.5rem)] glass-dark p-6 rounded-3xl shadow-xl hover:border-pink-400/40 transition">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#09061f] bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-lg shadow-amber-500/50 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-lg group-hover:scale-125 transition-transform">👑</div>
+                    <div class="w-[calc(100%-3.5rem)] md:w-[calc(50%-2.5rem)] glass-dark p-6 rounded-3xl shadow-xl hover:border-amber-400 hover:-translate-y-1 transition-all">
                         <div class="flex items-center justify-between gap-2 mb-2">
-                            <span class="text-xs font-extrabold uppercase tracking-wider text-pink-300 bg-pink-500/20 border border-pink-400/30 px-3 py-1 rounded-full">13 Nov 2026</span>
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-amber-300 bg-amber-500/20 border border-amber-400/40 px-3 py-1 rounded-full">13 Nov 2026</span>
                             <span class="text-xs font-semibold text-slate-400">All 8 Buddies</span>
                         </div>
                         <h3 class="font-display text-xl font-bold text-white mb-1.5">4 Years Strong & Forever To Go!</h3>
@@ -823,19 +838,19 @@
     </section>
 
     <!-- SECTION 2B: STATIC WALL OF FAVOURATES (8 DIRECT HTML <img> TAGS) -->
-    <section id="wall-of-favourates" class="py-16 sm:py-24 px-4 max-w-6xl mx-auto">
+    <section id="wall-of-favourates" class="reveal-on-scroll py-16 sm:py-24 px-4 max-w-6xl mx-auto">
         <div class="text-center mb-10">
-            <span class="inline-block px-3.5 py-1 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-300 text-xs font-bold uppercase tracking-wider mb-3">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-400/20 to-pink-500/20 border border-amber-400/40 text-amber-300 text-xs font-bold uppercase tracking-wider mb-3 shadow-md shadow-amber-500/15">
                 📌 8 Buddies • 8 Sticky Polaroids
             </span>
-            <h2 class="text-3xl sm:text-5xl font-bold text-white tracking-tight mb-3">WALL OF FAVOURATES 📸</h2>
+            <h2 class="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-amber-200 via-pink-300 to-cyan-200 bg-clip-text text-transparent tracking-tight mb-3">WALL OF FAVOURATES 📸</h2>
             <p class="text-slate-300 max-w-2xl mx-auto text-sm sm:text-base">
                 Every buddy's favorite group memory stuck forever on our 4th Anniversary Wall!
             </p>
         </div>
 
         <!-- Dark Cork/Neon Pinboard Container with Direct <img> Tags (16:9 Aspect Ratio) -->
-        <div class="fav-pinboard rounded-3xl border-4 border-[#2b2142] p-6 sm:p-11 relative">
+        <div class="fav-pinboard rounded-3xl border-4 border-fuchsia-500/35 p-6 sm:p-11 relative">
             <div id="fav-wall-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 pt-4 isolate">
                 <!-- Slot 1: Gowri -->
                 <div class="sticky-polaroid" style="transform: rotate(-2.4deg);">
@@ -993,12 +1008,12 @@
     </section>
 
     <!-- SECTION 3: WHATSAPP CHAT SNAPSHOT & FLOATING ANNIVERSARY WISHES -->
-    <section id="chat-highlights" class="py-16 sm:py-24 px-4 max-w-6xl mx-auto">
+    <section id="chat-highlights" class="reveal-on-scroll py-16 sm:py-24 px-4 max-w-6xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
             
             <!-- Left: Authentic WhatsApp Group Chat Snapshot -->
             <div>
-                <span class="inline-block px-3.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase tracking-wider mb-3">
+                <span class="inline-block px-4 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-bold uppercase tracking-wider mb-3">
                     💬 Real Group Vibes
                 </span>
                 <h2 class="text-3xl sm:text-4xl font-bold text-white mb-3">Inside 😍Best buddies forever🥳</h2>
@@ -1007,7 +1022,7 @@
                 </p>
 
                 <!-- Real WhatsApp Screenshot Card + Swap Button -->
-                <div class="rounded-3xl overflow-hidden shadow-2xl border border-emerald-500/30 bg-[#111b21] mb-6">
+                <div class="rounded-3xl overflow-hidden shadow-2xl shadow-emerald-500/15 border border-emerald-400/40 bg-[#111b21] mb-6">
                     <div class="bg-[#202c33] text-white px-4 py-3 flex items-center justify-between gap-2">
                         <div class="flex items-center gap-2.5 min-w-0">
                             <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-pink-500 to-amber-400 flex items-center justify-center text-base shrink-0">🥳</div>
@@ -1016,7 +1031,7 @@
                                 <div class="text-[11px] text-emerald-400 truncate">Gowri, Sai, Shashi, Gopi, Alisha, Mohan, Minni, Yuvaraj</div>
                             </div>
                         </div>
-                        <label for="chat-screenshot-input" class="shrink-0 cursor-pointer px-3 py-1.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-bold transition shadow">
+                        <label for="chat-screenshot-input" class="shrink-0 cursor-pointer px-3 py-1.5 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:scale-105 text-white text-[11px] font-bold transition shadow">
                             📷 Swap Photo
                         </label>
                         <input id="chat-screenshot-input" type="file" accept="image/*" class="hidden" onchange="loadCustomChatScreenshot(event)">
@@ -1030,7 +1045,7 @@
                 </div>
 
                 <!-- Interactive WhatsApp Dark Chat Recreation -->
-                <div class="rounded-3xl overflow-hidden shadow-2xl border border-emerald-500/25 bg-[#0b141a]">
+                <div class="rounded-3xl overflow-hidden shadow-2xl border border-emerald-500/30 bg-[#0b141a]">
                     <div class="bg-[#202c33] text-white px-5 py-3 flex items-center gap-3">
                         <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-pink-500 to-amber-400 flex items-center justify-center text-base font-bold">😍</div>
                         <div class="min-w-0">
@@ -1082,7 +1097,7 @@
 
             <!-- Right: Interactive Floating Anniversary Wish Wall -->
             <div>
-                <span class="inline-block px-3.5 py-1 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-300 text-xs font-bold uppercase tracking-wider mb-3">
+                <span class="inline-block px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-400/20 to-fuchsia-500/20 border border-amber-400/40 text-amber-300 text-xs font-bold uppercase tracking-wider mb-3">
                     🎈 Live Floating Wishes
                 </span>
                 <h2 class="text-3xl sm:text-4xl font-bold text-white mb-3">Sign the Anniversary Wall ✍️</h2>
@@ -1091,13 +1106,13 @@
                 </p>
 
                 <!-- Wish Form -->
-                <form id="wish-form" class="bg-gradient-to-br from-[#1d1447] via-[#2b1354] to-[#19163d] text-white rounded-3xl p-6 sm:p-7 shadow-2xl border border-pink-500/30 mb-6">
+                <form id="wish-form" class="bg-gradient-to-br from-[#231259] via-[#38126e] to-[#132152] animate-gradient-xy text-white rounded-3xl p-6 sm:p-7 shadow-2xl shadow-fuchsia-500/20 border border-fuchsia-400/40 mb-6">
                     <h3 class="font-display text-xl font-bold mb-1">🎈 Launch Your Floating Wish</h3>
-                    <p class="text-xs text-slate-300 mb-4">Your wish will float on screen alongside all other buddies' wishes!</p>
+                    <p class="text-xs text-slate-200 mb-4">Your wish will float on screen alongside all other buddies' wishes!</p>
                     <div class="space-y-3">
-                        <input type="text" id="wish-name" placeholder="Your Name (e.g. Gowri / Sai / Shashi)" required class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400">
-                        <textarea id="wish-text" rows="3" placeholder="Write your 4th anniversary wish for the squad..." required class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400"></textarea>
-                        <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-pink-500 to-purple-600 text-white font-extrabold text-sm shadow-lg shadow-pink-500/25 hover:opacity-95 transition cursor-pointer">
+                        <input type="text" id="wish-name" placeholder="Your Name (e.g. Gowri / Sai / Shashi)" required class="w-full px-4 py-3 rounded-xl bg-white/10 border border-fuchsia-300/30 text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400">
+                        <textarea id="wish-text" rows="3" placeholder="Write your 4th anniversary wish for the squad..." required class="w-full px-4 py-3 rounded-xl bg-white/10 border border-fuchsia-300/30 text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400"></textarea>
+                        <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-pink-500 to-cyan-500 animate-gradient-xy text-white font-extrabold text-sm shadow-lg shadow-pink-500/35 hover:scale-[1.02] active:scale-95 transition cursor-pointer">
                             🎈 Float Wish on Site, Email & Share Card
                         </button>
                     </div>
@@ -1107,10 +1122,10 @@
                 <div class="glass-dark rounded-3xl p-5 shadow-xl">
                     <div class="flex items-center justify-between mb-3">
                         <span class="text-xs font-extrabold uppercase tracking-wider text-pink-300">✨ Squad Floating Wishes Status</span>
-                        <span id="wishes-board-counter" class="text-xs font-bold text-amber-300">0 / 8 Buddies Floated</span>
+                        <span id="wishes-board-counter" class="text-xs font-bold text-cyan-300">0 / 8 Buddies Floated</span>
                     </div>
                     <div id="wishes-list" class="space-y-2.5 max-h-[260px] overflow-y-auto pr-1">
-                        <div class="text-center py-6 text-xs text-slate-400 border border-dashed border-purple-500/30 rounded-2xl">
+                        <div class="text-center py-6 text-xs text-slate-400 border border-dashed border-fuchsia-500/35 rounded-2xl">
                             No wishes floating yet! Be the first buddy to submit above and watch your wish float across the screen 🎈
                         </div>
                     </div>
@@ -1120,13 +1135,13 @@
     </section>
 
     <!-- SECTION 4: INTERACTIVE 4TH ANNIVERSARY CAKE & SUPERLATIVE WHEEL -->
-    <section id="party-zone" class="py-16 sm:py-24 px-4 bg-[#0b0921] border-t border-purple-500/20">
+    <section id="party-zone" class="reveal-on-scroll py-16 sm:py-24 px-4 bg-gradient-to-b from-[#09061f] via-[#120933] to-[#05040f] border-t border-fuchsia-500/30">
         <div class="max-w-5xl mx-auto">
             <div class="text-center mb-12">
-                <span class="inline-block px-3.5 py-1 rounded-full bg-pink-500/15 border border-pink-400/30 text-pink-300 text-xs font-bold uppercase tracking-wider mb-3">
+                <span class="inline-block px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-500/20 to-cyan-500/20 border border-pink-400/40 text-pink-200 text-xs font-bold uppercase tracking-wider mb-3">
                     Interactive Party Zone
                 </span>
-                <h2 class="text-3xl sm:text-5xl font-bold text-white mb-3">Make a Wish & Spin the Squad Wheel 🎡</h2>
+                <h2 class="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-pink-300 via-amber-200 to-cyan-300 bg-clip-text text-transparent mb-3">Make a Wish & Spin the Squad Wheel 🎡</h2>
                 <p class="text-slate-300 max-w-xl mx-auto text-sm sm:text-base">
                     Tap the 4 candles on our 4th Anniversary Cake to blow them out, then spin the wheel for fun group superlatives!
                 </p>
@@ -1134,16 +1149,16 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Virtual 4th Anniversary Cake -->
-                <div class="glass-dark rounded-3xl p-8 text-center shadow-2xl flex flex-col items-center justify-between">
+                <div class="glass-dark neon-glow-card rounded-3xl p-8 text-center shadow-2xl flex flex-col items-center justify-between">
                     <div>
-                        <span class="px-3 py-1 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-300 text-xs font-bold">4 Candles for 4 Years</span>
+                        <span class="px-3 py-1 rounded-full bg-amber-400/20 border border-amber-400/40 text-amber-300 text-xs font-bold">4 Candles for 4 Years</span>
                         <h3 class="font-display text-2xl font-bold text-white mt-3">Virtual Anniversary Cake</h3>
                         <p id="cake-status-text" class="text-sm text-slate-300 mt-1">Tap the cake below to blow out all 4 candles! 🌬️</p>
                     </div>
 
                     <!-- Interactive SVG Cake -->
                     <div onclick="blowOutCandles()" class="my-8 cursor-pointer select-none group relative" title="Tap to blow out candles!">
-                        <svg class="w-64 h-56 mx-auto drop-shadow-xl group-hover:scale-105 transition-transform" viewBox="0 0 260 220">
+                        <svg class="w-64 h-56 mx-auto drop-shadow-[0_10px_25px_rgba(236,72,153,0.45)] group-hover:scale-105 transition-transform" viewBox="0 0 260 220">
                             <!-- Plate -->
                             <ellipse cx="130" cy="198" rx="115" ry="14" fill="#312e81"/>
                             <!-- Bottom Tier -->
@@ -1174,27 +1189,27 @@
                         </svg>
                     </div>
 
-                    <button id="relight-btn" onclick="relightCandles()" class="px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-slate-200 border border-white/15 font-bold text-xs transition cursor-pointer">
+                    <button id="relight-btn" onclick="relightCandles()" class="px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-slate-200 border border-fuchsia-400/30 font-bold text-xs transition cursor-pointer">
                         🔥 Relight Candles
                     </button>
                 </div>
 
                 <!-- Squad Superlative Spinner -->
-                <div class="glass-dark rounded-3xl p-8 text-center shadow-2xl flex flex-col items-center justify-between">
+                <div class="glass-dark neon-glow-card rounded-3xl p-8 text-center shadow-2xl flex flex-col items-center justify-between" style="animation-delay: 1.5s;">
                     <div>
-                        <span class="px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-bold">Squad Superlative Picker</span>
+                        <span class="px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-xs font-bold">Squad Superlative Picker</span>
                         <h3 class="font-display text-2xl font-bold text-white mt-3">Who in the Group Is... 🤔</h3>
                         <p class="text-sm text-slate-300 mt-1">Spin to randomly match a hilarious group prompt with one of our 8 buddies!</p>
                     </div>
 
-                    <div class="my-6 w-full bg-gradient-to-br from-[#1f134d] to-[#2e1065] border border-purple-400/30 text-white rounded-2xl p-6 shadow-xl">
+                    <div class="my-6 w-full bg-gradient-to-br from-[#231259] via-[#381075] to-[#122659] animate-gradient-xy border border-fuchsia-400/40 text-white rounded-2xl p-6 shadow-xl">
                         <div id="superlative-prompt" class="text-base sm:text-lg font-bold text-amber-300 min-h-[3.5rem] flex items-center justify-center">
                             "Most likely to say 'I'm 5 mins away' while still in bed"
                         </div>
                         <div class="my-4 border-t border-white/15"></div>
-                        <div class="text-xs uppercase tracking-widest text-indigo-300 mb-1">Chosen Buddy:</div>
+                        <div class="text-xs uppercase tracking-widest text-cyan-300 mb-1">Chosen Buddy:</div>
                         <div class="flex items-center justify-center gap-2">
-                            <span id="wheel-winner" class="font-display text-2xl sm:text-3xl font-bold bg-gradient-to-r from-pink-400 to-amber-300 bg-clip-text text-transparent">
+                            <span id="wheel-winner" class="font-display text-2xl sm:text-3xl font-bold bg-gradient-to-r from-pink-400 via-amber-300 to-cyan-300 bg-clip-text text-transparent">
                                 Tap Spin Below!
                             </span>
                             <span id="wheel-winner-emoji" class="text-2xl sm:text-3xl">🎲</span>
@@ -1202,10 +1217,10 @@
                     </div>
 
                     <div class="w-full space-y-2.5">
-                        <button id="spin-wheel-btn" onclick="spinSuperlative()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-extrabold text-sm shadow-lg shadow-purple-500/30 hover:opacity-95 active:scale-95 transition cursor-pointer">
+                        <button id="spin-wheel-btn" onclick="spinSuperlative()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 via-fuchsia-500 to-pink-500 animate-gradient-xy text-white font-extrabold text-sm shadow-lg shadow-fuchsia-500/35 hover:scale-[1.02] active:scale-95 transition cursor-pointer">
                             🎰 Spin Squad Superlative!
                         </button>
-                        <button id="share-superlative-btn" onclick="shareLastSuperlative()" class="hidden w-full py-2.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-400/30 font-bold text-xs transition cursor-pointer">
+                        <button id="share-superlative-btn" onclick="shareLastSuperlative()" class="hidden w-full py-2.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-400/40 font-bold text-xs transition cursor-pointer">
                             📤 Send Winner Card to Email & WhatsApp Group
                         </button>
                     </div>
@@ -1215,10 +1230,10 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="bg-[#05040d] text-slate-400 py-12 px-4 text-center border-t border-purple-500/20">
+    <footer class="bg-[#04030c] text-slate-400 py-12 px-4 text-center border-t border-fuchsia-500/25">
         <div class="max-w-3xl mx-auto">
-            <div class="text-3xl mb-3">😍🥳</div>
-            <h3 class="font-display text-2xl font-bold text-white mb-2">Best buddies forever</h3>
+            <div class="text-3xl mb-3 animate-bounce-gentle">😍🥳</div>
+            <h3 class="font-display text-2xl font-bold bg-gradient-to-r from-pink-400 via-purple-300 to-cyan-300 bg-clip-text text-transparent mb-2">Best buddies forever</h3>
             <p class="text-sm text-slate-400 mb-4">
                 Created on <strong>13/11/2022</strong> • Celebrating <strong>4 Years</strong> of 4 Girls & 4 Boys sticking together forever.
             </p>
@@ -1228,7 +1243,7 @@
 
     <!-- SHAREABLE WHATSAPP & EMAIL CARD MODAL -->
     <div id="share-card-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 backdrop-blur-md p-4 overflow-y-auto">
-        <div class="bg-[#120f2e] border border-purple-500/35 rounded-3xl max-w-md w-full p-5 sm:p-6 shadow-2xl relative my-auto">
+        <div class="bg-[#120f2e] border border-fuchsia-500/40 rounded-3xl max-w-md w-full p-5 sm:p-6 shadow-2xl shadow-fuchsia-500/20 relative my-auto">
             <button onclick="closeShareModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-slate-200 font-bold flex items-center justify-center transition cursor-pointer" aria-label="Close modal">
                 ✕
             </button>
@@ -1241,7 +1256,7 @@
             </div>
 
             <!-- Visual Group Card Preview -->
-            <div id="shareable-card-visual" class="rounded-2xl p-6 text-white bg-gradient-to-br from-indigo-950 via-purple-900 to-pink-900 shadow-xl relative overflow-hidden mb-5 border border-pink-400/30">
+            <div id="shareable-card-visual" class="rounded-2xl p-6 text-white bg-gradient-to-br from-indigo-950 via-purple-900 to-pink-900 animate-gradient-xy shadow-xl relative overflow-hidden mb-5 border border-pink-400/40">
                 <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-amber-300 mb-3">
                     <span>😍Best buddies forever🥳</span>
                     <span>4th Anniversary</span>
@@ -1263,7 +1278,7 @@
 
             <!-- Action Buttons -->
             <div class="space-y-2.5">
-                <button onclick="shareCardToWhatsApp()" class="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-sm shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 transition cursor-pointer">
+                <button onclick="shareCardToWhatsApp()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:scale-[1.02] text-white font-extrabold text-sm shadow-lg shadow-emerald-500/30 flex items-center justify-center gap-2 transition cursor-pointer">
                     <span>📲 Share Card in WhatsApp Group</span>
                 </button>
                 <div class="grid grid-cols-2 gap-2.5">
@@ -1282,12 +1297,25 @@
     <canvas id="card-export-canvas" width="900" height="540" class="hidden"></canvas>
 
     <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-5 right-5 z-[120] transform translate-y-24 opacity-0 transition-all duration-300 bg-[#18133a] border border-pink-400/40 text-white px-5 py-3.5 rounded-2xl shadow-2xl text-sm font-semibold flex items-center gap-2.5 max-w-sm">
+    <div id="toast" class="fixed bottom-5 right-5 z-[120] transform translate-y-24 opacity-0 transition-all duration-300 bg-[#18133a] border border-fuchsia-400/50 text-white px-5 py-3.5 rounded-2xl shadow-2xl shadow-fuchsia-500/25 text-sm font-semibold flex items-center gap-2.5 max-w-sm">
         <span id="toast-icon">🎉</span>
         <span id="toast-msg">Notification</span>
     </div>
 
     <script>
+        // ==========================================
+        // 0. SCROLL REVEAL OBSERVER
+        // ==========================================
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.08 });
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(sec => revealObserver.observe(sec));
+
         // ==========================================
         // 1. BUILT-IN SELF-CONTAINED CONFETTI ENGINE
         // ==========================================
@@ -1306,13 +1334,13 @@
 
         function triggerConfettiBurst(originXRatio = 0.5, originYRatio = 0.55) {
             if (!confettiCanvas || !confettiCtx) return;
-            const colors = ['#ec4899', '#a855f7', '#fbbf24', '#38bdf8', '#34d399', '#fb7185'];
+            const colors = ['#ff0080', '#a855f7', '#fbbf24', '#00e5ff', '#34d399', '#fb7185'];
             const startX = confettiCanvas.width * originXRatio;
             const startY = confettiCanvas.height * originYRatio;
 
-            for (let i = 0; i < 85; i++) {
+            for (let i = 0; i < 95; i++) {
                 const angle = Math.random() * Math.PI * 2;
-                const speed = 4 + Math.random() * 11;
+                const speed = 4 + Math.random() * 12;
                 confettiParticles.push({
                     x: startX,
                     y: startY,
@@ -1395,8 +1423,8 @@
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 const isSelected = btn.dataset.filter === filter;
                 btn.className = isSelected
-                    ? 'filter-btn active px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-md transition cursor-pointer'
-                    : 'filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-[#141033] text-slate-300 border border-purple-500/30 hover:bg-purple-500/20 transition cursor-pointer';
+                    ? 'filter-btn active px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-gradient-to-r from-pink-500 via-fuchsia-500 to-cyan-500 animate-gradient-xy text-white shadow-lg shadow-pink-500/30 transition cursor-pointer'
+                    : 'filter-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-[#141033] text-slate-300 border border-fuchsia-500/35 hover:bg-fuchsia-500/20 transition cursor-pointer';
             });
 
             document.querySelectorAll('#squad-grid .flip-card').forEach(card => {
@@ -1442,11 +1470,11 @@
         let floatingVisible = true;
 
         const floatingColors = [
-            'from-pink-600/90 to-rose-700/90 border-pink-300/40',
-            'from-purple-600/90 to-indigo-700/90 border-purple-300/40',
-            'from-sky-600/90 to-blue-700/90 border-sky-300/40',
-            'from-amber-500/90 to-orange-600/90 border-amber-200/50',
-            'from-emerald-600/90 to-teal-700/90 border-emerald-300/40'
+            'from-pink-600/90 to-rose-700/90 border-pink-300/50 shadow-pink-500/30',
+            'from-purple-600/90 to-indigo-700/90 border-purple-300/50 shadow-purple-500/30',
+            'from-cyan-600/90 to-blue-700/90 border-cyan-300/50 shadow-cyan-500/30',
+            'from-amber-500/90 to-orange-600/90 border-amber-200/60 shadow-amber-500/30',
+            'from-emerald-600/90 to-teal-700/90 border-emerald-300/50 shadow-emerald-500/30'
         ];
 
         const floatingPositions = [
@@ -1517,7 +1545,7 @@
             if (list) {
                 if (wishesData.length === 0) {
                     list.innerHTML = `
-                        <div class="text-center py-6 text-xs text-slate-400 border border-dashed border-purple-500/30 rounded-2xl">
+                        <div class="text-center py-6 text-xs text-slate-400 border border-dashed border-fuchsia-500/35 rounded-2xl">
                             No wishes floating yet! Be the first buddy to submit above and watch your wish float across the screen 🎈
                         </div>
                     `;
